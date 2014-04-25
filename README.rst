@@ -10,6 +10,7 @@ Angabe
 
 Es soll ein kollaboratives Terminvereinbarungssystem (ähnlich wie Doodle[2]_)
 erstellt werden, in dem sich Benutzer koordinieren können. 
+
 ~~~~~~~~~~~~~~~~~~
 Rollen & Entitäten
 ~~~~~~~~~~~~~~~~~~
