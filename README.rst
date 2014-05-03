@@ -10,6 +10,7 @@ Angabe
 
 Es soll ein kollaboratives Terminvereinbarungssystem (ähnlich wie Doodle[2]_)
 erstellt werden, in dem sich Benutzer koordinieren können. 
+
 ~~~~~~~~~~~~~~~~~~
 Rollen & Entitäten
 ~~~~~~~~~~~~~~~~~~
@@ -152,24 +153,135 @@ Bewertungskriterien
 * Funktionalität
 * Tests/System
 
+=======
+Planung
+=======
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Client-Server-Kommunikation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Kommunikation zwischen Client und Server soll auf JSON-RPC basieren. Die 
+Entscheidung ist auf diese Technik gefallen da sie besonders einfach zu 
+implementieren ist und denoch eine wohl strukturierte Kommunikation 
+ermöglicht.
+
+--------------
+Authentication
+--------------
+
+------
+Events
+------
+
+==================== ==================== =====================================
+ Method               Params               Response
+==================== ==================== =====================================
+create
+                     - eventName
+                     - eventType
+invite
+                     - eventName          - error:
+                     - date
+                     - users                * ""
+                                            * "No such event."
+                       [username1,          * "User <username> does not exist."
+                       username2, ...]      * "Not authorized to invite users
+                                              to this event."
+                                            * "Date has to be in the future."
+getInvitations
+                     - eventName          - error:
+
+                                            * ""
+                                            * "No such event."
+vote
+                     - eventName          - error
+                     - date
+                                            * ""
+                                            * "No such event."
+                                            * "No such date."
+
+getEvents
+getInvitedUsers
+                     - eventName
+getVotes
+                     - eventName
+==================== ==================== =====================================
+
+------------
+Notification
+------------
+
+==================== ==================== =====================================
+ Method               Params               Response
+==================== ==================== =====================================
+getNotifications
+                                          {id1:message1, id2:message2, ...}
+
+                                          * id: long
+                                          * message: String
+deleteNotification
+                     - notificationId     - error:
+
+                                            * ""
+                                            * "No such notification."
+==================== ==================== =====================================
+
+----
+User
+----
+
+==================== ==================== =====================================
+ Method               Params               Response
+==================== ==================== =====================================
+register
+                     - username           - error:
+                     - password                  
+                                            * ""
+                                            * "User does already exist"
+login
+                     - username           - error:
+                     - password                  
+                                            * ""
+                                            * "Username/password combination 
+                                              wrong."
+
+                                          - sessionToken
+
+                                            Zum unterscheiden von Sitzungen.
+
+                                          - secretToken
+
+                                            Zum signieren von Anfragen.
+
+logout
+
+                                          Macht sessionToken & secretToken
+                                          ungültig
+==================== ==================== =====================================
+
 ================
 Zeitaufzeichnung
 ================
 
-+--------+---------------------------+---------------+-------------------+-------+-------+----------+
-| Sprint | Task                      | Date          | Who               | From  | To    | Duration |
-+========+===========================+===============+===================+=======+=======+==========+
-| 0      | Planung                   | 2014-04-25    | Martin Haidn      | 10:40 | 12:20 |     1:40 |
-+--------+---------------------------+---------------+-------------------+-------+-------+----------+
-| 0      | Planung                   | 2014-04-25    | Jakob Klepp       | 10:40 | 12:20 |     1:40 |
-+--------+---------------------------+---------------+-------------------+-------+-------+----------+
-| 0      | Planung                   | 2014-04-25    | Daniel Djuric     | 10:40 | 12:20 |     1:40 |
-+--------+---------------------------+---------------+-------------------+-------+-------+----------+
-| 0      | Angabe in Doku eingefügt  | 2014-04-25    | Jakob Klepp       | 10:20 | 12:40 |     0:20 |
-+--------+---------------------------+---------------+-------------------+-------+-------+----------+
++--------+-------------------------------+---------------+-------------------+-------+-------+----------+
+| Sprint | Task                          | Date          | Who               | From  | To    | Duration |
++========+===============================+===============+===================+=======+=======+==========+
+| 0      | Planung                       | 2014-04-25    | Martin Haidn      | 10:40 | 12:20 |     1:40 |
++--------+-------------------------------+---------------+-------------------+-------+-------+----------+
+| 0      | Planung                       | 2014-04-25    | Jakob Klepp       | 10:40 | 12:20 |     1:40 |
++--------+-------------------------------+---------------+-------------------+-------+-------+----------+
+| 0      | Planung                       | 2014-04-25    | Daniel Djuric     | 10:40 | 12:20 |     1:40 |
++--------+-------------------------------+---------------+-------------------+-------+-------+----------+
+| 0      | Angabe in Doku eingefügt      | 2014-04-25    | Jakob Klepp       | 10:20 | 12:40 |     0:20 |
++--------+-------------------------------+---------------+-------------------+-------+-------+----------+
+| 0      | Planung der Client-Server API | 2014-05-03    | Jakob Klepp       | 14:00 | 14:45 |     0:45 |
++--------+-------------------------------+---------------+-------------------+-------+-------+----------+
+| 0      | Planung der Client-Server API | 2014-05-03    | Jakob Klepp       | 19:45 | 21:00 |     1:15 |
++--------+-------------------------------+---------------+-------------------+-------+-------+----------+
 
 +-------------------+------------+
-| Jakob Klepp       |       2:00 |
+| Jakob Klepp       |       4:00 |
 +-------------------+------------+
 | Martin Haidn      |       1:40 |
 +-------------------+------------+
@@ -177,7 +289,7 @@ Zeitaufzeichnung
 +-------------------+------------+
 | Mathias El-Far    |       0:00 |
 +-------------------+------------+
-| **Sum:**          |  **05:20** |
+| **Sum:**          |  **07:20** |
 +-------------------+------------+
 
 =======
