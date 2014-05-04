@@ -189,6 +189,11 @@ invite
                        username2, ...]      * "Not authorized to invite users
                                               to this event."
                                             * "Date has to be in the future."
+replyInvitation
+                     - eventName          - error:
+                     - accept
+                                            * ""
+                       true/false           * "No such event."
 getInvitations
                      - eventName          - error:
 
