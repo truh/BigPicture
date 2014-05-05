@@ -166,6 +166,13 @@ Entscheidung ist auf diese Technik gefallen da sie besonders einfach zu
 implementieren ist und denoch eine wohl strukturierte Kommunikation 
 ermöglicht.
 
+.. code:: json 
+
+  --> {"method": "echo", "params": ["Hello JSON-RPC"], "id": 1}
+  <-- {"result": "Hello JSON-RPC", "error": null, "id": 1}
+
+*Beispiel wie ein JSON-RPC call aussehen kann.* [3]_
+
 --------------
 Authentication
 --------------
@@ -314,17 +321,19 @@ Zeitaufzeichnung
 +--------+-------------------------------+---------------+-------------------+-------+-------+----------+
 | 0      | Koordination                  | 2014-05-05    | Daniel Djuric     | 15:10 | 15:40 |     0:30 |
 +--------+-------------------------------+---------------+-------------------+-------+-------+----------+
+| 0      | Erläuterung JSON-RPC          | 2014-05-05    | Jakob Klepp       | 15:50 | 15:55 |     0:05 |
++--------+-------------------------------+---------------+-------------------+-------+-------+----------+
 
 +-------------------+------------+
-| Jakob Klepp       |       4:30 |
+| Jakob Klepp       |      04:35 |
 +-------------------+------------+
-| Martin Haidn      |       2:10 |
+| Martin Haidn      |      02:10 |
 +-------------------+------------+
-| Daniel Djuric     |       2:10 |
+| Daniel Djuric     |      02:10 |
 +-------------------+------------+
-| Mathias El-Far    |       0:00 |
+| Mathias El-Far    |      00:00 |
 +-------------------+------------+
-| **Sum:**          |  **08:50** |
+| **Sum:**          |  **08:55** |
 +-------------------+------------+
 
 =======
@@ -342,6 +351,12 @@ Quellen
 [2]  Doodle
      http://doodle.com
      zuletzt besucht am: 2014-04-25
+
+.. _3:
+
+[3]  JSON-RPC
+     https://en.wikipedia.org/wiki/JSON-RPC
+     zuletzt besucht am: 2014-05-05
 
 .. header::
 
