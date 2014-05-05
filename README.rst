@@ -178,8 +178,11 @@ Events
  Method               Params               Response
 ==================== ==================== =====================================
 create
-                     - eventName
+                     - eventName          - error:
                      - eventType
+                                            * ""
+                                            * "Empty eventName."
+                                            * "No such eventType."
 invite
                      - eventName          - error:
                      - date
@@ -205,12 +208,33 @@ vote
                                             * ""
                                             * "No such event."
                                             * "No such date."
-
 getEvents
 getInvitedUsers
-                     - eventName
+                     - eventName          - error
+
+                                            * ""
+                                            * "No such event."
 getVotes
-                     - eventName
+                     - eventName          - error
+
+                                            * ""
+                                            * "No such event."
+getComments
+                     - eventName          - error
+
+                                            * ""
+                                            * "No such event."
+
+                                          - comments: 
+                                          
+                                            [{title, content, timestamp}, ...]
+addComment
+                     - eventName          - error
+                     - title
+                     - content              * ""
+                                            * "No such event."
+                                            * "Empty title."
+                                            * "Empty content."
 ==================== ==================== =====================================
 
 ------------
