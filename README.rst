@@ -308,6 +308,13 @@ Zugriff auf die Datenbank wird *Hibernate* [5]_ verwendet. Da Hibernate
 verwendet wird, muss nicht näher spezifiziert werden welches RDBMS verwendet 
 wird.
 
+~~~~~~~~~~~~
+Domain Model
+~~~~~~~~~~~~
+
+.. image:: doc/Diagram.asta.png
+  :width: 90%
+
 ======
 Client
 ======
@@ -315,9 +322,29 @@ Client
 Der Client wird als Webapplikation mit HTML, Javascript, CSS implementiert.
 Die Kommunikation zum Server erfolgt über JQuery.
 
+~~~~~~~~~~
+GUI Design
+~~~~~~~~~~
+
+---------
+Übersicht
+---------
+
+.. image:: doc/skizze_webinterface.jpg
+  :width: 60%
+
+-----
+Login
+-----
+
+.. image:: doc/skizze_login.jpg
+  :width: 60%
+
 ================
 Aufwandschätzung
 ================
+
+
 
 ================
 Zeitaufzeichnung
@@ -347,6 +374,8 @@ Zeitaufzeichnung
 | 0      | JSON-RPC - JQuery Evaluierung | 2014-05-05    | Martin Haidn      | 21:10 | 22:10 |     1:00 |
 +--------+-------------------------------+---------------+-------------------+-------+-------+----------+
 | 0      | Erläuterung JSON-RPC          | 2014-05-05    | Jakob Klepp       | 15:50 | 15:55 |     0:05 |
++--------+-------------------------------+---------------+-------------------+-------+-------+----------+
+| 0      | Planung der Client-Server API | 2014-05-07    | Jakob Klepp       | 15:15 | 21:00 |     1:15 |
 +--------+-------------------------------+---------------+-------------------+-------+-------+----------+
 
 +-------------------+------------+
