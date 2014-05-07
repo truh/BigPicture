@@ -296,6 +296,29 @@ logout
                                           ungültig
 ==================== ==================== =====================================
 
+======
+Server
+======
+
+Der Server wird in Java implementiert. Zur Kommunikation zu den Clients wird
+wird die JSON-RPC Library *JSON-RPC 2.0 Base* [4]_ verwendet.
+
+Daten werden Serverseitig in Datenbanken persistiert. Als Bibliothek zum
+Zugriff auf die Datenbank wird *Hibernate* [5]_ verwendet. Da Hibernate 
+verwendet wird, muss nicht näher spezifiziert werden welches RDBMS verwendet 
+wird.
+
+======
+Client
+======
+
+Der Client wird als Webapplikation mit HTML, Javascript, CSS implementiert.
+Die Kommunikation zum Server erfolgt über JQuery.
+
+================
+Aufwandschätzung
+================
+
 ================
 Zeitaufzeichnung
 ================
@@ -359,6 +382,24 @@ Quellen
 [3]  JSON-RPC
      https://en.wikipedia.org/wiki/JSON-RPC
      zuletzt besucht am: 2014-05-05
+
+.. _4:
+
+[4]  JSON-RPC 2.0 : Base
+     http://software.dzhuvinov.com/json-rpc-2.0-base.html
+     zuletzt besucht am: 2014-05-07
+
+.. _5:
+
+[5]  jQuery Learning Center
+     https://learn.jquery.com/
+     zuletzt besucht am: 2014-05-07
+
+.. _6:
+
+[6]  Hibernate
+     http://hibernate.org/
+     zuletzt besucht am: 2014-05-07
 
 .. header::
 
