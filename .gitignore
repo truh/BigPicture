@@ -14,3 +14,4 @@ hs_err_pid*
 # Astah #
 *.asta.lock
 README.pdf
+doc/Diagram.asta.bak
