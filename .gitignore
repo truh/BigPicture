@@ -27,3 +27,5 @@ README.pdf
 
 # Gradle
 !gradle-wrapper.jar
+build/
+.gradle/
