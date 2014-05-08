@@ -337,7 +337,7 @@ GUI Design
 Übersicht
 ---------
 
-.. image:: doc/skizze_webinterface.jpg
+.. image:: doc/skizze-webinterface.jpg
   :width: 60%
 
 -----
