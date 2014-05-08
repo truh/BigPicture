@@ -24,3 +24,8 @@ hs_err_pid*
 
 # PDF
 README.pdf
+
+# Gradle
+!gradle-wrapper.jar
+build/
+.gradle/
