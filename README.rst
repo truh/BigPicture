@@ -157,6 +157,13 @@ Bewertungskriterien
 Planung
 =======
 
+~~~~~~~~~~~~~~
+Klassendiagram
+~~~~~~~~~~~~~~
+
+.. image:: doc/ClassDiagram.png
+  :width: 90%
+
 ~~~~~~~~~~~~~~~
 Event Livecycle
 ~~~~~~~~~~~~~~~
