@@ -334,7 +334,9 @@ Client
 ======
 
 Der Client wird als Webapplikation mit HTML, Javascript, CSS implementiert.
-Die Kommunikation zum Server erfolgt über JQuery.
+Die Kommunikation zum Server erfolgt über JQuery, da hier bereits ein großes
+Angebot an verwendbaren Libaries besteht.
+
 
 ~~~~~~~~~~
 GUI Design
