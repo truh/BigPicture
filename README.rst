@@ -337,9 +337,9 @@ Der Client wird als Webapplikation mit HTML, Javascript, CSS implementiert.
 Die Kommunikation zum Server erfolgt über JQuery, da hier bereits ein großes
 Angebot an verwendbaren Libaries besteht.
 
---------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 JQuery - Technologiebeschreibung
---------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 jQuery ist ein von John Resig entwickeltes, frei verfügbares Javascript-Framework,
 das über sehr umfangreiche und mächtige Funktionen zur Navigation und Manipulation
