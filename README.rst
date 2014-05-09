@@ -505,12 +505,13 @@ Quellen
 [6]  Hibernate
      http://hibernate.org/
      zuletzt besucht am: 2014-05-07
-     
+
 .. _7:
 
-[7]  JQuery
+[7]  JQuery: Angabe/Abgabe
      http://www.ajaxschmiede.de/jquery/jquery-ein-machtiges-und-effizientes-werkzeug/
      zuletzt besucht am: 2014-05-09
+
 
 .. header::
 
