@@ -337,6 +337,16 @@ Der Client wird als Webapplikation mit HTML, Javascript, CSS implementiert.
 Die Kommunikation zum Server erfolgt über JQuery, da hier bereits ein großes
 Angebot an verwendbaren Libaries besteht.
 
+--------------------------------
+JQuery - Technologiebeschreibung
+--------------------------------
+
+jQuery ist ein von John Resig entwickeltes, frei verfügbares Javascript-Framework,
+das über sehr umfangreiche und mächtige Funktionen zur Navigation und Manipulation
+der DOM-Syntax bereit stellt.
+Vor allem die vereinfachte Navigation und Einbindung gehören zu den Stärken des JS-Programmiergerüsts.
+Des Weiteren bietet das Framework elegante und leicht verständliche Funktionen für animierte Effekte,
+Ajax und Event-Handling. [7]
 
 ~~~~~~~~~~
 GUI Design
@@ -457,7 +467,7 @@ Zeitaufzeichnung
 Quellen
 =======
 
-.. _1: 
+.. _1:
 
 [1]  Moodle: Angabe/Abgabe
      http://elearning.tgm.ac.at/mod/assign/view.php?id=22219
@@ -492,6 +502,12 @@ Quellen
 [6]  Hibernate
      http://hibernate.org/
      zuletzt besucht am: 2014-05-07
+     
+.. _7:
+
+[7]  JQuery
+     http://www.ajaxschmiede.de/jquery/jquery-ein-machtiges-und-effizientes-werkzeug/
+     zuletzt besucht am: 2014-05-09
 
 .. header::
 
