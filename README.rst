@@ -346,7 +346,7 @@ das über sehr umfangreiche und mächtige Funktionen zur Navigation und Manipula
 der DOM-Syntax bereit stellt.
 Vor allem die vereinfachte Navigation und Einbindung gehören zu den Stärken des JS-Programmiergerüsts.
 Des Weiteren bietet das Framework elegante und leicht verständliche Funktionen für animierte Effekte,
-Ajax und Event-Handling. [7]
+Ajax und Event-Handling. [7]_
 
 ~~~~~~~~~~
 GUI Design
@@ -450,17 +450,20 @@ Zeitaufzeichnung
 +--------+-------------------------------+---------------+-------------------+-------+-------+----------+
 | 0      | Klassendiagram                | 2014-05-09    | Jakob Klepp       | 09:00 | 09:00 |     0:45 |
 +--------+-------------------------------+---------------+-------------------+-------+-------+----------+
+| 0      | JQuery-Technologie, Doku      | 2014-05-09    | Martin Haidn      | 09:55 | 10:15 |     0:20 |
++--------+-------------------------------+---------------+-------------------+-------+-------+----------+
+
 
 +-------------------+------------+
 | Jakob Klepp       |      06:40 |
 +-------------------+------------+
-| Martin Haidn      |      05:40 |
+| Martin Haidn      |      06:00 |
 +-------------------+------------+
 | Daniel Djuric     |      02:45 |
 +-------------------+------------+
 | Mathias El-Far    |      00:00 |
 +-------------------+------------+
-| **Sum:**          |  **15:00** |
+| **Sum:**          |  **15:20** |
 +-------------------+------------+
 
 =======
