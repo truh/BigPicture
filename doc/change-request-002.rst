@@ -2,8 +2,8 @@
 Change Request 002
 ##################
 
-Änderungvorschläge auf Basis von Feedback durch Michael Borke und Erhard List
-im Rahmen der Entworfspräsentation am 2014-05-12.
+Änderungvorschläge auf Basis von Feedback durch Michael Borko und Erhard List
+im Rahmen der Entwurfspräsentation am 2014-05-12.
 
 ==========
 Änderungen
