@@ -175,17 +175,11 @@ Event Livecycle
 Client-Server-Kommunikation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Kommunikation zwischen Client und Server soll auf JSON-RPC basieren. Die 
+Kommunikation zwischen Client und Server soll auf REST Anfrage mit 
+JSON Antworten basieren. Die 
 Entscheidung ist auf diese Technik gefallen da sie besonders einfach zu 
 implementieren ist und denoch eine wohl strukturierte Kommunikation 
 ermöglicht.
-
-.. code:: json 
-
-  --> {"method": "echo", "params": ["Hello JSON-RPC"], "id": 1}
-  <-- {"result": "Hello JSON-RPC", "error": null, "id": 1}
-
-*Beispiel wie ein JSON-RPC call aussehen kann.* [3]_
 
 --------------
 Authentication
