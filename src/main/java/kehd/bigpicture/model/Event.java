@@ -1,4 +1,4 @@
-package bigPicture.model;
+package kehd.bigpicture.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,7 +1,6 @@
+package kehd.bigpicture;
 
-
-import bigPicture.model.*;
-//import bigPicture.query.*;
+import kehd.bigpicture.model.*;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -27,9 +26,9 @@ import org.hibernate.Query;
 
 
 
-public class Main {
+public class BigPicture {
 
-	private static final Logger log = Logger.getLogger(Main.class);
+	private static final Logger log = Logger.getLogger(BigPicture.class);
 	
 	static SimpleDateFormat dateForm = new SimpleDateFormat("dd.MM.yyyy");
 	static SimpleDateFormat timeForm = new SimpleDateFormat("dd.MM.yyyy mm:hh");	
@@ -52,7 +51,7 @@ public class Main {
 	    return sessionFactory;
 	}
 
-	private Main() {
+	private BigPicture() {
 		super();
 	}
 
