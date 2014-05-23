@@ -69,9 +69,9 @@ Abstimmung
 +===================+===============+
 | Jakob Klepp       | Dafür         |
 +-------------------+---------------+
-| Martin Haidn      | Dafuer        |
+| Martin Haidn      | Dafür         |
 +-------------------+---------------+
-| Djuric Daniel     | Dafuer        |
+| Djuric Daniel     | Dafür         |
 +-------------------+---------------+
 
 .. header::
