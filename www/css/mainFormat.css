@@ -3,20 +3,46 @@
  * 2014-05-09
 */
 
-#wrapper {
 
+body {
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+}
+
+#wrapper {
+	margin: auto;
+	vertical-align: middle;
+	margin-bottom: auto;
+	width: 60%;
+	border: 1px solid grey;
 }
 
 #menu {
+	position: boxed;
+	color: #aaaaaa;
+	padding: 10 10 10 10;
+	border: 1px  solid grey;
+	padding: 5px;
+
+	/* text properties */
+	word-spacing: 10px;
+	font-size: 17px;
+	font-family: Arial, Verdana;
+
+	/* gredeiant in header */
+	background: linear-gradient(top, #121212 0%, #5F5F5F 100%);  
+	background: -moz-linear-gradient(top, #121212 0%, #5F5F5F 100%); 
+	background: -webkit-linear-gradient(top, #121212 0%,#5F5F5F 100%);
+	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
 
 }
 
 #menu-left {
+	float: left;
 
 }
 
 #menu-right {
-
+	text-align: right;
 }
 
 #content {
@@ -24,17 +50,78 @@
 }
 
 #content-left {
-
+	border: 1px  solid grey;
 }
 
 #calendar {
+	padding: 5px;
+	width: 70%;
+	border: 1px  solid grey;
+
 
 }
 
 #apointments {
+	position: boxed;
+	border: 1px  solid grey;
+	height: 20%;
+
+	font-family: Arial, Verdana;
+	text-align: left;
+
 
 }
 
 #content-right {
-
+	border: 1px  solid grey;
 }
+
+/* menu link behaviour */
+
+a.menu:link {
+	text-decoration: none;
+	color: #058ec7;
+}
+
+a.menu:active {
+	color: #058ec7;
+}
+
+a.menu:visited {
+	color: #058ec7;
+}
+
+a.menu:hover {
+	color: #ffffff;
+}
+
+/* lightbox effect */
+
+#fade{
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index:1001;
+    -moz-opacity: 0.7;
+    opacity:.70;
+    filter: alpha(opacity=70);
+}
+#light{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 200px;
+    margin-left: -150px;
+    margin-top: -100px;                 
+    padding: 10px;
+    background: #CCC;
+    z-index:1002;
+    overflow:visible;
+}
+
