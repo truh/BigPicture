@@ -1,4 +1,4 @@
-package bigPicture.model;
+package kehd.bigpicture.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
