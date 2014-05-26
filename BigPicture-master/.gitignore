@@ -1,0 +1,31 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Eclipse
+.classpath
+.project
+
+# IntelliJ  IDEA #
+.idea/
+*.iml
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# Astah #
+*.asta.bak
+*.asta.lock
+*.png.bak
+*.png.lock
+
+# PDF
+README.pdf
+
+# Gradle
+!gradle-wrapper.jar
+build/
+.gradle/
