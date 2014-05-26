@@ -20,6 +20,9 @@ repositories {
 }
 
 dependencies {
+
+    compile 'javax.servlet:servlet-api:2.5'
+
     // compile
     compile     group: 'org.hibernate', name: 'hibernate-core', version: '3.6.10.Final'
     compile     group: 'log4j',         name: 'log4j',          version: '1.2.17'

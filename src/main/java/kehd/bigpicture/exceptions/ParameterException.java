@@ -1,4 +1,4 @@
-package exceptions;
+package kehd.bigpicture.exceptions;
 
 public class ParameterException {
 

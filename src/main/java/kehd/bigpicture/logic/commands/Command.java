@@ -1,4 +1,4 @@
-package logic.commands;
+package kehd.bigpicture.logic.commands;
 
 public interface Command {
 

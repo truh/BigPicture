@@ -1,6 +1,10 @@
-package servlets;
+package kehd.bigpicture.servlets;
 
-public class JsonRpc {
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class JsonRpc extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) {
 

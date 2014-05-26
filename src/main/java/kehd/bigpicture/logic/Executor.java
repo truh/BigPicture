@@ -1,4 +1,4 @@
-package logic;
+package kehd.bigpicture.logic;
 
 public class Executor {
 

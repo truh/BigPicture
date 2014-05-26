@@ -1,6 +1,6 @@
-package logic.commands.events;
+package kehd.bigpicture.logic.commands.events;
 
-import logic.commands.Command;
+import kehd.bigpicture.logic.commands.Command;
 import java.util.Date;
 
 public class Vote implements Command {
