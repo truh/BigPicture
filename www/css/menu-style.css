@@ -1,0 +1,55 @@
+/* BigPicture - Menu-Style CSS
+ * Martin Haidn
+ * 2014-05-23
+*/
+
+nav ul ul {
+	display: none;
+	z-index: 1;
+}
+
+	nav ul li:hover > ul {
+		display: block;
+	}
+	
+	nav ul {
+	background: #6c6c6c;
+	background: linear-gradient(top, #6c6c6c 0%, #414141 100%);  
+	background: -moz-linear-gradient(top, #6c6c6c 0%, #414141 100%); 
+	background: -webkit-linear-gradient(top, #6c6c6c 0%,#414141 100%);
+	list-style: none;
+	position: relative;
+	display: block;
+}
+	nav ul:after {
+		content: ""; clear: both; display: block;
+	}
+	
+	nav ul li {
+	float: left;
+}
+	nav ul li:hover {
+		background: #04729F;
+		background: linear-gradient(top, #04729F 0%, #368EB2 100%);
+		background: -moz-linear-gradient(top, #04729F 0%, #368EB2 100%);
+		background: -webkit-linear-gradient(top, #04729F 0%,#368EB2 100%);
+	}
+		nav ul li:hover a {
+			color: #fff;
+		}
+	
+	nav ul li a {
+		display: block; padding: 10px 10px;
+		color: #37A5D2; text-decoration: none;
+	}
+	
+	nav ul ul {
+	background: #5f6975; border-radius: 0px; padding: 0;
+	position: absolute; top: 100%;
+}
+
+nav ul ul li {
+	float: none; 
+	border-top: 1px solid #ffffff;
+	position: relative;
+}

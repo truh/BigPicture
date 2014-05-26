@@ -1,0 +1,37 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.2.3'
+    }
+}
+apply plugin: 'tomcat'
+
+sourceCompatibility = 1.5
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // compile
+    compile     group: 'org.hibernate', name: 'hibernate-core', version: '3.6.10.Final'
+    compile     group: 'log4j',         name: 'log4j',          version: '1.2.17'
+
+    // test
+    testCompile group: 'junit',         name: 'junit',          version: '4.11'
+
+    // tomcat
+    def tomcatVersion = '7.0.11'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+           "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
+    tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}") {
+        exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+    }
+}

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+	
+<hibernate-configuration>
+<session-factory>
+<!--  Database connection settings  -->
+<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+<property name="hibernate.connection.url">jdbc:mysql://10.0.105.177:3306/bigpicture</property>
+<property name="hibernate.connection.username">root</property>
+<property name="hibernate.connection.password">1234</property>
+<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+<!--  JDBC connection pool {use the built-in}  -->
+<property name="connection.pool_size">1</property>
+<!--  Echo all executed SQL to stdout  -->
+<property name="show_sql">true</property>
+<property name="current_session_context_class">thread</property>
+<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+<!--  Drop and re-create the database schema on startup  -->
+<property name="hibernate.hbm2ddl.auto">create</property>
+<!--  Names the annotated entity class  -->
+<mapping class="bigPicture.model.Comment"/>
+<mapping class="bigPicture.model.User"/>
+<mapping class="bigPicture.model.Event"/>
+<mapping class="bigPicture.model.Notification"/>
+<mapping class="bigPicture.model.Appointment"/>
+<mapping class="bigPicture.model.Organisator"/>
+</session-factory>
+</hibernate-configuration>

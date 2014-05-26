@@ -1,0 +1,97 @@
+<!-- BigPicture - MainView
+	 Martin Haidn
+     2014-05-09
+ -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- FullCalendar-Stylesheets -->
+		<link href='fullcalendar/fullcalendar.css' rel='stylesheet' />
+		<link href='fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+
+		<!-- FullCalendar-Files -->
+		<script src='lib/jquery.min.js'></script>
+		<script src='lib/jquery-ui.custom.min.js'></script>
+		<script src='fullcalendar/fullcalendar.min.js'></script>
+		<title>BigPicture</title>
+
+		<!-- BigPicture imports -->
+		<script src='fullcalendar/calendarSetup.js'></script>
+		<script src="js/boxEffect.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="css/mainFormat.css" type="text/css">
+		<link rel="stylesheet" href="css/menu-style.css" type="text/css">
+	</head>
+	<body align="center">
+		
+		<div id="wrapper">
+
+			<div id="menu">
+				<div id="menu-left">
+					<!-- Left-Menu-Components -->
+					<nav>
+						<ul>
+							<li>
+								<a href="#">EVENTS</a>
+								<ul>
+									<li><a href="#" onClick="lightbox_open();">NEU</a></li>
+									<li><a href="#">SUCHEN</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="#">USERS</a>
+								<ul>
+									<li><a href="#">LISTE</a></li>
+									<li><a href="#">SUCHEN</a></li>
+								</ul>
+							</li>
+							<li><a href="#">NOTIFIES</a></li>
+						</ul>
+					</nav>
+				</div>
+				<div id="menu-right">
+					<!-- LOGOUT | SETTINGS -->
+					<nav>
+						<ul>
+							<li><a class="menu" href="#">LOGOUT</a></li>
+							<li><a href="#">SETTINGS</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+
+			<div id="content">
+				<div id="content-left">
+					<div id="calendar">
+							<!-- fullcalendar -->
+					</div>
+					<div id="apointments">
+						No appointment for this Event...
+					</div>
+
+				</div>
+				<div id="content-right">
+					<!-- notifies -->
+					No notifications...
+				</div>
+			</div>
+		</div>
+
+		<!-- Fading containers -->
+		<div id="light">
+			<!-- Content for Event Menagement -->
+			<form action="#" method="POST">
+				Event:<br>
+				<input type="text" name="title" placeholder="Title" alt="Title of the event"><br>
+				<br>
+				<input type="text" name="location" placeholder="Location" alt="Location of the Event"><br>
+				<br>
+				<input type="textarea" name="description" placeholder="Description..." alt="Description of the Event"><br><br>
+				<input type="submit" name="submit" value="Save" alt="Save">
+				<input type="button" name="Cancel" value="Cancel" alt="Cancle">
+			</form>
+		</div>
+		<div id="fade" onClick="lightbox_close();"></div>
+
+
+	</body>
+</html>
