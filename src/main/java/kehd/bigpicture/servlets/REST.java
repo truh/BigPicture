@@ -1,6 +1,7 @@
 package kehd.bigpicture.servlets;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,12 +9,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Created by jakob on 5/28/14.
+ * Servlet zum Empfang der der REST Anfragen.
  */
+@WebServlet(urlPatterns = {"/rest"})
 public class REST extends HttpServlet {
-    /**
-     * Initialize PrimeSearcher Servlet
-     */
+
     @Override
     public void init() {
     }
@@ -48,7 +48,7 @@ public class REST extends HttpServlet {
             IOException
     {
         PrintWriter out = response.getWriter();
-        out.println();
+        out.println("REST!");
     }
 
     @Override
