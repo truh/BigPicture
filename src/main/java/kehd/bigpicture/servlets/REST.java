@@ -3,6 +3,9 @@ package kehd.bigpicture.servlets;
 import kehd.bigpicture.logic.Executor;
 import kehd.bigpicture.logic.commands.events.*;
 
+import java.util.Map;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,10 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 /**
  * Servlet zum Empfang der der REST Anfragen.
  */
 public class REST extends HttpServlet {
+    private static final Logger log = Logger.getLogger(REST.class);
+
     private boolean test;
     private Executor executor;
 
@@ -60,6 +68,10 @@ public class REST extends HttpServlet {
             throws
             IOException
     {
+        log.info("AuthType: " + request.getAuthType());
+        
+        System.out.println("AuthType: " + request.getAuthType());
+
         String methodName = request.getParameter("method");
         methodName = methodName==null?"":methodName;
 
@@ -133,6 +145,7 @@ public class REST extends HttpServlet {
             }
         } else {
             if(executor.getCommandNames().contains(methodName)) {
+                Map param = new HashMap(request.getParameterMap());
                 String result;
                 result = executor.execute(methodName, request.getParameterMap());
                 out.println(result);
