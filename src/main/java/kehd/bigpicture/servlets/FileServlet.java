@@ -35,7 +35,7 @@ import java.util.zip.GZIPOutputStream;
  * This servlet can also be used for text files, GZIP would decrease network bandwidth.
  *
  * @author BalusC
- * @link http://balusc.blogspot.com/2009/02/fileservlet-supporting-resume-and.html
+ * <a href="http://balusc.blogspot.com/2009/02/fileservlet-supporting-resume-and.html">Source</a>
  */
 public class FileServlet extends HttpServlet {
 
@@ -53,7 +53,7 @@ public class FileServlet extends HttpServlet {
 
     /**
      * Initialize the servlet.
-     * @see HttpServlet#init().
+     * @see HttpServlet#init() .
      */
     public void init() throws ServletException {
 
@@ -80,7 +80,7 @@ public class FileServlet extends HttpServlet {
 
     /**
      * Process HEAD request. This returns the same headers as GET request, but without content.
-     * @see HttpServlet#doHead(HttpServletRequest, HttpServletResponse).
+     * @see HttpServlet#doHead(HttpServletRequest, HttpServletResponse) .
      */
     protected void doHead(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
@@ -91,7 +91,7 @@ public class FileServlet extends HttpServlet {
 
     /**
      * Process GET request.
-     * @see HttpServlet#doGet(HttpServletRequest, HttpServletResponse).
+     * @see HttpServlet#doGet(HttpServletRequest, HttpServletResponse) .
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
