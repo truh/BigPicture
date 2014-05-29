@@ -1,7 +1,6 @@
 package kehd.bigpicture.servlets;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +10,7 @@ import java.io.PrintWriter;
 /**
  * Servlet zum Empfang der der REST Anfragen.
  */
-@WebServlet(urlPatterns = {"/rest"})
+//@WebServlet(urlPatterns = {"/rest", "/rest*", "/rest/", "/rest/*"})
 public class REST extends HttpServlet {
 
     @Override
