@@ -62,19 +62,40 @@ public class REST extends HttpServlet {
                     out.write("{\"error\":\"None\", \"result\":[" +
                             "{" +
                             "   \"title\"       :\"BigPicture Coden\"," +
-                            "   \"description\" :\"Fortschritt machen, bevor es zu spät ist.\"" +
+                            "   \"owner\"       :\"Martin\"," +
+                            "   \"appointments\":[" +
+                            "   ]," +
+                            "   \"participants\":[" +
+                            "   ]," +
+                            "   \"comments\"    :[" +
+                            "   ]" +
                             "}," +
                             "{" +
                             "   \"title\"       :\"[ITP] Test\"," +
-                            "   \"description\" :\"\"" +
+                            "   \"owner\"       :\"wkristufek\"," +
+                            "   \"appointments\":[" +
+                            "       \"2014-06-03T10:40:00\"," +
+                            "   ]," +
+                            "   \"participants\":[" +
+                            "   ]," +
+                            "   \"comments\"    :[" +
+                            "   ]" +
                             "}," +
                             "{" +
                             "   \"title\"       :\"[D] Test Epochen\"," +
-                            "   \"description\" :\"Expressionismus\"" +
+                            "   \"owner\"       :\"Martin\"," +
+                            "   \"appointments\":[" +
+                            "   ]," +
+                            "   \"participants\":[]," +
+                            "   \"comments\"    :[]" +
                             "}," +
                             "{" +
                             "   \"title\"       :\"[GGP] Geschichte Test\"," +
-                            "   \"description\" :\"\"" +
+                            "   \"owner\"       :\"Martin\"," +
+                            "   \"appointments\":[" +
+                            "   ]," +
+                            "   \"participants\":[]," +
+                            "   \"comments\"    :[]" +
                             "}" +
                             "]}");
                     break;
