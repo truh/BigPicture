@@ -20,6 +20,29 @@
 		<script src="js/boxEffect.js" type="text/javascript"></script>
 		<link rel="stylesheet" href="css/mainFormat.css" type="text/css">
 		<link rel="stylesheet" href="css/menu-style.css" type="text/css">
+
+		<!-- DateTimePicker imports 
+		<script type="text/javascript" src="js/jquery.js"></script>-->
+		<script type="text/javascript" src="js/jquery.datetimepicker.js"></script>
+		<script type="text/javascript">
+			$('#datetimepicker').datetimepicker()
+				.datetimepicker({value:'2015/04/15 05:03',step:10});
+
+			var logic = function( currentDateTime ){
+				if( currentDateTime ){
+					if( currentDateTime.getDay()==6 ){
+						this.setOptions({
+							minTime:'11:00'
+						});
+					}else
+						this.setOptions({
+							minTime:'8:00'
+						});
+				}
+			};
+			
+			
+		</script>
 	</head>
 	<body align="center">
 		
@@ -33,15 +56,15 @@
 							<li>
 								<a href="#">EVENTS</a>
 								<ul>
-									<li><a href="#" onClick="lightbox_open();">NEU</a></li>
-									<li><a href="#">SUCHEN</a></li>
+									<li><a href="#" onClick="lightbox_open();">NEW</a></li>
+									<li><a href="#"onClick="eventTest();">SEARCH</a></li>
 								</ul>
 							</li>
 							<li>
 								<a href="#">USERS</a>
 								<ul>
-									<li><a href="#">LISTE</a></li>
-									<li><a href="#">SUCHEN</a></li>
+									<li><a href="#">LIST</a></li>
+									<li><a href="#">SEARCH</a></li>
 								</ul>
 							</li>
 							<li><a href="#">NOTIFIES</a></li>
@@ -81,17 +104,17 @@
 			<!-- Content for Event Menagement -->
 			<form action="#" method="POST">
 				Event:<br>
-				<input type="text" name="title" placeholder="Title" alt="Title of the event"><br>
+				<input type="text" name="title" id="title" placeholder="Title" alt="Title of the event"><br>
 				<br>
-				<input type="text" name="location" placeholder="Location" alt="Location of the Event"><br>
+				<input type="text" name="location" id="location" placeholder="Location" alt="Location of the Event"><br>
 				<br>
-				<input type="textarea" name="description" placeholder="Description..." alt="Description of the Event"><br><br>
-				<input type="submit" name="submit" value="Save" alt="Save">
-				<input type="button" name="Cancel" value="Cancel" alt="Cancle">
+				<input type="textfield" name="description" id="description" placeholder="Description..." alt="Description of the Event"><br><br>
+				<input type="text" placeholder="Choose a date" value="" id="datetimepicker"><br>
+				<br>
+				<input type="button" onClick="addEvent();" name="submit" value="Save" alt="Save">
+				<input type="button" onCLick="lightbox_close();"name="Cancel" value="Cancel" alt="Cancle">
 			</form>
 		</div>
 		<div id="fade" onClick="lightbox_close();"></div>
-
-
 	</body>
 </html>
