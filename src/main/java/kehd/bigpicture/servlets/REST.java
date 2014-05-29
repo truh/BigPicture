@@ -11,13 +11,13 @@ import java.io.PrintWriter;
  * Servlet zum Empfang der der REST Anfragen.
  */
 public class REST extends HttpServlet {
-    private boolean debug;
+    private boolean test;
 
     @Override
     public void init() {
-        debug = false;
-        if(System.getProperty("bp-debug") != null) {
-            debug = System.getProperty("bp-debug").toLowerCase().equals("true");
+        test = false;
+        if(System.getProperty("bp-test") != null) {
+            test = System.getProperty("bp-test").toLowerCase().equals("true");
         }
     }
 
@@ -56,7 +56,7 @@ public class REST extends HttpServlet {
         response.setContentType("application/json");
 
         PrintWriter out = response.getWriter();
-        if(debug) {
+        if(test) {
             switch (methodName) {
                 case "getEvents":
                     out.write("{\"error\":\"None\", \"result\":[" +
@@ -64,17 +64,31 @@ public class REST extends HttpServlet {
                             "   \"title\"       :\"BigPicture Coden\"," +
                             "   \"owner\"       :\"Martin\"," +
                             "   \"appointments\":[" +
+                            "       \"2014-05-29T10:00:00\"," +
+                            "       \"2014-05-31T10:00:00\"," +
+                            "       \"2014-06-01T10:00:00\"" +
                             "   ]," +
                             "   \"participants\":[" +
+                            "       {\"username\":\"Martin\"," +
+                            "        \"date\":\"2014-05-29T10:00:00\"}," +
+                            "       {\"username\":\"Matthias\"," +
+                            "        \"date\":\"2014-05-29T10:00:00\"}," +
+                            "       {\"username\":\"Daniel\"," +
+                            "        \"date\":\"2014-05-29T10:00:00\"}," +
+                            "       {\"username\":\"Jakob\"," +
+                            "        \"date\":\"2014-05-29T10:00:00\"}" +
                             "   ]," +
                             "   \"comments\"    :[" +
+                            "       {\"timestamp\":\"2014-05-28T10:00:00\"," +
+                            "        \"author\":\"Matthias\"," +
+                            "        \"content\":\"Blulluuub\"}" +
                             "   ]" +
                             "}," +
                             "{" +
                             "   \"title\"       :\"[ITP] Test\"," +
                             "   \"owner\"       :\"wkristufek\"," +
                             "   \"appointments\":[" +
-                            "       \"2014-06-03T10:40:00\"," +
+                            "       \"2014-06-03T10:40:00\"" +
                             "   ]," +
                             "   \"participants\":[" +
                             "   ]," +
@@ -85,6 +99,7 @@ public class REST extends HttpServlet {
                             "   \"title\"       :\"[D] Test Epochen\"," +
                             "   \"owner\"       :\"Martin\"," +
                             "   \"appointments\":[" +
+                            "       \"2014-06-03T13:00:00\"," +
                             "   ]," +
                             "   \"participants\":[]," +
                             "   \"comments\"    :[]" +
@@ -93,6 +108,7 @@ public class REST extends HttpServlet {
                             "   \"title\"       :\"[GGP] Geschichte Test\"," +
                             "   \"owner\"       :\"Martin\"," +
                             "   \"appointments\":[" +
+                            "       \"2014-06-04T12:00:00\"," +
                             "   ]," +
                             "   \"participants\":[]," +
                             "   \"comments\"    :[]" +

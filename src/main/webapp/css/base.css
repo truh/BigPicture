@@ -7,7 +7,7 @@
 	#Typography
 	#Links
 	#Lists
-	#img
+	#Images
 	#Buttons
 	#Tabs
 	#Forms
@@ -43,7 +43,7 @@
 /* #Basic Styles
 ================================================== */
 	body { 
-		background: url(../img/bg.jpg) #10a5d3;
+		background: url(../images/bg.jpg) #10a5d3;
 		font: 14px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 		color: #444; 
 		-webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
@@ -108,7 +108,7 @@
 	ul.large li { line-height: 21px; }
 	li p { line-height: 21px; }
 	
-/* #img
+/* #Images
 ================================================== */
 	img { 
 		max-width: 100%;
