@@ -1,6 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'jetty'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
 
 buildscript {
     repositories {
