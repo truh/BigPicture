@@ -21,12 +21,28 @@
 		<link rel="stylesheet" href="css/mainFormat.css" type="text/css">
 		<link rel="stylesheet" href="css/menu-style.css" type="text/css">
 
-		<!-- Test-Script, reading HTML forms with JS
+		<!-- DateTimePicker imports 
+		<script type="text/javascript" src="js/jquery.js"></script>-->
+		<script type="text/javascript" src="js/jquery.datetimepicker.js"></script>
 		<script type="text/javascript">
-			function alertTitle() {
-				alert($("#title").val() + ", " + $("#location").val() + ", " + $("#description").val());
-			}
-		</script> -->
+			$('#datetimepicker').datetimepicker()
+				.datetimepicker({value:'2015/04/15 05:03',step:10});
+
+			var logic = function( currentDateTime ){
+				if( currentDateTime ){
+					if( currentDateTime.getDay()==6 ){
+						this.setOptions({
+							minTime:'11:00'
+						});
+					}else
+						this.setOptions({
+							minTime:'8:00'
+						});
+				}
+			};
+			
+			
+		</script>
 	</head>
 	<body align="center">
 		
@@ -93,7 +109,7 @@
 				<input type="text" name="location" id="location" placeholder="Location" alt="Location of the Event"><br>
 				<br>
 				<input type="textfield" name="description" id="description" placeholder="Description..." alt="Description of the Event"><br><br>
-				<input type="text" value="2014/03/15 05:06" id="datetimepicker"/><br>
+				<input type="text" placeholder="Choose a date" value="" id="datetimepicker"><br>
 				<br>
 				<input type="button" onClick="addEvent();" name="submit" value="Save" alt="Save">
 				<input type="button" onCLick="lightbox_close();"name="Cancel" value="Cancel" alt="Cancle">
