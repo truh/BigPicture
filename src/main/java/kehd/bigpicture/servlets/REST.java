@@ -10,11 +10,15 @@ import java.io.PrintWriter;
 /**
  * Servlet zum Empfang der der REST Anfragen.
  */
-//@WebServlet(urlPatterns = {"/rest", "/rest*", "/rest/", "/rest/*"})
 public class REST extends HttpServlet {
+    private boolean debug;
 
     @Override
     public void init() {
+        debug = false;
+        if(System.getProperty("bp-debug") != null) {
+            debug = System.getProperty("bp-debug").toLowerCase().equals("true");
+        }
     }
 
     @Override
@@ -47,6 +51,9 @@ public class REST extends HttpServlet {
             IOException
     {
         PrintWriter out = response.getWriter();
+        if(debug) {
+            out.println("DEBUG");
+        }
         out.println("REST!");
     }
 
