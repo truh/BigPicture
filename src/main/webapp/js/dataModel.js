@@ -3,6 +3,9 @@
  * 2014-05-28
 */
 
+/* Session
+------------------------------------------------------------------------------*/
+
 
 /* User
 ------------------------------------------------------------------------------*/
@@ -25,13 +28,29 @@ var events;
 
 /* Event-Structure
  * 
+ * id: identifier (!required)
  * owner: creator of the event (!required)
  * title: title of the event (!required)
- * location: location where the event takes place
- * description: short event-instruction
+ * singeAppointment: true, when only one participant is allowed
+ * comments: comments from the useres
  * appointments[]: times where the event can take place (!requred, at least one)
  * participants[]: users who are invited to participate
 */
+
+function loadEvents() {
+	jQuery.ajax({
+         type: "POST",
+         //Serveradresse später dynamisch!--------------------------------!
+         url: "../rest?method=getEvents",
+         success: function (data, status, jqXHR) {
+              alert(data);
+         },
+
+         error: function (jqXHR, status) {           
+              alert('Unable to load Events!');
+         }
+     });
+}
 
 function getEventByTitle(title) {
 	for(title in events) {
