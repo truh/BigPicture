@@ -50,14 +50,19 @@ function loadEvents() {
 	jQuery.ajax({
          type: "POST",
          //Serveradresse später dynamisch!--------------------------------!
-         url: "../rest?method=getEvents",
+         url: "./rest?method=getEvents",
+         contentType: "application/json; charset=utf-8",
+         dataType: "json",
          success: function (data, status, jqXHR) {
               alert(data);
          },
 
-         error: function (jqXHR, status) {           
-              alert('Unable to load Events!');
-         }
+         error: function (jqXHR, status) {
+              alert('Unable to load Events!\nStatus: ' + status);
+              alert(JSON.stringify(jqXHR));
+         },
+
+         timeout: 12000
      });
 }
 

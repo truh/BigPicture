@@ -22,27 +22,12 @@
 		<link rel="stylesheet" href="css/mainFormat.css" type="text/css">
 		<link rel="stylesheet" href="css/menu-style.css" type="text/css">
 
-		<!-- DateTimePicker imports 
-		<script type="text/javascript" src="js/jquery.js"></script>-->
+		<!-- DateTimePicker imports
+		<script type="text/javascript" src="js/jquery.js"></script> -->
 		<script type="text/javascript" src="js/jquery.datetimepicker.js"></script>
 		<script type="text/javascript">
 			$('#datetimepicker').datetimepicker()
 				.datetimepicker({value:'2015/04/15 05:03',step:10});
-
-			var logic = function( currentDateTime ){
-				if( currentDateTime ){
-					if( currentDateTime.getDay()==6 ){
-						this.setOptions({
-							minTime:'11:00'
-						});
-					}else
-						this.setOptions({
-							minTime:'8:00'
-						});
-				}
-			};
-			
-			
 		</script>
 	</head>
 	<body align="center">
