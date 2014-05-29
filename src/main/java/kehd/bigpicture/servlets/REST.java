@@ -50,11 +50,43 @@ public class REST extends HttpServlet {
             throws
             IOException
     {
+        String methodName = request.getParameter("method");
+        methodName = methodName==null?"":methodName;
+
+        response.setContentType("application/json");
+
         PrintWriter out = response.getWriter();
         if(debug) {
-            out.println("DEBUG");
+            switch (methodName) {
+                case "getEvents":
+                    out.write("{\"error\":\"None\", \"result\":[" +
+                            "{" +
+                            "   \"title\"       :\"BigPicture Coden\"," +
+                            "   \"description\" :\"Fortschritt machen, bevor es zu spät ist.\"" +
+                            "}," +
+                            "{" +
+                            "   \"title\"       :\"[ITP] Test\"," +
+                            "   \"description\" :\"\"" +
+                            "}," +
+                            "{" +
+                            "   \"title\"       :\"[D] Test Epochen\"," +
+                            "   \"description\" :\"Expressionismus\"" +
+                            "}," +
+                            "{" +
+                            "   \"title\"       :\"[GGP] Geschichte Test\"," +
+                            "   \"description\" :\"\"" +
+                            "}" +
+                            "]}");
+                    break;
+                default:
+                    out.println("{\"error\":{" +
+                            "\"message\":\"Method not found\"" +
+                            "\"code\":0" +
+                            "}, \"result\":\"None\"}");
+            }
+        } else {
+            out.println("REST!");
         }
-        out.println("REST!");
     }
 
     @Override
