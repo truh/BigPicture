@@ -1,4 +1,4 @@
-package kehd.bigpicture.model;
+package bigPicture.model;
 
 import java.util.Date;
 

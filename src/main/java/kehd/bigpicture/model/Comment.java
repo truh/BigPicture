@@ -1,7 +1,18 @@
-package kehd.bigpicture.model;
+package bigPicture.model;
 
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 public class Comment {
@@ -43,12 +54,14 @@ public class Comment {
 		this.comment = comment;
 	}
 
-	public User getUserid() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUserid(User userid) {
+	public void setUser(User user) {
 		this.user = user;
 	}
+
+	
 
 }

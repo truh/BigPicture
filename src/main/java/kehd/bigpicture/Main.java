@@ -1,17 +1,28 @@
-package kehd.bigpicture;
+import bigPicture.model.*;
+//import bigPicture.query.*;
 
-import kehd.bigpicture.model.*;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.NamedQuery;
+import javax.persistence.Persistence;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
-
-import javax.persistence.EntityManager;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import org.hibernate.Query;
 
 public class Main {
 
@@ -97,8 +108,8 @@ public class Main {
 
 		
 		long[] aids = { 1, 2, 3, 4, 5 };
-		String[] date3 = { "13-02-2014 ", "14-10-2014", "22-09-2014",
-				"02-12-2014", "01-11-2011" };
+		String[] date3 = { "13-02-2014 21:00:11", "14-10-2014 17:20:11", "22-09-2014 05:00:11",
+				"02-12-2014 10:10:10", "01-11-2011 23:023:23" };
 		Date[] ar = new Date[date2.length];
 //		for (int j = 0; j < date2.length; j++) {
 //			ar[j] = sdf.parse(date2[j]);
@@ -112,6 +123,7 @@ public class Main {
 			Notification nf = new Notification();
 			Event e = new Event();
 			Appointment ap = new Appointment();
+			
 			Session session = getSessionFactory().getCurrentSession();
 			Transaction tx = session.beginTransaction();
 			
@@ -122,56 +134,68 @@ public class Main {
 			
 			c.setTimestamp(sdf.parse(date[i]));
 			c.setComment(com[i]);
-			c.setUserid(n);
+			c.setUser(n);
 			session.save(c);
-//			
 			
-//			org.setId(ids3[i]);
-//			org.setPassword(pass[i].toCharArray());
-//	    	org.setPassword(sd);
-//			org.setTermine(ar);
-		
-//			nf.setId(ids4[i]);
-//			nf.setMessage(mes[i]);
-//
-//			e.setId(eids[i]);
-//			e.setTitle(titles[i]);
-//			e.setDescription(title[i]);
-//
-//			ap.setId(aids[i]);
-//			ap.setTimestamp(sdf.parse(date3[i]));
+			ap.setTimestamp(sdf.parse(date3[i]));
 			
 			
+			org.setUser(n);
 			
-//			session.save(org);
+			e.setTitle(titles[i]);
+			e.setOrganisator(org);
+			Collection<Appointment> a= new ArrayList<>();
+			a.add(ap);
+			e.setAppointments(a);
+			
+			Collection<Event> ee= new ArrayList<>();
+			ee.add(e);
+			org.setEvent(ee);
+			
+			ap.setEvent(e);
+			
+			session.save(e);
+			session.save(org);
+			session.save(ap);
+				
 			tx.commit();
+		
+			}
+			
 
-		}
-
-		
-		
-//		
-//		session.save(nf);
-//		session.save(e);
-//		session.save(ap);
-		
-	}
+			
+	}	
 
 	public static void task02a() throws ParseException {
-		// System.out.println("\n\nQuery 2a:\n-------------");
-		// Session s = sessionFactory.openSession();
-		//
-		// Query nq = s.getNamedQuery("ReservierungByMail");
-		//
-		// nq.setString("eMail", "Aiden@Smith.com");
-		//
-		// @SuppressWarnings("unchecked")
-		// List<Reservierung> l = nq.list();
-		//
-		// System.out.println();
-		// for(int i=0; i<l.size(); i++) {
-		// System.out.println("Reservierung "+(i+1)+": ID:"+l.get(i).getID()+", Preis:"+l.get(i).getPreis()+", Benutzer-Mail:"+l.get(i).getBenutzer().geteMail());
-		// }
+		Session session = getSessionFactory().getCurrentSession();
+		System.out.println("HALLOOOOO");
+		session.beginTransaction();
+		Query query= session.createSQLQuery("select * from User");
+		//session.getTransaction().commit();
+		List result = query.list();
+		Iterator iterator = result.iterator();
+		
+		while(iterator.hasNext()){
+			Object[] row = (Object[])iterator.next();
+			for(int col=0;col<row.length;col++){
+				System.out.println(row[col]);
+			}
+		}
+		
+		session.beginTransaction();
+		Query query2= session.createSQLQuery("select timestamp,comment from Comment c inner join User u on u.id=c.id where u.name = :vname ")
+				.setParameter("vname", "Jerome");
+		List result2= query2.list();
+		Iterator iterator1 = result2.iterator();
+		
+		while(iterator1.hasNext()){
+			Object[] row = (Object[])iterator1.next();
+			for(int col=0;col<row.length;col++){
+				System.out.println(row[col]);
+			}
+		}
+		
+		
 	}
 
 	public static void task02b() throws ParseException {
@@ -192,5 +216,4 @@ public class Main {
 	public static void task02c() throws ParseException {
 		System.out.println("\n\nQuery 2c:\n-------------");
 	}
-
-}
+	}
