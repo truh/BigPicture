@@ -316,13 +316,6 @@ Zugriff auf die Datenbank wird *Hibernate* [5]_ verwendet. Da Hibernate
 verwendet wird, muss nicht näher spezifiziert werden welches RDBMS verwendet 
 wird.
 
-~~~~~~~~~~~~
-Domain Model
-~~~~~~~~~~~~
-
-.. image:: doc/Diagram.asta.png
-  :width: 90%
-
 ======
 Client
 ======
@@ -465,7 +458,7 @@ Zeitaufzeichnung
 +-------------------------------+---------------+-------------------+---------+---------+----------+
 | Auseinandersetzung der README | 2014-05-12    | Matthias El-Far   |  9:20   |  10:00  |     0:40 |
 +-------------------------------+---------------+-------------------+---------+---------+----------+
-| Change Request 001            | 2014-05-12    | Jakob Klepp       |  23:00  |  24:15  |     1:15 |
+| Change Request 001            | 2014-05-12    | Jakob Klepp       |  23:00  |  00:15  |     1:15 |
 +-------------------------------+---------------+-------------------+---------+---------+----------+
 | Change Request 001            | 2014-05-13    | Jakob Klepp       |  00:15  |  00:25  |     0:10 |
 +-------------------------------+---------------+-------------------+---------+---------+----------+
@@ -519,9 +512,9 @@ Zeitaufzeichnung
 +-------------------+------------+
 | Daniel Djuric     |      08:35 |
 +-------------------+------------+
-| Mathias El-Far    |      00:40 |
+| Mathias El-Far    |      06:10 |
 +-------------------+------------+
-| **Sum:**          |  **38:30** |
+| **Sum:**          |  **63:00** |
 +-------------------+------------+
 
 =======
@@ -574,7 +567,7 @@ Quellen
 .. header::
 
     +-------------+-------------------+------------+
-    | ###Title### | Jakob Klepp,      | 2014-05-09 |
+    | ###Title### | Jakob Klepp,      | 2014-05-30 |
     |             | Martin Haidn,     |            |
     |             | Daniel Djuric,    |            |
     |             | Mathias El-Far    |            |
