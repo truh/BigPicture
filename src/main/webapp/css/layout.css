@@ -35,14 +35,14 @@
 		width: 9px;
 		height: 9px;
 		float: right;
-		background: url(../img/close.png) no-repeat top left;
+		background: url(../images/close.png) no-repeat top left;
 		text-indent: -9999px;
 		margin-right: 15px;
 		margin-top: 20px;
 	}
 	
 	.notice a.close:hover {
-		background: url(../img/close-hover.png) no-repeat top left;		
+		background: url(../images/close-hover.png) no-repeat top left;		
 	}
 	
 	.form-bg {
@@ -52,14 +52,14 @@
 		-webkit-border-radius:9px;
 		border-radius:9px;
 		margin: 150px auto 0;
-		background: url(../img/form-bg.png) top left;
+		background: url(../images/form-bg.png) top left;
 		padding: 8px 0 0 8px; 
 		}
 	
 	.form-bg form {
 		width: 360px;
 		height: 239px;
-		background: #fff url(../img/bg_form.jpg) repeat-x top left;		
+		background: #fff url(../images/bg_form.jpg) repeat-x top left;		
 		-moz-border-radius:4px;
 		-webkit-border-radius:4px;
 		border-radius:4px;
@@ -102,7 +102,7 @@
 	
 	
 	button {
-		background:url(../img/login.png) no-repeat;
+		background:url(../images/login.png) no-repeat;
 		width:82px;
 		height:32px;
 		border:0px;
@@ -111,14 +111,14 @@
 	}
 	
 	button:hover {
-		background:url(../img/login_hover.png) no-repeat;
+		background:url(../images/login_hover.png) no-repeat;
 		width:82px;
 		height:32px;
 		border:0px;
 	}
 	
 	button:active {
-		background:url(../img/login_active.png) no-repeat;
+		background:url(../images/login_active.png) no-repeat;
 		width:82px;
 		height:32px;
 		border:0px;

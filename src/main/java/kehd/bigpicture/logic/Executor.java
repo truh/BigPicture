@@ -4,6 +4,7 @@ import kehd.bigpicture.logic.commands.Command;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Commands koennen unter einem Namen abgelegt werden
@@ -44,5 +45,14 @@ public class Executor {
      */
     public void registerCommand(Command command, String commandName) {
         commandMapping.put(commandName, command);
+    }
+
+    /**
+     * Set mit allen Command Namen
+     * 
+     * @return Commands Names
+     */
+    public Set<String> getCommandNames() {
+        return commandMapping.keySet();
     }
 }

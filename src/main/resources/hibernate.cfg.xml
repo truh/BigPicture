@@ -20,11 +20,11 @@
 <!--  Drop and re-create the database schema on startup  -->
 <property name="hibernate.hbm2ddl.auto">create</property>
 <!--  Names the annotated entity class  -->
-<mapping class="bigPicture.model.Comment"/>
-<mapping class="bigPicture.model.User"/>
-<mapping class="bigPicture.model.Event"/>
-<mapping class="bigPicture.model.Notification"/>
-<mapping class="bigPicture.model.Appointment"/>
-<mapping class="bigPicture.model.Organisator"/>
+<mapping class="kehd.bigpicture.model.Comment"/>
+<mapping class="kehd.bigpicture.model.User"/>
+<mapping class="kehd.bigpicture.model.Event"/>
+<mapping class="kehd.bigpicture.model.Notification"/>
+<mapping class="kehd.bigpicture.model.Appointment"/>
+<mapping class="kehd.bigpicture.model.Organisator"/>
 </session-factory>
 </hibernate-configuration>
