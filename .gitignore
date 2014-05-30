@@ -35,3 +35,6 @@ BigPicture_kehd.pdf
 BigPicture.ipr
 BigPicture.iws
 .settings/
+src/log4j.properties
+application.log
+BigPicture_kehd_*.pdf

@@ -3,6 +3,8 @@ apply plugin: 'war'
 apply plugin: 'jetty'
 apply plugin: 'idea'
 
+logging.captureStandardOutput LogLevel.INFO
+
 buildscript {
     repositories {
         jcenter()

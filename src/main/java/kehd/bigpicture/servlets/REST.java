@@ -2,6 +2,7 @@ package kehd.bigpicture.servlets;
 
 import kehd.bigpicture.logic.Executor;
 import kehd.bigpicture.logic.commands.events.*;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,11 +15,14 @@ import java.io.PrintWriter;
  * Servlet zum Empfang der der REST Anfragen.
  */
 public class REST extends HttpServlet {
+    private Logger log = Logger.getLogger(REST.class);
     private boolean test;
     private Executor executor;
 
     @Override
     public void init() {
+        log.info("Initialising REST Servlet");
+
         // check if servlet should be started in testmode
         test = false;
         if(System.getProperty("bp-test") != null) {
