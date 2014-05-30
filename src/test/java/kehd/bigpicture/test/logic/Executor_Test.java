@@ -15,7 +15,7 @@ public class Executor_Test {
     public Map paramMap;
     @Test
     public void test_executor(){
-        log.info("Test fuer kehd.bigpicture.logic.Executor");
+        log.info("Test fuer kehd.bigpicture.logic.Executor!");
 
         // instanzieren eines Executors
         Executor executor = new Executor();

@@ -64,6 +64,8 @@ public class REST extends HttpServlet {
             throws
             IOException
     {
+        log.info("REST#processRequest");
+
         String methodName = request.getParameter("method");
         methodName = methodName==null?"":methodName;
 
