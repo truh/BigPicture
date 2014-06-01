@@ -1,13 +1,7 @@
 package kehd.bigpicture.model;
 
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 @Entity//Gibt an, dass diese Klasse als Tabelle in die DB gespeichert werden soll
 public class Appointment {

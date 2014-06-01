@@ -1,15 +1,7 @@
 package kehd.bigpicture.model;
 
+import javax.persistence.*;
 import java.util.Collection;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity //Gibt an, dass diese Klasse als Tabelle in die DB gespeichert werden soll
 public class Event {
@@ -24,16 +16,8 @@ public class Event {
 	@ManyToOne //Es können mehrere Events von einem Organisator erstellt werden.
 	private Organisator organisator;
 	
-	@OneToMany //(mappedBy="Appointment")
+	@OneToMany
 	private Collection<Appointment> appointments;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getTitle() {
 		return title;
@@ -49,5 +33,21 @@ public class Event {
 
 	public void setOrganisator(Organisator organisator) {
 		this.organisator = organisator;
+	}
+
+	public Collection<Appointment> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(Collection<Appointment> appointments) {
+		this.appointments = appointments;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }
