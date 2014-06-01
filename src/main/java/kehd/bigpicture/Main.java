@@ -3,12 +3,10 @@ package kehd.bigpicture;
 import kehd.bigpicture.model.*;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,23 +18,16 @@ public class Main {
 	static SimpleDateFormat dateForm = new SimpleDateFormat("dd.MM.yyyy");
 	static SimpleDateFormat timeForm = new SimpleDateFormat("dd.MM.yyyy mm:hh");
 
-	private static final SessionFactory sessionFactory;
+    private static final EntityManagerFactory entityManagerFactory;
 
 	static {
-		try {
-			// Create the SessionFactory from hibernate.cfg.xml
-			sessionFactory = new Configuration().configure()
-					.buildSessionFactory();
-		} catch (Throwable ex) {
-			// Make sure you log the exception, as it might be swallowed
-			System.err.println("Initial SessionFactory creation failed." + ex);
-			throw new ExceptionInInitializerError(ex);
-		}
+
+        entityManagerFactory = Persistence.createEntityManagerFactory("BigPicture");
 	}
 
-	public static SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
+    public static EntityManagerFactory getEntityManagerFactory() {
+        return entityManagerFactory;
+    }
 
 	private Main() {
 		super();
@@ -112,18 +103,17 @@ public class Main {
 			Notification nf = new Notification();
 			Event e = new Event();
 			Appointment ap = new Appointment();
-			Session session = getSessionFactory().getCurrentSession();
-			Transaction tx = session.beginTransaction();
+            EntityManager manager = getEntityManagerFactory().createEntityManager();
+            manager.getTransaction().begin();
 			
 			n.setName(name[i]);
 			n.setPassword(pass[i].toCharArray());
-			session.save(n);
-			
-			
+            manager.persist(n);
+
 			c.setTimestamp(sdf.parse(date[i]));
 			c.setComment(com[i]);
 			c.setUserid(n);
-			session.save(c);
+            manager.persist(n);
 //			
 			
 //			org.setId(ids3[i]);
@@ -140,21 +130,15 @@ public class Main {
 //
 //			ap.setId(aids[i]);
 //			ap.setTimestamp(sdf.parse(date3[i]));
-			
-			
-			
+
 //			session.save(org);
-			tx.commit();
-
+			//tx.commit();
+            manager.getTransaction().commit();
 		}
-
-		
-		
 //		
 //		session.save(nf);
 //		session.save(e);
 //		session.save(ap);
-		
 	}
 
 	public static void task02a() throws ParseException {
