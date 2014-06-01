@@ -1,9 +1,8 @@
 package kehd.bigpicture.model;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
 public class Invitation {

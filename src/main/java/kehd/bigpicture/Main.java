@@ -163,8 +163,8 @@ public class Main {
 			}
 		}
 
-		Query query2= manager.createQuery(
-                "SELECT timestamp, comment " +
+		Query query2= manager.createNativeQuery(
+                "SELECT timestamp,comment " +
                         "FROM Comment c " +
                         "INNER JOIN User u on u.id=c.id " +
                         "WHERE u.name = :vname ").setParameter("vname", "Jerome");

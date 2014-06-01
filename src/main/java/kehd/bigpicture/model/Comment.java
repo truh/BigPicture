@@ -43,12 +43,14 @@ public class Comment {
 		this.comment = comment;
 	}
 
-	public User getUserid() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUserid(User userid) {
+	public void setUser(User user) {
 		this.user = user;
 	}
+
+	
 
 }

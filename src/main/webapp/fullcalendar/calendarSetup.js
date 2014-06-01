@@ -46,6 +46,8 @@ $(document).ready(function() {
 
 		//Callback if a day was clicked
 		select: function(start, end, allDay) {
+			$("#title").val("");
+			$("#datetimepicker").val("");
 			lightbox_open();
 			currentStart= start;
 			currentEnd= end;
