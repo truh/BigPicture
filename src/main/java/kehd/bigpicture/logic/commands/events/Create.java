@@ -1,5 +1,6 @@
 package kehd.bigpicture.logic.commands.events;
 
+import argo.jdom.JsonNodeBuilder;
 import kehd.bigpicture.Main;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.Event;
@@ -11,7 +12,7 @@ import java.util.Map;
 public class Create implements Command {
 
     @Override
-    public String execute(Map<String, String> params) {
+    public JsonNodeBuilder execute(Map<String, String> params) {
         String eventName = params.get("eventName");
         String eventType = params.get("eventType");
         String userName = params.get("userName");

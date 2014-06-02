@@ -1,5 +1,6 @@
 package kehd.bigpicture.logic.commands.notifications;
 
+import argo.jdom.JsonNodeBuilder;
 import kehd.bigpicture.logic.commands.Command;
 
 import java.util.Map;
@@ -9,7 +10,7 @@ import java.util.Map;
  */
 public class GetNotifications implements Command {
     @Override
-    public String execute(Map<String, String> params) {
+    public JsonNodeBuilder execute(Map<String, String> params) {
         return null;
     }
 }

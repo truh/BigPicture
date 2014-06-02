@@ -1,5 +1,6 @@
 package kehd.bigpicture.logic.commands.events;
 
+import argo.jdom.JsonNodeBuilder;
 import kehd.bigpicture.Main;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.Comment;
@@ -12,7 +13,7 @@ import java.util.Map;
 public class AddComment implements Command {
 
     @Override
-    public String execute(Map<String, String> params) {
+    public JsonNodeBuilder execute(Map<String, String> params) {
         String eventName = params.get("eventName");
         // TODO Comment title aus Planung entfernen
         //String title = params.get("title");

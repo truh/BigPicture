@@ -49,7 +49,7 @@ public class GetEvents implements Command {
     }
 
     @Override
-    public String execute(Map<String, String> params) {
+    public JsonNodeBuilder execute(Map<String, String> params) {
 
         EntityManager manager = Main.getEntityManagerFactory().createEntityManager();
 
@@ -68,6 +68,6 @@ public class GetEvents implements Command {
             );
         }
 
-        return JSON_FORMATTER.format(nodeBuilder.build());
+        return nodeBuilder;
     }
 }
