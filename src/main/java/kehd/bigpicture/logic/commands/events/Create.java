@@ -1,15 +1,20 @@
 package kehd.bigpicture.logic.commands.events;
 
 import argo.jdom.JsonNodeBuilder;
-import kehd.bigpicture.Main;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.Event;
 import kehd.bigpicture.model.Organisator;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.Map;
 
 public class Create implements Command {
+    private EntityManagerFactory entityManagerFactory;
+
+    public Create(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+    }
 
     @Override
     public JsonNodeBuilder execute(Map<String, String> params) {
@@ -17,7 +22,7 @@ public class Create implements Command {
         String eventType = params.get("eventType");
         String userName = params.get("userName");
 
-        EntityManager manager = Main.getEntityManagerFactory().createEntityManager();
+        EntityManager manager = entityManagerFactory.createEntityManager();
 
         Organisator organisator = manager.createQuery(
                 "SELECT DISTINCT Organisator " +

@@ -1,16 +1,21 @@
 package kehd.bigpicture.logic.commands.events;
 
 import argo.jdom.JsonNodeBuilder;
-import kehd.bigpicture.Main;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.Invitation;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Map;
 
 public class Invite implements Command {
+    private EntityManagerFactory entityManagerFactory;
+
+    public Invite(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+    }
 
     @Override
     public JsonNodeBuilder execute(Map<String, String> params) {
@@ -18,7 +23,7 @@ public class Invite implements Command {
         String date = params.get("date");
         String user = params.get("user");
 
-        EntityManager manager = Main.getEntityManagerFactory().createEntityManager();
+        EntityManager manager = entityManagerFactory.createEntityManager();
 
         Invitation invitation = new Invitation();
 

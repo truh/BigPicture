@@ -1,9 +1,14 @@
 package kehd.bigpicture.servlets;
 
+import kehd.bigpicture.Main;
 import kehd.bigpicture.logic.Executor;
 import kehd.bigpicture.logic.commands.events.*;
+import kehd.bigpicture.logic.commands.notifications.DeleteNotification;
+import kehd.bigpicture.logic.commands.notifications.GetNotifications;
+import kehd.bigpicture.logic.commands.user.Register;
 import org.apache.log4j.Logger;
 
+import javax.persistence.EntityManagerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -162,44 +167,75 @@ public class REST extends HttpServlet {
     }
 
     private void registerCommands(Executor executor) {
+        EntityManagerFactory entityManagerFactory = Main.getEntityManagerFactory();
+
+        //                      _
+        //  _____   _____ _ __ | |_ ___
+        // / _ \ \ / / _ \ '_ \| __/ __|
+        //|  __/\ V /  __/ | | | |_\__ \
+        // \___| \_/ \___|_| |_|\__|___/
+
         // AddComment
-        AddComment addComment = new AddComment();
+        AddComment addComment = new AddComment(entityManagerFactory);
         executor.registerCommand(addComment, "addComment");
 
         // Create
-        Create create = new Create();
+        Create create = new Create(entityManagerFactory);
         executor.registerCommand(create, "create");
 
         // GetComments
-        GetComments getComments = new GetComments();
+        GetComments getComments = new GetComments(entityManagerFactory);
         executor.registerCommand(getComments, "getComments");
 
         // GetEvents
-        GetEvents getEvents = new GetEvents();
+        GetEvents getEvents = new GetEvents(entityManagerFactory);
         executor.registerCommand(getEvents, "getEvents");
 
         // GetInvitations
-        GetInvitations getInvitations = new GetInvitations();
+        GetInvitations getInvitations = new GetInvitations(entityManagerFactory);
         executor.registerCommand(getInvitations, "getInvitations");
 
         // GetInvitedUsers
-        GetInvitedUsers getInvitedUsers = new GetInvitedUsers();
+        GetInvitedUsers getInvitedUsers = new GetInvitedUsers(entityManagerFactory);
         executor.registerCommand(getInvitedUsers, "getInvitedUsers");
 
         // GetVotes
-        GetVotes getVotes = new GetVotes();
+        GetVotes getVotes = new GetVotes(entityManagerFactory);
         executor.registerCommand(getVotes, "getVotes");
 
         // Invite
-        Invite invite = new Invite();
+        Invite invite = new Invite(entityManagerFactory);
         executor.registerCommand(invite, "invite");
 
         // ReplyInvitation
-        ReplyInvitation replyInvitation = new ReplyInvitation();
+        ReplyInvitation replyInvitation = new ReplyInvitation(entityManagerFactory);
         executor.registerCommand(replyInvitation, "replyInvitation");
 
         // Vote
-        Vote vote = new Vote();
-        executor.registerCommand(vote, "vote");    
+        Vote vote = new Vote(entityManagerFactory);
+        executor.registerCommand(vote, "vote");
+
+        //             _   _  __ _           _   _
+        // _ __   ___ | |_(_)/ _(_) ___ __ _| |_(_) ___  _ __  ___
+        //| '_ \ / _ \| __| | |_| |/ __/ _` | __| |/ _ \| '_ \/ __|
+        //| | | | (_) | |_| |  _| | (_| (_| | |_| | (_) | | | \__ \
+        //|_| |_|\___/ \__|_|_| |_|\___\__,_|\__|_|\___/|_| |_|___/
+
+        // DeleteNotification
+        DeleteNotification deleteNotification = new DeleteNotification(entityManagerFactory);
+        executor.registerCommand(deleteNotification, "deleteNotification");
+
+        // GetNotifications
+        GetNotifications getNotifications = new GetNotifications(entityManagerFactory);
+        executor.registerCommand(getNotifications, "getNotifications");
+
+        // _   _ ___  ___ _ __
+        //| | | / __|/ _ \ '__|
+        //| |_| \__ \  __/ |
+        // \__,_|___/\___|_|
+
+        // Register
+        Register register = new Register(entityManagerFactory);
+        executor.registerCommand(register, "register");
     }
 }

@@ -2,12 +2,12 @@ package kehd.bigpicture.logic.commands.events;
 
 import argo.jdom.JsonArrayNodeBuilder;
 import argo.jdom.JsonNodeBuilder;
-import kehd.bigpicture.Main;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.Appointment;
 import kehd.bigpicture.model.Event;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import java.util.Collection;
 import java.util.Map;
@@ -38,6 +38,11 @@ import static argo.jdom.JsonNodeBuilders.*;
  *  }]
  */
 public class GetEvents implements Command {
+    private EntityManagerFactory entityManagerFactory;
+
+    public GetEvents(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+    }
 
     private JsonNodeBuilder appointments(Collection<Appointment> appointments) {
         JsonArrayNodeBuilder nodeBuilder = anArrayBuilder();
@@ -51,7 +56,7 @@ public class GetEvents implements Command {
     @Override
     public JsonNodeBuilder execute(Map<String, String> params) {
 
-        EntityManager manager = Main.getEntityManagerFactory().createEntityManager();
+        EntityManager manager = entityManagerFactory.createEntityManager();
 
         TypedQuery<Event> query = manager.createQuery("SELECT Event FROM Event", Event.class);
 
