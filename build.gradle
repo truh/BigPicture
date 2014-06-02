@@ -2,6 +2,7 @@ apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'jetty'
 apply plugin: 'idea'
+apply plugin: 'eclipse'
 
 logging.captureStandardOutput LogLevel.INFO
 
@@ -35,6 +36,7 @@ dependencies {
 
     compile 'org.slf4j:slf4j-parent:1.7.7'
     compile 'org.hsqldb:hsqldb:2.3.2'
+    compile 'org.mindrot:jbcrypt:0.3m'
 
     // test
     testCompile group: 'junit',             name: 'junit',          version: '4.11'

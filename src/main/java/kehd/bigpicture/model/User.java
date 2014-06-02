@@ -13,9 +13,7 @@ public class User {
 	private String name;
 	
 	@Column
-	@javax.validation.constraints.Size(min=2, max=150)
-	@javax.validation.constraints.Pattern(regexp = "[a-zA-Z_0-9-]")
-	private char[] password;
+	private String password;
 
 	public long getId() {
 		return id;
@@ -33,11 +31,11 @@ public class User {
 		this.name = name;
 	}
 
-	public char[] getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(char[] password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 }

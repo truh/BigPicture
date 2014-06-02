@@ -110,7 +110,7 @@ public class Main {
 
 			
 			n.setName(name[i]);
-			n.setPassword(pass[i].toCharArray());
+			n.setPassword(pass[i]);
             manager.persist(n);
 
 			c.setTimestamp(sdf.parse(date[i]));

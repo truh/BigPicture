@@ -313,7 +313,7 @@ wird die JSON-RPC Library *JSON-RPC 2.0 Base* [4]_ verwendet.
 
 Daten werden Serverseitig in Datenbanken persistiert. Als Bibliothek zum
 Zugriff auf die Datenbank wird *Hibernate* [5]_ verwendet. Da Hibernate 
-verwendet wird, muss nicht näher spezifiziert werden welches RDBMS verwendet 
+verwendet wird, muss nicht näher spezifiziert werden welches RDBMS verwendet
 wird.
 
 ======
@@ -522,9 +522,11 @@ Zeitaufzeichnung
 +-------------------------------+---------------+-------------------+---------+---------+----------+
 | AddComment Implementation     | 2014-06-02    | Jakob Klepp       |  02:15  |  02:30  |     0:15 |
 +-------------------------------+---------------+-------------------+---------+---------+----------+
+| Commands aufräumen/ergänzen   | 2014-06-02    | Jakob Klepp       |  11:00  |  12:00  |     1:00 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
 
 +-------------------+------------+
-| Jakob Klepp       |      26:40 |
+| Jakob Klepp       |      27:40 |
 +-------------------+------------+
 | Martin Haidn      |      24:15 |
 +-------------------+------------+
@@ -532,7 +534,7 @@ Zeitaufzeichnung
 +-------------------+------------+
 | Mathias El-Far    |      06:10 |
 +-------------------+------------+
-| **Sum:**          |  **73:15** |
+| **Sum:**          |  **74:15** |
 +-------------------+------------+
 
 =======
