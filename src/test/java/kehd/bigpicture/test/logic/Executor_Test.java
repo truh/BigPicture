@@ -38,7 +38,7 @@ public class Executor_Test {
             put("param", "test");
         }});
 
-        Assert.assertEquals("Sollte 'Test' zurückgeben", "Test", result);
+        Assert.assertEquals("Sollte 'Test' zurueckgeben", "Test", result);
         Assert.assertTrue("", paramMap.containsKey("param"));
         Assert.assertTrue("", paramMap.containsValue("test"));
         Assert.assertEquals("", "test", paramMap.get("param"));

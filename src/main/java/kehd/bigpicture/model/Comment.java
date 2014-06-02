@@ -16,7 +16,7 @@ public class Comment {
 	@Column
 	private String comment;
 	
-	@ManyToOne //Mehrere Comments können von einem User erstellt werden.
+	@ManyToOne //Mehrere Comments koennen von einem User erstellt werden.
 	private User user;
 
 	public long getId() {

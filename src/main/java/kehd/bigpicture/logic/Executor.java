@@ -10,7 +10,7 @@ import java.util.Set;
  * Commands koennen unter einem Namen abgelegt werden
  * und spaeter unter diesem aufgerufen werden.
  *
- * Dies ermöglicht eine lose Kopplung zwischen Aufruf
+ * Dies ermoeglicht eine lose Kopplung zwischen Aufruf
  * und Implementierung.
  */
 public class Executor {
@@ -28,7 +28,7 @@ public class Executor {
      *
      * @param commandName Name des Commands
      * @param params Map mit Parametern
-     * @return Rückgabe des Commands
+     * @return Rueckgabe des Commands
      */
 	public String execute(String commandName, Map<String, String> params) {
         String result;

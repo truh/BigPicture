@@ -39,7 +39,7 @@ public class Create implements Command {
         // TODO
         // response erstellen
 
-        // TODO Exceptions möglich?
+        // TODO Exceptions moeglich?
         // -> Fehlermeldung als error an client senden.
         //    auch in anderen Klassen
 

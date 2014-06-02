@@ -13,7 +13,7 @@ public class Event {
 	@Column //ueber @Column koennen Eigenschaften der Spalte angegeben werden wie z.B. der Name, ob sie unique ist oder ob sie den Wert null haben darf
 	private String title;
 		
-	@ManyToOne //Es können mehrere Events von einem Organisator erstellt werden.
+	@ManyToOne //Es koennen mehrere Events von einem Organisator erstellt werden.
 	private Organisator organisator;
 	
 	@OneToMany
