@@ -1,6 +1,9 @@
 package kehd.bigpicture.logic.commands.events;
 
 import argo.jdom.JsonNodeBuilder;
+import kehd.bigpicture.exceptions.NoSuchElement;
+import kehd.bigpicture.exceptions.ParameterException;
+import kehd.bigpicture.exceptions.UserDoesNotExist;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.Comment;
 import kehd.bigpicture.model.Event;
@@ -8,7 +11,10 @@ import kehd.bigpicture.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import java.util.Map;
+
+import static argo.jdom.JsonNodeBuilders.aStringBuilder;
 
 public class AddComment implements Command {
     private EntityManagerFactory entityManagerFactory;
@@ -18,37 +24,49 @@ public class AddComment implements Command {
     }
 
     @Override
-    public JsonNodeBuilder execute(Map<String, String> params) {
+    public JsonNodeBuilder execute(Map<String, String> params) throws ParameterException {
         String eventName = params.get("eventName");
-        // TODO Comment title aus Planung entfernen
-        //String title = params.get("title");
         String content = params.get("content");
         String userName = params.get("userName");
 
         EntityManager manager = entityManagerFactory.createEntityManager();
         manager.getTransaction().begin();
 
-        User user = manager.createQuery(
-                "SELECT DISTINCT User " +
-                        "FROM User " +
-                        "WHERE User.name = :userName", User.class)
-                .setParameter("userName", userName)
-                .getSingleResult();
+        User user;
+        try {
+            user = manager.createQuery(
+                    "SELECT DISTINCT User " +
+                            "FROM User " +
+                            "WHERE User.name = :userName", User.class)
+                    .setParameter("userName", userName)
+                    .getSingleResult();
+
+
+        } catch (NoResultException noResultException) {
+            throw new UserDoesNotExist(noResultException);
+        }
+
+        Event event;
+        try {
+            event = manager.createQuery(
+                    "SELECT DISTINCT Event " +
+                            "FROM Event " +
+                            "WHERE Event.title = :eventName", Event.class)
+                    .setParameter("eventName", eventName)
+                    .getSingleResult();
+        } catch (NoResultException noResultException) {
+            throw new NoSuchElement("Event", noResultException);
+        }
 
         Comment comment = new Comment();
         comment.setComment(content);
         comment.setUser(user);
+        comment.setEvent(event);
 
-        Event event = manager.createQuery(
-                "SELECT DISTINCT Event " +
-                        "FROM Event " +
-                        "WHERE Event.title = :eventName", Event.class)
-                .setParameter("eventName", eventName)
-                .getSingleResult();
+        manager.persist(comment);
 
-        //event
-        // TODO Beziehung zwischen Comment & Event
+        manager.getTransaction().commit();
 
-        return null;
+        return aStringBuilder("Okay!");
     }
 }

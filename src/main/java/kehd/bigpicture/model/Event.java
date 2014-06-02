@@ -19,6 +19,9 @@ public class Event {
 	@OneToMany
 	private Collection<Appointment> appointments;
 
+    @OneToMany
+    private Collection<Comment> comments;
+
 	public String getTitle() {
 		return title;
 	}
@@ -50,4 +53,12 @@ public class Event {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+    public Collection<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<Comment> comments) {
+        this.comments = comments;
+    }
 }

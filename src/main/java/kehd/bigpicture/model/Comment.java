@@ -19,6 +19,9 @@ public class Comment {
 	@ManyToOne //Mehrere Comments koennen von einem User erstellt werden.
 	private User user;
 
+    @ManyToOne
+    private Event event;
+
 	public long getId() {
 		return id;
 	}
@@ -51,6 +54,11 @@ public class Comment {
 		this.user = user;
 	}
 
-	
+    public Event getEvent() {
+        return event;
+    }
 
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 }

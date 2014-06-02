@@ -8,8 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Map;
 
 public interface Command {
-
-
     /**
      * DateFormat to be used by command implementations.
      */

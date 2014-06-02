@@ -201,10 +201,10 @@ create
 invite
                      - eventName          - error:
                      - date
-                     - users                * ""
+                     - username             * ""
                                             * "No such event."
-                       [username1,          * "User <username> does not exist."
-                       username2, ...]      * "Not authorized to invite users
+                                            * "User <username> does not exist."
+                                            * "Not authorized to invite users
                                               to this event."
                                             * "Date has to be in the future."
 replyInvitation
@@ -245,8 +245,8 @@ getComments
                                             [{title, content, timestamp}, ...]
 addComment
                      - eventName          - error
-                     - title
-                     - content              * ""
+                     - content
+                                            * ""
                                             * "No such event."
                                             * "Empty title."
                                             * "Empty content."
@@ -523,6 +523,8 @@ Zeitaufzeichnung
 | AddComment Implementation     | 2014-06-02    | Jakob Klepp       |  02:15  |  02:30  |     0:15 |
 +-------------------------------+---------------+-------------------+---------+---------+----------+
 | Commands aufräumen/ergänzen   | 2014-06-02    | Jakob Klepp       |  11:00  |  12:00  |     1:00 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| AddComment Implementation     | 2014-06-02    | Jakob Klepp       |  14:30  |  14:45  |     0:15 |
 +-------------------------------+---------------+-------------------+---------+---------+----------+
 
 +-------------------+------------+
