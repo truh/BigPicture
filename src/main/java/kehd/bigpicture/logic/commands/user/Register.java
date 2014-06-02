@@ -1,15 +1,17 @@
 package kehd.bigpicture.logic.commands.user;
 
 import argo.jdom.JsonNodeBuilder;
+import kehd.bigpicture.exceptions.UserAlreadyExists;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.User;
 import org.mindrot.jbcrypt.BCrypt;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.Map;
 
-import static argo.jdom.JsonNodeBuilders.*;
+import static argo.jdom.JsonNodeBuilders.aStringBuilder;
 
 /**
  * Created by jakob on 6/2/14.
@@ -22,7 +24,7 @@ public class Register implements Command {
     }
 
     @Override
-    public JsonNodeBuilder execute(Map<String, String> params) {
+    public JsonNodeBuilder execute(Map<String, String> params) throws UserAlreadyExists {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         String username = params.get("username");
@@ -35,7 +37,11 @@ public class Register implements Command {
         user.setPassword(passHash);
 
         entityManager.getTransaction().begin();
-        entityManager.persist(user);
+        try {
+            entityManager.persist(user);
+        } catch (EntityExistsException eee) {
+            throw new UserAlreadyExists(eee);
+        }
         entityManager.getTransaction().commit();
 
         JsonNodeBuilder result = aStringBuilder("Okay!"); // TODo, maybe there is a

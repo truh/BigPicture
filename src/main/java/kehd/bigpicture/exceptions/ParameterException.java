@@ -9,7 +9,7 @@ public abstract class ParameterException extends Exception {
     public static final int DATE_INVALID_ERROR_ID = 2;
     public static final int FIELD_MISSING_ERROR_ID = 3;
     public static final int NO_SUCH_ELEMENT_ERROR_ID = 4;
-    public static final int USER_ALREADY_ERROR_ID = 5;
+    public static final int USER_ALREADY_EXISTS_ERROR_ID = 5;
     public static final int NO_SUCH_EVENT_TYPE_ERROR_ID = 6;
     public static final int NOT_AUTHORIZED_ERROR_ID = 7;
 

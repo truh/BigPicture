@@ -1,5 +1,9 @@
 package kehd.bigpicture.test.logic;
 
+import argo.jdom.JdomParser;
+import argo.jdom.JsonNode;
+import argo.jdom.JsonNodeBuilder;
+import argo.saj.InvalidSyntaxException;
 import kehd.bigpicture.logic.Executor;
 import kehd.bigpicture.logic.commands.Command;
 import org.apache.log4j.Logger;
@@ -9,12 +13,16 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static argo.jdom.JsonNodeBuilders.aNullBuilder;
+import static argo.jdom.JsonNodeBuilders.aStringBuilder;
+
 public class Executor_Test {
     private Logger log = Logger.getLogger(Executor_Test.class);
     public Integer executionCount = 0;
     public Map paramMap;
+
     @Test
-    public void test_executor(){
+    public void correctExecution() throws InvalidSyntaxException {
         log.info("Test fuer kehd.bigpicture.logic.Executor!");
 
         // instanzieren eines Executors
@@ -24,10 +32,10 @@ public class Executor_Test {
         // Command registrieren
         Command command = new Command() {
             @Override
-            public String execute(Map<String, String> params) {
+            public JsonNodeBuilder execute(Map<String, String> params) {
                 paramMap = params;
                 executionCount ++;
-                return "Test";
+                return aStringBuilder("Test");
             }
         };
 
@@ -38,7 +46,11 @@ public class Executor_Test {
             put("param", "test");
         }});
 
-        Assert.assertEquals("Sollte 'Test' zurueckgeben", "Test", result);
+        JdomParser parser = new JdomParser();
+        JsonNode rootNode = parser.parse(result);
+
+        Assert.assertEquals("Sollte 'Test' zurueckgeben", "Test", rootNode.getStringValue("result"));
+        Assert.assertEquals("Sollte keinen error geben", aNullBuilder().build(), rootNode.getNode("error"));
         Assert.assertTrue("", paramMap.containsKey("param"));
         Assert.assertTrue("", paramMap.containsValue("test"));
         Assert.assertEquals("", "test", paramMap.get("param"));

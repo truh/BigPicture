@@ -11,7 +11,7 @@ public class UserAlreadyExists extends ParameterException {
      * zu vereinfachen.
      */
     public UserAlreadyExists() {
-        super(message, USER_ALREADY_ERROR_ID);
+        super(message, USER_ALREADY_EXISTS_ERROR_ID);
     }
 
     /**
@@ -21,6 +21,6 @@ public class UserAlreadyExists extends ParameterException {
      * @param cause   ausloesende Exeception
      */
     public UserAlreadyExists(Throwable cause) {
-        super(message, USER_ALREADY_ERROR_ID, cause);
+        super(message, USER_ALREADY_EXISTS_ERROR_ID, cause);
     }
 }
