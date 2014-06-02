@@ -3,7 +3,7 @@ package kehd.bigpicture.logic.commands.events;
 import kehd.bigpicture.Main;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.Event;
-import kehd.bigpicture.model.User;
+import kehd.bigpicture.model.Organisator;
 
 import javax.persistence.EntityManager;
 import java.util.Map;
@@ -18,10 +18,11 @@ public class Create implements Command {
 
         EntityManager manager = Main.getEntityManagerFactory().createEntityManager();
 
-        User organisator = manager.createQuery(
-                "SELECT DISTINCT User " +
+        Organisator organisator = manager.createQuery(
+                "SELECT DISTINCT Organisator " +
                         "FROM User " +
-                        "WHERE User.name = :userName", User.class)
+                        "JOIN Organisator " +
+                        "WHERE User.name = :userName", Organisator.class)
                 .setParameter("userName", userName)
                 .getSingleResult();
 
@@ -33,9 +34,7 @@ public class Create implements Command {
         //    event.setSingle(true);
         //}
 
-        // TODO
-        // vermutlich ein problem im model
-        //event.setOrganisator(organisator);
+        event.setOrganisator(organisator);
 
         // TODO
         // response erstellen
