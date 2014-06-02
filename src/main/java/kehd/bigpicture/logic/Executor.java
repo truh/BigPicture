@@ -30,7 +30,8 @@ public class Executor {
      */
     public static final JsonFormatter JSON_FORMATTER =
             (System.getProperty("bp-debug") == null
-                    && System.getProperty("bp.pretty-json").toLowerCase().equals("true"))
+                    ?false
+                    :System.getProperty("bp.pretty-json").toLowerCase().equals("true"))
                     ?new PrettyJsonFormatter()
                     :new CompactJsonFormatter();
 
