@@ -1,4 +1,4 @@
-package kehd.bigpicture.test.logic.command.addcomments;
+package kehd.bigpicture.test.logic.commands.events;
 
 import argo.jdom.JsonNodeBuilder;
 import kehd.bigpicture.exceptions.ParameterException;
