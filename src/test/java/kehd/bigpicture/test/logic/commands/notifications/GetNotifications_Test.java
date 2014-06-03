@@ -83,9 +83,9 @@ public class GetNotifications_Test {
         assertEquals("Nachricht sollte wie gegeben sein.", "Message3", nodes.get(2).getStringValue("message"));
         assertEquals("Nachricht sollte wie gegeben sein.", "Message4", nodes.get(3).getStringValue("message"));
 
-        assertSame("Nachricht sollte wie gegeben sein.", 1, nodes.get(0).getStringValue("id"));
-        assertSame("Nachricht sollte wie gegeben sein.", 2, nodes.get(1).getStringValue("id"));
-        assertSame("Nachricht sollte wie gegeben sein.", 3, nodes.get(2).getStringValue("id"));
-        assertSame("Nachricht sollte wie gegeben sein.", 4, nodes.get(3).getStringValue("id"));
+        assertSame("Id sollte wie gegeben sein.", 1, nodes.get(0).getStringValue("id"));
+        assertSame("Id sollte wie gegeben sein.", 2, nodes.get(1).getStringValue("id"));
+        assertSame("Id sollte wie gegeben sein.", 3, nodes.get(2).getStringValue("id"));
+        assertSame("Id sollte wie gegeben sein.", 4, nodes.get(3).getStringValue("id"));
     }
 }
