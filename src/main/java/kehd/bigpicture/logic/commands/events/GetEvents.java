@@ -64,7 +64,7 @@ public class GetEvents implements Command {
         for(Event event: query.getResultList()) {
             nodeBuilder.withElement(anObjectBuilder()
                     .withField("title", aStringBuilder(event.getTitle()))
-                    .withField("owner", aStringBuilder(event.getOrganisator().getUser().getName()))
+                    .withField("owner", aStringBuilder(event.getOrganisator().getName()))
                     .withField("appointments", appointments(event.getAppointments()))
                     .withField("participants", anArrayBuilder()/* TODO
                                                                   Relation fehlt!? */)

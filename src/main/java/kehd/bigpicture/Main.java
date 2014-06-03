@@ -98,9 +98,8 @@ public class Main {
 		
 		char[] sd={'s','h'};
 		for (int i = 0; i < 5; i++) {
-			User n = new User();
+			User org = new User();
 			Comment c = new Comment();
-			Organisator org = new Organisator();
 			Notification nf = new Notification();
 			Event e = new Event();
 			Appointment ap = new Appointment();
@@ -108,21 +107,18 @@ public class Main {
             EntityManager manager = getEntityManagerFactory().createEntityManager();
             manager.getTransaction().begin();
 
-			
-			n.setName(name[i]);
-			n.setPassword(pass[i]);
-            manager.persist(n);
+
+			org.setName(name[i]);
+			org.setPassword(pass[i]);
+            manager.persist(org);
 
 			c.setTimestamp(sdf.parse(date[i]));
 			c.setComment(com[i]);
 
-			c.setAuthor(n);
+			c.setAuthor(org);
 			manager.persist(c);
 			
 			ap.setTimestamp(sdf.parse(date3[i]));
-			
-			
-			org.setUser(n);
 			
 			e.setTitle(titles[i]);
 			e.setOrganisator(org);
@@ -132,8 +128,7 @@ public class Main {
 			
 			Collection<Event> ee= new ArrayList<>();
 			ee.add(e);
-			org.setEvent(ee);
-			
+
 			ap.setEvent(e);
 
             manager.persist(e);

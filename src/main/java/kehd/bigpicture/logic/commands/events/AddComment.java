@@ -1,9 +1,7 @@
 package kehd.bigpicture.logic.commands.events;
 
 import argo.jdom.JsonNodeBuilder;
-import kehd.bigpicture.exceptions.NoSuchElement;
-import kehd.bigpicture.exceptions.ParameterException;
-import kehd.bigpicture.exceptions.UserDoesNotExist;
+import kehd.bigpicture.exceptions.*;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.Comment;
 import kehd.bigpicture.model.Event;
@@ -12,10 +10,14 @@ import kehd.bigpicture.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
+import java.util.Date;
 import java.util.Map;
 
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
 
+/**
+ * Kommentar zu einem Event hinzufuegen
+ */
 public class AddComment implements Command {
     private EntityManagerFactory entityManagerFactory;
 
@@ -25,6 +27,11 @@ public class AddComment implements Command {
 
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params) throws ParameterException {
+        // Kommentare koennen nur hinzugefuegt werden wenn eingeloggt
+        if(username == null) {
+            throw new NotAuthorized("AddComment");
+        }
+
         String eventName = params.get("eventName");
         String content = params.get("content");
 
@@ -39,8 +46,6 @@ public class AddComment implements Command {
                             "WHERE User.name = :userName", User.class)
                     .setParameter("userName", username)
                     .getSingleResult();
-
-
         } catch (NoResultException noResultException) {
             throw new UserDoesNotExist(noResultException);
         }
@@ -58,6 +63,7 @@ public class AddComment implements Command {
         }
 
         Comment comment = new Comment();
+        comment.setTimestamp(new Date());
         comment.setComment(content);
         comment.setAuthor(user);
         comment.setEvent(event);

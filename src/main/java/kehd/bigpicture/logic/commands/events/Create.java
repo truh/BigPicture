@@ -6,7 +6,7 @@ import kehd.bigpicture.exceptions.NotAuthentificated;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.Event;
 import kehd.bigpicture.model.EventType;
-import kehd.bigpicture.model.Organisator;
+import kehd.bigpicture.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -50,11 +50,11 @@ public class Create implements Command {
             event.setType(EventType.MULTI);
         }
 
-        Organisator organisator = manager.createQuery(
-                "SELECT DISTINCT Organisator " +
+        User organisator = manager.createQuery(
+                "SELECT DISTINCT User " +
                         "FROM User " +
-                        "JOIN Organisator " +
-                        "WHERE User.name = :userName", Organisator.class)
+                        "JOIN User " +
+                        "WHERE User.name = :userName", User.class)
                 .setParameter("userName", username)
                 .getSingleResult();
 

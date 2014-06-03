@@ -1,24 +1,17 @@
 package kehd.bigpicture.test.logic.command.addcomments;
 
-import static argo.jdom.JsonNodeBuilders.aStringBuilder;
-import static org.junit.Assert.*;
+import argo.jdom.JsonNodeBuilder;
 import kehd.bigpicture.exceptions.ParameterException;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.logic.commands.events.AddComment;
-import kehd.bigpicture.logic.Executor;
-
-import java.util.Map;
-
-import javax.persistence.EntityManagerFactory;
-
 import kehd.bigpicture.test.logic.Executor_Test;
-
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
-import argo.jdom.JsonNodeBuilder;
+import javax.persistence.EntityManagerFactory;
+import java.util.Map;
+
+import static argo.jdom.JsonNodeBuilders.aStringBuilder;
 
 public class AddComment_Test {
 	 private Logger log = Logger.getLogger(Executor_Test.class);
@@ -42,11 +35,6 @@ public class AddComment_Test {
 				
 				return aStringBuilder("Test");
 			}
-		};
-	
-		
-		
-			
 		};
 		
 	}

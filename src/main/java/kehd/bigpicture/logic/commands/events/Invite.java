@@ -2,13 +2,19 @@ package kehd.bigpicture.logic.commands.events;
 
 import argo.jdom.JsonNodeBuilder;
 import kehd.bigpicture.logic.commands.Command;
-import kehd.bigpicture.model.Invitation;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Map;
+
+//TODO
+//                         _ _
+//  _ __ _____      ___ __(_) |_ ___
+// | '__/ _ \ \ /\ / / '__| | __/ _ \
+// | | |  __/\ V  V /| |  | | ||  __/
+// |_|  \___| \_/\_/ |_|  |_|\__\___|
 
 public class Invite implements Command {
     private EntityManagerFactory entityManagerFactory;
@@ -25,7 +31,7 @@ public class Invite implements Command {
 
         EntityManager manager = entityManagerFactory.createEntityManager();
 
-        Invitation invitation = new Invitation();
+        //Invitation invitation = new Invitation();
 
         try {
             Date parsedDate = DATE_FORMAT.parse(date);

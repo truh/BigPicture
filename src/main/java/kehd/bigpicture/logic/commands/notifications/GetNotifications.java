@@ -1,20 +1,26 @@
 package kehd.bigpicture.logic.commands.notifications;
 
+import argo.jdom.JsonArrayNodeBuilder;
 import argo.jdom.JsonNodeBuilder;
 import kehd.bigpicture.logic.commands.Command;
-import kehd.bigpicture.model.Appointment;
 import kehd.bigpicture.model.Notification;
+import kehd.bigpicture.model.User;
+import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
+import static argo.jdom.JsonNodeBuilders.*;
 
 /**
  *
  */
 public class GetNotifications implements Command {
+    private static final Logger log = Logger.getLogger(GetNotifications.class);
+
     private EntityManagerFactory entityManagerFactory;
 
     public GetNotifications(EntityManagerFactory entityManagerFactory) {
@@ -28,13 +34,30 @@ public class GetNotifications implements Command {
         manager.getTransaction().begin();
         List<Notification> notiList = manager.createQuery (
                 "SELECT Notification FROM Notification ", Notification.class).getResultList();
-
-        List<Notification> resultList = new ArrayList<>();
+        JsonArrayNodeBuilder arrayNodeBuilder = anArrayBuilder();
         for(Notification notification: notiList) {
-            boolean allowed;
-            if()
+            Collection<User> recipients = notification.getRecipients();
+            if(recipients == null) {
+                log.error("WHY!!?");
+            } else {
+                for(User user: recipients) {
+                    if (user.getName().equals(username)) {
+                        arrayNodeBuilder
+                            .withElement(anObjectBuilder()
+                                .withField("id", aNumberBuilder("" + notification.getId()))
+                                .withField("message", aStringBuilder(notification.getMessage()))
+                                .withField("timestamp", aStringBuilder(DATE_FORMAT.format(notification.getTimestamp())))
+                                .withField("type", aStringBuilder(notification.getType().toString()))
+                                .withField("event", anObjectBuilder()
+                                    .withField("id", aNumberBuilder("" + notification.getEvent().getId()))
+                                    .withField("title", aStringBuilder(notification.getEvent().getTitle())))
+                            );
+                        break;
+                    }
+                }
+            }
         }
 
-        return null;
+        return arrayNodeBuilder;
     }
 }
