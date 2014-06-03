@@ -17,7 +17,7 @@ public class Comment {
 	private String comment;
 	
 	@ManyToOne //Mehrere Comments koennen von einem User erstellt werden.
-	private User user;
+	private User author;
 
     @ManyToOne
     private Event event;
@@ -46,12 +46,12 @@ public class Comment {
 		this.comment = comment;
 	}
 
-	public User getUser() {
-		return user;
+	public User getAuthor() {
+		return author;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 
     public Event getEvent() {

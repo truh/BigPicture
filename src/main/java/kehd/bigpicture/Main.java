@@ -116,7 +116,7 @@ public class Main {
 			c.setTimestamp(sdf.parse(date[i]));
 			c.setComment(com[i]);
 
-			c.setUser(n);
+			c.setAuthor(n);
 			manager.persist(c);
 			
 			ap.setTimestamp(sdf.parse(date3[i]));

@@ -12,9 +12,18 @@ public class Event {
 	
 	@Column //ueber @Column koennen Eigenschaften der Spalte angegeben werden wie z.B. der Name, ob sie unique ist oder ob sie den Wert null haben darf
 	private String title;
-		
-	@ManyToOne //Es koennen mehrere Events von einem Organisator erstellt werden.
-	private Organisator organisator;
+
+    @Enumerated(value = EnumType.STRING)
+    private EventType type;
+
+    @Column
+    private String description;
+
+    @ManyToOne //Es koennen mehrere Events von einem Organisator erstellt werden.
+	private User organisator;
+
+    @OneToMany
+    private Collection<Notification> notifications;
 	
 	@OneToMany
 	private Collection<Appointment> appointments;
@@ -22,8 +31,8 @@ public class Event {
     @OneToMany
     private Collection<Comment> comments;
 
-    @Enumerated(value = EnumType.STRING)
-    private EventType type;
+    @ManyToMany
+    private Collection<User> users;
 
 	public String getTitle() {
 		return title;
@@ -33,11 +42,11 @@ public class Event {
 		this.title = title;
 	}
 
-	public Organisator getOrganisator() {
+	public User getOrganisator() {
 		return organisator;
 	}
 
-	public void setOrganisator(Organisator organisator) {
+	public void setOrganisator(User organisator) {
 		this.organisator = organisator;
 	}
 
@@ -71,5 +80,29 @@ public class Event {
 
     public void setType(EventType type) {
         this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Collection<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(Collection<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public Collection<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Collection<User> users) {
+        this.users = users;
     }
 }

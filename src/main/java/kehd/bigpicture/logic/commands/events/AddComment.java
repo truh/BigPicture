@@ -59,7 +59,7 @@ public class AddComment implements Command {
 
         Comment comment = new Comment();
         comment.setComment(content);
-        comment.setUser(user);
+        comment.setAuthor(user);
         comment.setEvent(event);
 
         manager.persist(comment);
