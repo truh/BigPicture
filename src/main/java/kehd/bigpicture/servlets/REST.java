@@ -1,6 +1,8 @@
 package kehd.bigpicture.servlets;
 
 import kehd.bigpicture.Main;
+import kehd.bigpicture.exceptions.NotAuthentificated;
+import kehd.bigpicture.logic.Authentificator;
 import kehd.bigpicture.logic.Executor;
 import kehd.bigpicture.logic.commands.events.*;
 import kehd.bigpicture.logic.commands.notifications.DeleteNotification;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,16 +28,17 @@ public class REST extends HttpServlet {
     private static final Logger log = Logger.getLogger(REST.class);
 
     private Executor executor;
+    private Authentificator authentificator;
 
     @Override
     public void init() {
         log.info("Initialising REST Servlet");
 
 
-        if(!test) {
-            executor = new Executor(); 
-            registerCommands(executor); 
-        }
+        executor = new Executor();
+        registerCommands(executor);
+
+        authentificator = new Authentificator(Main.getEntityManagerFactory());
     }
 
     @Override
@@ -72,19 +76,32 @@ public class REST extends HttpServlet {
         response.setContentType("application/json");
 
         PrintWriter out = response.getWriter();
+
+        if(executor.getCommandNames().contains(methodName)) {
+            Map param = new HashMap(request.getParameterMap());
+
+            String username = null;
+
+            Enumeration<String> enumeration;
+            enumeration = request.getHeaders("Authorization");
+            if(enumeration.hasMoreElements()) {
+                String authString = enumeration.nextElement();
+                try {
+                    username = authentificator.authentificate(authString);
+                } catch (NotAuthentificated notAuthentificated) {
+                    log.debug("Not authentificated user.");
+                }
             }
+
+            String result;
+
+            result = executor.execute(username, methodName, request.getParameterMap());
+            out.println(result);
         } else {
-            if(executor.getCommandNames().contains(methodName)) {
-                Map param = new HashMap(request.getParameterMap());
-                String result;
-                result = executor.execute(methodName, request.getParameterMap());
-                out.println(result);
-            } else {
-                out.println("{\"error\":{" +
-                            "\"message\":\"Method not found\"" +
-                            "\"code\":0" +
-                            "}, \"result\":\"None\"}");    
-            }
+            out.println("{\"error\":{" +
+                        "\"message\":\"Method not found\"" +
+                        "\"code\":0" +
+                        "}, \"result\":\"None\"}");
         }
     }
 

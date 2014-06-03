@@ -32,7 +32,7 @@ public class Executor_Test {
         // Command registrieren
         Command command = new Command() {
             @Override
-            public JsonNodeBuilder execute(Map<String, String> params) {
+            public JsonNodeBuilder execute(String username, Map<String, String> params) {
                 paramMap = params;
                 executionCount ++;
                 return aStringBuilder("Test");
@@ -42,7 +42,7 @@ public class Executor_Test {
         executor.registerCommand(command, "testCommand");
         Assert.assertTrue(executor.getCommandNames().contains("testCommand"));
 
-        String result = executor.execute("testCommand", new HashMap<String, String>(){{
+        String result = executor.execute("testCommand", "username", new HashMap<String, String>(){{
             put("param", "test");
         }});
 

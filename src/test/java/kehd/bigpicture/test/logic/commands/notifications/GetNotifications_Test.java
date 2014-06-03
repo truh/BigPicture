@@ -72,7 +72,7 @@ public class GetNotifications_Test {
                 .createEntityManager();
         GetNotifications getNotifications = new GetNotifications(emf);
 
-        JsonNodeBuilder nodeBuilder = getNotifications.execute(new HashMap<String, String>());
+        JsonNodeBuilder nodeBuilder = getNotifications.execute("JohnDoe", new HashMap<String, String>());
 
         assertNotNull("Sollte nicht null zurückgeben.", nodeBuilder);
 

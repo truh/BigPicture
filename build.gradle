@@ -28,6 +28,7 @@ dependencies {
     compile 'org.hsqldb:hsqldb:2.3.2'
     compile 'org.mindrot:jbcrypt:0.3m'
     compile 'org.slf4j:slf4j-parent:1.7.7'
+    compile 'org.apache.directory.studio:org.apache.commons.codec:1.8'
 
     // test
     testCompile 'junit:junit:4.11'

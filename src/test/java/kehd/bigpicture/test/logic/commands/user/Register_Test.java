@@ -50,7 +50,7 @@ public class Register_Test {
                 .thenReturn(em);
 
         Register register = new Register(emf);
-        JsonNodeBuilder nodeBuilder = register.execute(new HashMap<String, String>() {{
+        JsonNodeBuilder nodeBuilder = register.execute("none", new HashMap<String, String>() {{
             put("username", username);
             put("password", password);
         }});
@@ -81,7 +81,7 @@ public class Register_Test {
         boolean exceptionHappened = false;
 
         try {
-            JsonNodeBuilder nodeBuilder = register.execute(new HashMap<String, String>() {{
+            JsonNodeBuilder nodeBuilder = register.execute("none", new HashMap<String, String>() {{
                 put("username", username);
                 put("password", password);
             }});
