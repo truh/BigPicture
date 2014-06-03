@@ -22,6 +22,9 @@ public class Event {
     @OneToMany
     private Collection<Comment> comments;
 
+    @Enumerated(value = EnumType.STRING)
+    private EventType type;
+
 	public String getTitle() {
 		return title;
 	}
@@ -60,5 +63,13 @@ public class Event {
 
     public void setComments(Collection<Comment> comments) {
         this.comments = comments;
+    }
+
+    public EventType getType() {
+        return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
     }
 }
