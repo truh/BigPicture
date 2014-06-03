@@ -1,7 +1,10 @@
 package kehd.bigpicture.logic.commands.events;
 
 import argo.jdom.JsonNodeBuilder;
-import kehd.bigpicture.exceptions.*;
+import kehd.bigpicture.exceptions.NoSuchElement;
+import kehd.bigpicture.exceptions.NotAuthorized;
+import kehd.bigpicture.exceptions.ParameterException;
+import kehd.bigpicture.exceptions.UserDoesNotExist;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.Comment;
 import kehd.bigpicture.model.Event;
@@ -26,7 +29,8 @@ public class AddComment implements Command {
     }
 
     @Override
-    public JsonNodeBuilder execute(String username, Map<String, String> params) throws ParameterException {
+    public JsonNodeBuilder execute(String username, Map<String, String> params)
+            throws ParameterException {
         // Kommentare koennen nur hinzugefuegt werden wenn eingeloggt
         if(username == null) {
             throw new NotAuthorized("AddComment");
@@ -62,16 +66,33 @@ public class AddComment implements Command {
             throw new NoSuchElement("Event", noResultException);
         }
 
-        Comment comment = new Comment();
-        comment.setTimestamp(new Date());
-        comment.setComment(content);
-        comment.setAuthor(user);
-        comment.setEvent(event);
+        // ueberpruefen ob user kommentieren darf
+        boolean allowed = false;
+        if(event.getOrganisator().getName().equals(username)) {
+            allowed = true;
+        } else {
+            for(User u: event.getUsers()) {
+                if(u.getName().equals(username)) {
+                    allowed = true;
+                    break;
+                }
+            }
+        }
 
-        manager.persist(comment);
+        if(!allowed) {
+            throw new NotAuthorized("AddComment");
+        } else {
+            Comment comment = new Comment();
+            comment.setTimestamp(new Date());
+            comment.setComment(content);
+            comment.setAuthor(user);
+            comment.setEvent(event);
 
-        manager.getTransaction().commit();
+            manager.persist(comment);
 
-        return aStringBuilder("Okay!");
+            manager.getTransaction().commit();
+
+            return aStringBuilder("Okay!");
+        }
     }
 }
