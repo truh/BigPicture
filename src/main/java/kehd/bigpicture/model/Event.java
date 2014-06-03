@@ -22,16 +22,16 @@ public class Event {
     @ManyToOne //Es koennen mehrere Events von einem Organisator erstellt werden.
 	private User organisator;
 
-    @OneToMany
+    @OneToMany(mappedBy = "event")
     private Collection<Notification> notifications;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "event")
 	private Collection<Appointment> appointments;
 
-    @OneToMany
+    @OneToMany(mappedBy = "event")
     private Collection<Comment> comments;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "events")
     private Collection<User> users;
 
 	public String getTitle() {
