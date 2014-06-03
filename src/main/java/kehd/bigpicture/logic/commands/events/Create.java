@@ -1,13 +1,18 @@
 package kehd.bigpicture.logic.commands.events;
 
 import argo.jdom.JsonNodeBuilder;
+import kehd.bigpicture.exceptions.FieldMissing;
+import kehd.bigpicture.exceptions.NotAuthentificated;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.Event;
+import kehd.bigpicture.model.EventType;
 import kehd.bigpicture.model.Organisator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.Map;
+
+import static argo.jdom.JsonNodeBuilders.aStringBuilder;
 
 public class Create implements Command {
     private EntityManagerFactory entityManagerFactory;
@@ -17,12 +22,34 @@ public class Create implements Command {
     }
 
     @Override
-    public JsonNodeBuilder execute(Map<String, String> params) {
+    public JsonNodeBuilder execute(Map<String, String> params)
+            throws FieldMissing, NotAuthentificated {
         String eventName = params.get("eventName");
         String eventType = params.get("eventType");
         String userName = params.get("userName");
 
+        // Testen ob parameter null sind
+        if(eventName == null) {
+            throw new FieldMissing("EventName");
+        }
+        // np, faellt auf default typ MULTI zurueck
+        //if(eventType == null) {
+        //    throw new FieldMissing("EventType");
+        //}
+        if(userName == null) {
+            throw new NotAuthentificated();
+        }
+
         EntityManager manager = entityManagerFactory.createEntityManager();
+
+        Event event = new Event();
+        event.setTitle(eventName);
+
+        if(eventType.equals("single")) {
+            event.setType(EventType.SINGLE);
+        } else {
+            event.setType(EventType.MULTI);
+        }
 
         Organisator organisator = manager.createQuery(
                 "SELECT DISTINCT Organisator " +
@@ -32,23 +59,8 @@ public class Create implements Command {
                 .setParameter("userName", userName)
                 .getSingleResult();
 
-        Event event = new Event();
-        event.setTitle(eventName);
-
-        // TODO Eventtyp fehlt (Einzeltermine?)
-        //if(eventType.equals("single")) {
-        //    event.setSingle(true);
-        //}
-
         event.setOrganisator(organisator);
 
-        // TODO
-        // response erstellen
-
-        // TODO Exceptions moeglich?
-        // -> Fehlermeldung als error an client senden.
-        //    auch in anderen Klassen
-
-        return null;
+        return aStringBuilder("Okay!");
     }
 }
