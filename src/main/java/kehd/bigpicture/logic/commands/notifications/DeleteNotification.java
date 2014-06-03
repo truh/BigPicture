@@ -17,7 +17,7 @@ public class DeleteNotification implements Command {
     }
 
     @Override
-    public JsonNodeBuilder execute(Map<String, String> params) {
+    public JsonNodeBuilder execute(String username, Map<String, String> params) {
         return null;
     }
 }

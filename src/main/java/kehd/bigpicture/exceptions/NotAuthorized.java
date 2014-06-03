@@ -31,6 +31,6 @@ public class NotAuthorized extends ParameterException {
 
     @Override
     public String getMessage() {
-        return this.getMessage() + this.task;
+        return super.getMessage() + this.task;
     }
 }

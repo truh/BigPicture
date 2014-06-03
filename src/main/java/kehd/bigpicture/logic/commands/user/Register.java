@@ -24,10 +24,9 @@ public class Register implements Command {
     }
 
     @Override
-    public JsonNodeBuilder execute(Map<String, String> params) throws UserAlreadyExists {
+    public JsonNodeBuilder execute(String username, Map<String, String> params) throws UserAlreadyExists {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        String username = params.get("username");
         String password = params.get("password");
 
         String passHash = BCrypt.hashpw(password, BCrypt.gensalt());

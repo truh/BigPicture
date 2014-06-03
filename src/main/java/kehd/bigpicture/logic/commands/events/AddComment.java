@@ -24,10 +24,9 @@ public class AddComment implements Command {
     }
 
     @Override
-    public JsonNodeBuilder execute(Map<String, String> params) throws ParameterException {
+    public JsonNodeBuilder execute(String username, Map<String, String> params) throws ParameterException {
         String eventName = params.get("eventName");
         String content = params.get("content");
-        String userName = params.get("userName");
 
         EntityManager manager = entityManagerFactory.createEntityManager();
         manager.getTransaction().begin();
@@ -38,7 +37,7 @@ public class AddComment implements Command {
                     "SELECT DISTINCT User " +
                             "FROM User " +
                             "WHERE User.name = :userName", User.class)
-                    .setParameter("userName", userName)
+                    .setParameter("userName", username)
                     .getSingleResult();
 
 

@@ -14,11 +14,14 @@ public interface Command {
     public static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
 
     /**
-     * TODO
-     * @param params
-     * @return
+     * Fuehrt Command aus
+     *
+     * @param username User mit dem das Command ausgefuehrt werden soll.
+     * @param params Parameter
+     *
+     * @return Ergebniss als Json
      * @throws ParameterException
      */
-	public abstract JsonNodeBuilder execute(Map<String, String> params) throws ParameterException;
+	public abstract JsonNodeBuilder execute(String username, Map<String, String> params) throws ParameterException;
 
 }

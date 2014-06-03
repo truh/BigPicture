@@ -22,11 +22,10 @@ public class Create implements Command {
     }
 
     @Override
-    public JsonNodeBuilder execute(Map<String, String> params)
+    public JsonNodeBuilder execute(String username, Map<String, String> params)
             throws FieldMissing, NotAuthentificated {
         String eventName = params.get("eventName");
         String eventType = params.get("eventType");
-        String userName = params.get("userName");
 
         // Testen ob parameter null sind
         if(eventName == null) {
@@ -36,7 +35,7 @@ public class Create implements Command {
         //if(eventType == null) {
         //    throw new FieldMissing("EventType");
         //}
-        if(userName == null) {
+        if(username == null) {
             throw new NotAuthentificated();
         }
 
@@ -56,7 +55,7 @@ public class Create implements Command {
                         "FROM User " +
                         "JOIN Organisator " +
                         "WHERE User.name = :userName", Organisator.class)
-                .setParameter("userName", userName)
+                .setParameter("userName", username)
                 .getSingleResult();
 
         event.setOrganisator(organisator);

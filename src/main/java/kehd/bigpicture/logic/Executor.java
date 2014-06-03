@@ -30,7 +30,7 @@ public class Executor {
      */
     public static final JsonFormatter JSON_FORMATTER =
             (System.getProperty("bp-debug") == null
-                    ?false
+                    ?false // && funktioniert hier nicht -> NullPointerException, bedingte zuweisung geht
                     :System.getProperty("bp.pretty-json").toLowerCase().equals("true"))
                     ?new PrettyJsonFormatter()
                     :new CompactJsonFormatter();
@@ -51,14 +51,14 @@ public class Executor {
      * @param params Map mit Parametern
      * @return Rueckgabe des Commands
      */
-	public String execute(String commandName, Map<String, String> params) {
+	public String execute(String commandName, String username, Map<String, String> params) {
         Command command = commandMapping.get(commandName);
 
         JsonNodeBuilder errorNodeBuilder = aNullBuilder();
         JsonNodeBuilder resultNodeBuilder = aNullBuilder();
 
         try {
-            resultNodeBuilder = command.execute(params);
+            resultNodeBuilder = command.execute(username, params);
         } catch (ParameterException e) {
             errorNodeBuilder = anObjectBuilder()
                     .withField("code", aNumberBuilder("" + e.getErrorId()))

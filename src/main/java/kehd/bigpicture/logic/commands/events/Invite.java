@@ -18,7 +18,7 @@ public class Invite implements Command {
     }
 
     @Override
-    public JsonNodeBuilder execute(Map<String, String> params) {
+    public JsonNodeBuilder execute(String username, Map<String, String> params) {
         String eventName = params.get("eventName");
         String date = params.get("date");
         String user = params.get("user");
