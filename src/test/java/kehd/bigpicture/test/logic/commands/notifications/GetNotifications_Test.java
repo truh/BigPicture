@@ -1,5 +1,6 @@
 package kehd.bigpicture.test.logic.commands.notifications;
 
+import argo.jdom.JsonNode;
 import argo.jdom.JsonNodeBuilder;
 import kehd.bigpicture.logic.commands.notifications.GetNotifications;
 import kehd.bigpicture.mock.EntityManagerAdapter;
@@ -11,7 +12,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
@@ -68,5 +73,19 @@ public class GetNotifications_Test {
         GetNotifications getNotifications = new GetNotifications(emf);
 
         JsonNodeBuilder nodeBuilder = getNotifications.execute(new HashMap<String, String>());
+
+        assertNotNull("Sollte nicht null zurückgeben.", nodeBuilder);
+
+        List<JsonNode> nodes = nodeBuilder.build().getElements();
+
+        assertEquals("Nachricht sollte wie gegeben sein.", "Message1", nodes.get(0).getStringValue("message"));
+        assertEquals("Nachricht sollte wie gegeben sein.", "Message2", nodes.get(1).getStringValue("message"));
+        assertEquals("Nachricht sollte wie gegeben sein.", "Message3", nodes.get(2).getStringValue("message"));
+        assertEquals("Nachricht sollte wie gegeben sein.", "Message4", nodes.get(3).getStringValue("message"));
+
+        assertSame("Nachricht sollte wie gegeben sein.", 1, nodes.get(0).getStringValue("id"));
+        assertSame("Nachricht sollte wie gegeben sein.", 2, nodes.get(1).getStringValue("id"));
+        assertSame("Nachricht sollte wie gegeben sein.", 3, nodes.get(2).getStringValue("id"));
+        assertSame("Nachricht sollte wie gegeben sein.", 4, nodes.get(3).getStringValue("id"));
     }
 }
