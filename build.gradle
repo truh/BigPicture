@@ -1,3 +1,6 @@
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'jetty'
@@ -97,7 +100,8 @@ task pdfReadme << {
 task pdf(dependsOn: [pdfChangeRequests, pdfReadme]) << {
     def pdfChangeRequests = "build/docs/pdf/pdfChangeRequests/"
     def outPath = "build/docs/pdf/"
-    def filename = "BigPicture_kehd_.pdf"
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    String filename = "BigPicture_kehd_${dateFormat.format(new Date())}.pdf"
 
     mkdir(outPath)
 
