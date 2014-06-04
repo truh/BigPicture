@@ -192,12 +192,39 @@ Events
 ==================== ==================== =====================================
  Method               Params               Response
 ==================== ==================== =====================================
+addComment
+                     - eventName          - error
+                     - content
+                                            * ""
+                                            * "No such event."
+                                            * "Empty title."
+                                            * "Empty content."
 create
                      - eventName          - error:
                      - eventType
                                             * ""
                                             * "Empty eventName."
                                             * "No such eventType."
+getAppointments
+                                          - error:
+
+                                            * ""
+                                            * "NotAuthentificated"
+getComments
+                     - eventName          - error
+
+                                            * ""
+                                            * "No such event."
+
+                                          - comments:
+
+                                            [{title, content, timestamp}, ...]
+getEvents
+getVotes
+                     - eventName          - error
+
+                                            * ""
+                                            * "No such event."
 invite
                      - eventName          - error:
                      - date
@@ -212,44 +239,6 @@ replyInvitation
                      - accept
                                             * ""
                        true/false           * "No such event."
-getInvitations
-                     - eventName          - error:
-
-                                            * ""
-                                            * "No such event."
-vote
-                     - eventName          - error
-                     - date
-                                            * ""
-                                            * "No such event."
-                                            * "No such date."
-getEvents
-getInvitedUsers
-                     - eventName          - error
-
-                                            * ""
-                                            * "No such event."
-getVotes
-                     - eventName          - error
-
-                                            * ""
-                                            * "No such event."
-getComments
-                     - eventName          - error
-
-                                            * ""
-                                            * "No such event."
-
-                                          - comments: 
-                                          
-                                            [{title, content, timestamp}, ...]
-addComment
-                     - eventName          - error
-                     - content
-                                            * ""
-                                            * "No such event."
-                                            * "Empty title."
-                                            * "Empty content."
 ==================== ==================== =====================================
 
 ------------
@@ -259,16 +248,16 @@ Notification
 ==================== ==================== =====================================
  Method               Params               Response
 ==================== ==================== =====================================
-getNotifications
-                                          {id1:message1, id2:message2, ...}
-
-                                          * id: long
-                                          * message: String
 deleteNotification
                      - notificationId     - error:
 
                                             * ""
                                             * "No such notification."
+getNotifications
+                                          {id1:message1, id2:message2, ...}
+
+                                          * id: long
+                                          * message: String
 ==================== ==================== =====================================
 
 ----
@@ -283,25 +272,6 @@ register
                      - password                  
                                             * ""
                                             * "User does already exist"
-login
-                     - username           - error:
-                     - password                  
-                                            * ""
-                                            * "Username/password combination 
-                                              wrong."
-
-                                          - sessionToken
-
-                                            Zum unterscheiden von Sitzungen.
-
-                                          - secretToken
-
-                                            Zum signieren von Anfragen.
-
-logout
-
-                                          Macht sessionToken & secretToken
-                                          ungültig
 ==================== ==================== =====================================
 
 ======
@@ -542,9 +512,19 @@ Zeitaufzeichnung
 +-------------------------------+---------------+-------------------+---------+---------+----------+
 | JUnit tests                   | 2014-06-04    | Djuric Daniel     |  15:00  |  20:30  |     5:30 |
 +-------------------------------+---------------+-------------------+---------+---------+----------+
+| Bug Suche                     | 2014-06-04    | Jakob Klepp       |  14:50  |  15:50  |     1:00 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| GetComments                   | 2014-06-04    | Jakob Klepp       |  15:50  |  16:05  |     0:15 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| GetAppointments               | 2014-06-04    | Jakob Klepp       |  16:05  |  16:35  |     0:30 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| Invite                        | 2014-06-04    | Jakob Klepp       |  17:35  |  18:25  |     0:50 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| ReplyInvitation               | 2014-06-04    | Jakob Klepp       |  18:25  |  20:00  |     1:35 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
 
 +-------------------+------------+
-| Jakob Klepp       |      34:55 |
+| Jakob Klepp       |      39:05 |
 +-------------------+------------+
 | Martin Haidn      |      24:15 |
 +-------------------+------------+
@@ -552,7 +532,7 @@ Zeitaufzeichnung
 +-------------------+------------+
 | Mathias El-Far    |      06:10 |
 +-------------------+------------+
-| **Sum:**          |  **85:40** |
+| **Sum:**          |  **95:20** |
 +-------------------+------------+
 
 =======
