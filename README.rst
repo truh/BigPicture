@@ -192,12 +192,39 @@ Events
 ==================== ==================== =====================================
  Method               Params               Response
 ==================== ==================== =====================================
+addComment
+                     - eventName          - error
+                     - content
+                                            * ""
+                                            * "No such event."
+                                            * "Empty title."
+                                            * "Empty content."
 create
                      - eventName          - error:
                      - eventType
                                             * ""
                                             * "Empty eventName."
                                             * "No such eventType."
+getAppointments
+                                          - error:
+
+                                            * ""
+                                            * "NotAuthentificated"
+getComments
+                     - eventName          - error
+
+                                            * ""
+                                            * "No such event."
+
+                                          - comments:
+
+                                            [{title, content, timestamp}, ...]
+getEvents
+getVotes
+                     - eventName          - error
+
+                                            * ""
+                                            * "No such event."
 invite
                      - eventName          - error:
                      - date
@@ -212,44 +239,6 @@ replyInvitation
                      - accept
                                             * ""
                        true/false           * "No such event."
-getInvitations
-                                          - error:
-
-                                            * ""
-                                            * "No such event."
-vote
-                     - eventName          - error
-                     - date
-                                            * ""
-                                            * "No such event."
-                                            * "No such date."
-getEvents
-getInvitedUsers
-                     - eventName          - error
-
-                                            * ""
-                                            * "No such event."
-getVotes
-                     - eventName          - error
-
-                                            * ""
-                                            * "No such event."
-getComments
-                     - eventName          - error
-
-                                            * ""
-                                            * "No such event."
-
-                                          - comments: 
-                                          
-                                            [{title, content, timestamp}, ...]
-addComment
-                     - eventName          - error
-                     - content
-                                            * ""
-                                            * "No such event."
-                                            * "Empty title."
-                                            * "Empty content."
 ==================== ==================== =====================================
 
 ------------
@@ -259,16 +248,16 @@ Notification
 ==================== ==================== =====================================
  Method               Params               Response
 ==================== ==================== =====================================
-getNotifications
-                                          {id1:message1, id2:message2, ...}
-
-                                          * id: long
-                                          * message: String
 deleteNotification
                      - notificationId     - error:
 
                                             * ""
                                             * "No such notification."
+getNotifications
+                                          {id1:message1, id2:message2, ...}
+
+                                          * id: long
+                                          * message: String
 ==================== ==================== =====================================
 
 ----
@@ -283,25 +272,6 @@ register
                      - password                  
                                             * ""
                                             * "User does already exist"
-login
-                     - username           - error:
-                     - password                  
-                                            * ""
-                                            * "Username/password combination 
-                                              wrong."
-
-                                          - sessionToken
-
-                                            Zum unterscheiden von Sitzungen.
-
-                                          - secretToken
-
-                                            Zum signieren von Anfragen.
-
-logout
-
-                                          Macht sessionToken & secretToken
-                                          ungültig
 ==================== ==================== =====================================
 
 ======
