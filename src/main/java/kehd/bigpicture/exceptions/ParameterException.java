@@ -14,6 +14,7 @@ public abstract class ParameterException extends Exception {
     public static final int NOT_AUTHORIZED_ERROR_ID = 7;
     public static final int NOT_AUTHENTIFICATED_ERROR_ID = 8;
     public static final int NO_SUCH_METHOD_ERROR_ID = 9;
+    public static final int NOT_A_NUMBER_ERROR_ID = 10;
 
     private int errorId;
 
