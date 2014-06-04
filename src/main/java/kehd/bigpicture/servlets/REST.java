@@ -73,6 +73,8 @@ public class REST extends HttpServlet {
         String methodName = request.getParameter("method");
         methodName = methodName==null?"":methodName;
 
+        log.info("methodName: " + methodName);
+
         response.setContentType("application/json");
 
         PrintWriter out = response.getWriter();
@@ -95,7 +97,8 @@ public class REST extends HttpServlet {
 
             String result;
 
-            result = executor.execute(username, methodName, request.getParameterMap());
+            log.info("methodName: " + methodName);
+            result = executor.execute(methodName, username, request.getParameterMap());
             out.println(result);
         } else {
             out.println("{\"error\":{" +
