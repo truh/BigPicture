@@ -8,8 +8,6 @@ import kehd.bigpicture.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.Map;
 
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
@@ -33,16 +31,6 @@ public class Invite implements Command {
         String eventName = params.get("eventName");
         if(eventName == null) {
             throw new NoSuchElement("elementName");
-        }
-        String dateString = params.get("date");
-        if(dateString == null) {
-            throw new NoSuchElement("date");
-        }
-        Date date = null;
-        try {
-            date = DATE_FORMAT.parse(dateString);
-        } catch (ParseException e) {
-            throw new DateInvalid();
         }
 
         String userName = params.get("user");
