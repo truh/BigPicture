@@ -9,6 +9,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import java.util.Map;
 
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
@@ -25,7 +26,7 @@ public class Register implements Command {
 
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params) throws UserAlreadyExists {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager manager = entityManagerFactory.createEntityManager();
 
         String password = params.get("password");
 
@@ -35,16 +36,33 @@ public class Register implements Command {
         user.setName(username);
         user.setPassword(passHash);
 
-        entityManager.getTransaction().begin();
+        manager.getTransaction().begin();
+
+        boolean userExists = true;
         try {
-            entityManager.persist(user);
+            User user2 = manager.createQuery(
+                "SELECT DISTINCT User " +
+                        "FROM User " +
+                        "WHERE User.name = :userName", User.class)
+                .setParameter("userName", username)
+                .getSingleResult();
+        } catch (NoResultException nre) {
+            userExists = false;
+        }
+
+        if(userExists) {
+            throw new UserAlreadyExists();
+        }
+
+        try {
+            manager.persist(user);
         } catch (EntityExistsException eee) {
             throw new UserAlreadyExists(eee);
         }
-        entityManager.getTransaction().commit();
+        manager.getTransaction().commit();
 
-        JsonNodeBuilder result = aStringBuilder("Okay!"); // TODo, maybe there is a
-                                                          // a better positive response
+        JsonNodeBuilder result = aStringBuilder("Okay!");
+
         return result;
     }
 }

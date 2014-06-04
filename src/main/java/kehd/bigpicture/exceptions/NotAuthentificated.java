@@ -8,7 +8,7 @@ public class NotAuthentificated extends ParameterException {
      * zu vereinfachen.
      */
     public NotAuthentificated() {
-        super(message, NOT_AUTHENTIFICATED);
+        super(message, NOT_AUTHENTIFICATED_ERROR_ID);
     }
 
     /**
@@ -18,6 +18,6 @@ public class NotAuthentificated extends ParameterException {
      * @param cause   ausloesende Exeception
      */
     public NotAuthentificated(Throwable cause) {
-        super(message, NOT_AUTHENTIFICATED, cause);
+        super(message, NOT_AUTHENTIFICATED_ERROR_ID, cause);
     }
 }

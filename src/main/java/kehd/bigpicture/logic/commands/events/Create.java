@@ -3,6 +3,7 @@ package kehd.bigpicture.logic.commands.events;
 import argo.jdom.JsonNodeBuilder;
 import kehd.bigpicture.exceptions.FieldMissing;
 import kehd.bigpicture.exceptions.NotAuthentificated;
+import kehd.bigpicture.exceptions.NotAuthorized;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.Event;
 import kehd.bigpicture.model.EventType;
@@ -23,7 +24,11 @@ public class Create implements Command {
 
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
-            throws FieldMissing, NotAuthentificated {
+            throws FieldMissing, NotAuthentificated, NotAuthorized {
+        if(username == null) {
+            throw new NotAuthorized("Create");
+        }
+
         String eventName = params.get("eventName");
         String eventType = params.get("eventType");
 

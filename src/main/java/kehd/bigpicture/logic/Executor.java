@@ -5,8 +5,10 @@ import argo.format.JsonFormatter;
 import argo.format.PrettyJsonFormatter;
 import argo.jdom.JsonNodeBuilder;
 import argo.jdom.JsonRootNode;
+import kehd.bigpicture.exceptions.NoSuchMethod;
 import kehd.bigpicture.exceptions.ParameterException;
 import kehd.bigpicture.logic.commands.Command;
+import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +24,7 @@ import static argo.jdom.JsonNodeBuilders.*;
  * und Implementierung.
  */
 public class Executor {
+    private static final Logger log = Logger.getLogger(Executor.class);
     /**
      * JSON formatter to be used by all command implementations.
      *
@@ -52,12 +55,17 @@ public class Executor {
      * @return Rueckgabe des Commands
      */
 	public String execute(String commandName, String username, Map<String, String> params) {
+        log.info("execute: " + commandName + " params: " + params.toString());
+
         Command command = commandMapping.get(commandName);
 
         JsonNodeBuilder errorNodeBuilder = aNullBuilder();
         JsonNodeBuilder resultNodeBuilder = aNullBuilder();
 
         try {
+            if(command == null) {
+                throw new NoSuchMethod(commandName);
+            }
             resultNodeBuilder = command.execute(username, params);
         } catch (ParameterException e) {
             errorNodeBuilder = anObjectBuilder()

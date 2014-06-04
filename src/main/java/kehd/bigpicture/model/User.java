@@ -1,6 +1,7 @@
 package kehd.bigpicture.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class User {
@@ -14,6 +15,18 @@ public class User {
 	
 	@Column
 	private String password;
+
+    @ManyToMany
+    private Collection<Appointment> appointments;
+
+    @OneToMany(mappedBy = "author")
+    private Collection<Comment> comments;
+
+    @ManyToMany(mappedBy = "users")
+    private Collection<Event> events;
+
+    @OneToMany(mappedBy = "organisator")
+    private Collection<Event> organisedEvents;
 
 	public long getId() {
 		return id;
