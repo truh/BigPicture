@@ -51,7 +51,7 @@ public class Invite_Test {
 					Class<T> resultClass) {
 				TypedQuery<T> query = mock(TypedQuery.class);
 
-				ArrayList<Invite> notifications = new ArrayList<Invite>() {
+				ArrayList<Event> notifications = new ArrayList<Event>() {
 					{
 						Event e1 = new Event();
 						e1.setId(1);
@@ -118,13 +118,15 @@ public class Invite_Test {
 		Invite iv = new Invite(emf);
 
 		JsonNodeBuilder nodeBuilder = iv.execute("JohnDoe",
-				new HashMap<String, String>() {
+				new HashMap<String, String>() 
+				{
 					{
 						put("eventName", "Event1");
 						put("date", Command.DATE_FORMAT.format(new Date()));
 						put("user", "JohnDoe");
 					}
-				});
+				}
+		);
 
 		assertNotNull("Sollte nicht null zurückgeben.", nodeBuilder);
 
