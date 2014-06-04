@@ -87,7 +87,6 @@ public class GetVotes_Test {
 				return query;
 			}
 		}).when(emf).createEntityManager();
-		GetNotifications getNotifications = new GetNotifications(emf);
 		
 		GetVotes hv = new GetVotes(emf);
 
