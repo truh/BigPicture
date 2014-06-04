@@ -1,20 +1,16 @@
 package kehd.bigpicture.logic.commands.events;
 
 import argo.jdom.JsonNodeBuilder;
+import kehd.bigpicture.exceptions.*;
 import kehd.bigpicture.logic.commands.Command;
+import kehd.bigpicture.model.Event;
+import kehd.bigpicture.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.Map;
 
-//TODO
-//                         _ _
-//  _ __ _____      ___ __(_) |_ ___
-// | '__/ _ \ \ /\ / / '__| | __/ _ \
-// | | |  __/\ V  V /| |  | | ||  __/
-// |_|  \___| \_/\_/ |_|  |_|\__\___|
+import static argo.jdom.JsonNodeBuilders.aStringBuilder;
 
 public class Invite implements Command {
     private EntityManagerFactory entityManagerFactory;
@@ -24,25 +20,53 @@ public class Invite implements Command {
     }
 
     @Override
-    public JsonNodeBuilder execute(String username, Map<String, String> params) {
+    public JsonNodeBuilder execute(String username, Map<String, String> params)
+            throws NoSuchElement, NotAuthentificated, NotAuthorized, DateInvalid {
+        // check if logged in
+        if(username == null) {
+            throw new NotAuthentificated();
+        }
+
+        // ueberpruefen ob parameter gesetzt sind
         String eventName = params.get("eventName");
-        String date = params.get("date");
-        String user = params.get("user");
+        if(eventName == null) {
+            throw new NoSuchElement("elementName");
+        }
+
+        String userName = params.get("user");
+        if(userName == null) {
+            throw new NoSuchElement("user");
+        }
 
         EntityManager manager = entityManagerFactory.createEntityManager();
 
-        //Invitation invitation = new Invitation();
+        manager.getTransaction().begin();
 
-        try {
-            Date parsedDate = DATE_FORMAT.parse(date);
-            // TODO setter doesn't exist
-            //invitation.setDate(date);
-        } catch (ParseException e) {
-            // TODO return error response
-            return null;
+        Event event = manager.createQuery(
+                "SELECT DISTINCT Event FROM Event " +
+                        "WHERE Event.title = :eventName", Event.class)
+                .setParameter("eventName", eventName)
+                .getSingleResult();
+
+        if(!event.getOrganisator().getName().equals(username)) {
+            throw new NotAuthorized("Invite");
         }
 
-        // TODO response
-        return null;
+        User user = manager.createQuery(
+                "SELECT DISTINCT User FROM User " +
+                        "WHERE User.name = :userName", User.class)
+                .setParameter("userName", userName)
+                .getSingleResult();
+
+        if(user == null) {
+            throw new UserDoesNotExist();
+        }
+
+        event.getUsers().add(user);
+        manager.persist(event);
+
+        manager.getTransaction().commit();
+
+        return aStringBuilder("Okay!");
     }
 }
