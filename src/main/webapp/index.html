@@ -84,15 +84,36 @@
 		<!-- Fading containers -->
 		<div id="light">
 			<!-- Content for Event Menagement -->
-			<form action="#" method="POST">
-	            New Event:<br>
-	            <input type="text" name="title" id="title" placeholder="Title" alt="Title of the event"><br>
-	            <br>
-	            <input type="text" placeholder="Choose a date" value="" id="datetimepicker"><br>
-	            <br>
-	            <input type="button" onClick="addEvent();" name="submit" value="Save" alt="Save">
-	            <input type="button" onCLick="lightbox_close();"name="Cancel" value="Cancel" alt="Cancle">
-        	</form>
+			<div id="e-header">
+				<!--Header of the event window -->
+			</div>
+			<div id="e-content">
+				<!-- Content-Wrapper -->
+				<div id="e-right">
+					<!-- right-content -->
+					Title:<br>
+					<input type="text" name="title" id="title" placeholder="Eventname" alt="Title of the event"><br>
+					<br>
+					Location:<br>
+					<input type="text" name="loc" id="loc" placeholder="Eventlocation" alt="Location of the event"><br>
+					<br>
+					Date:<br>
+					<input type="text" placeholder="Choose a date" value="" id="datetimepicker"><br>
+					<br>
+					Discription:<br>
+					<textarea name="discription" placeholder="Something you'd like to say..." cols="30" rows="2"></textarea><br>
+					<br>
+					OneToOne-Meeting
+					<input type="checkbox" name="single" id="single" value="true"><br>
+					<br>
+					<input type="button" onClick="addEvent();" name="submit" value="Save" alt="Save">
+	           		<input type="button" onClick="removeEvent();" name="Remove" value="Remove" alt="Remove this event">
+	           		<input type="button" onCLick="lightbox_close();" name="Cancel" value="Cancel" alt="Cancle">
+				</div>
+				<div id="e-left">
+					<!-- left-content -->
+				</div>
+			</div>
 		</div>
 		<div id="fade" onClick="lightbox_close();"></div>
 	</body>

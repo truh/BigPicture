@@ -3,7 +3,6 @@
  * 2014-05-28
 */
 
-var dataModel= {
 /* BigPic - Startup
 ------------------------------------------------------------------------------*/
 
@@ -141,4 +140,3 @@ function toPickerString(dateString) {
  function userIsAssigned() {
  	//false, if user has not choosen an appointment for the event
  }
-}
