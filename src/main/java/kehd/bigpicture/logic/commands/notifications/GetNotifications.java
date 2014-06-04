@@ -2,6 +2,7 @@ package kehd.bigpicture.logic.commands.notifications;
 
 import argo.jdom.JsonArrayNodeBuilder;
 import argo.jdom.JsonNodeBuilder;
+import kehd.bigpicture.exceptions.NotAuthentificated;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.Notification;
 import kehd.bigpicture.model.User;
@@ -28,12 +29,19 @@ public class GetNotifications implements Command {
     }
 
     @Override
-    public JsonNodeBuilder execute(String username, Map<String, String> params) {
+    public JsonNodeBuilder execute(String username, Map<String, String> params)
+            throws NotAuthentificated {
+        if(username == null) {
+            throw new NotAuthentificated();
+        }
+
         EntityManager manager = entityManagerFactory.createEntityManager();
 
         manager.getTransaction().begin();
         List<Notification> notiList = manager.createQuery (
-                "SELECT Notification FROM Notification ", Notification.class).getResultList();
+                "SELECT Notification FROM Notification ", Notification.class)
+                .getResultList();
+
         JsonArrayNodeBuilder arrayNodeBuilder = anArrayBuilder();
         for(Notification notification: notiList) {
             Collection<User> recipients = notification.getRecipients();
