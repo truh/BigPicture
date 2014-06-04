@@ -23,3 +23,13 @@ function lightbox_close(){
     document.getElementById('light').style.display='none';
     document.getElementById('fade').style.display='none';
 }
+
+function flushForm() {
+    $('#title').val('');
+    $('#datetimepicker').val('');
+}
+
+function setForm(title, date) {
+    $('#title').val(title);
+    $('#datetimepicker').val(date);
+}

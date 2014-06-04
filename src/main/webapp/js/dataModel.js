@@ -3,9 +3,49 @@
  * 2014-05-28
 */
 
-/* Session
+var dataModel= {
+/* BigPic - Startup
 ------------------------------------------------------------------------------*/
 
+
+/* Session
+------------------------------------------------------------------------------*/
+var session;
+var isLoggedIn;
+
+function sessionExists() {
+  if(session != "") return true;
+  return false;
+}
+
+function setSession(session) {
+  session= session;
+}
+
+function getSession() {
+  return session;
+}
+
+//Function to get the session from the server, not tested yet!
+function buildSession() {
+  jQuery.ajax({
+         type: "POST",
+         //Serveradresse später dynamisch!--------------------------------!
+         url: "./rest?method=getSession",
+         contentType: "application/json; charset=utf-8",
+         dataType: "json",
+         success: function (data, status, jqXHR) {
+              alert(data);
+         },
+
+         error: function (jqXHR, status) {
+              alert('Unable to load Events!\nStatus: ' + status);
+              alert(JSON.stringify(jqXHR));
+         },
+
+         timeout: 12000
+     });
+}
 
 /* User
 ------------------------------------------------------------------------------*/
@@ -54,7 +94,7 @@ function loadEvents() {
          contentType: "application/json; charset=utf-8",
          dataType: "json",
          success: function (data, status, jqXHR) {
-              alert(data);
+              alert(JSON.stringify(data);
          },
 
          error: function (jqXHR, status) {
@@ -73,6 +113,23 @@ function getEventByTitle(title) {
 	return 'No event with this title :(';
 }
 
+/* Date-Conversion
+------------------------------------------------------------------------------*/
+
+//Accapted months from a date
+var acMonths= {
+  Jan: 01, Feb: 02, Mar: 03, Apr: 04, Mai: 05, Jun: 06,
+  Jul: 07, Aug: 08, Sep: 09, Oct: 10, Nov: 11, Dec: 12
+}
+
+//Transform the timepicker date  into a valid timestring
+
+function toPickerString(dateString) {
+    var s= dateString.split(' ');
+    return s[3] + '/' + s[1] + '/' + s[2] +  ' ' + s[4].substr(0, 5);
+}
+
+
 /* Participants
 ------------------------------------------------------------------------------*/
 /* Participant-Structur
@@ -84,3 +141,4 @@ function getEventByTitle(title) {
  function userIsAssigned() {
  	//false, if user has not choosen an appointment for the event
  }
+}

@@ -22,13 +22,9 @@
 		<link rel="stylesheet" href="css/mainFormat.css" type="text/css">
 		<link rel="stylesheet" href="css/menu-style.css" type="text/css">
 
-		<!-- DateTimePicker imports
-		<script type="text/javascript" src="js/jquery.js"></script> -->
-		<script type="text/javascript" src="js/jquery.datetimepicker.js"></script>
-		<script type="text/javascript">
-			$('#datetimepicker').datetimepicker()
-				.datetimepicker({value:'2015/04/15 05:03',step:10});
-		</script>
+		<!-- DateTimePicker imports -->
+		<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/ >
+		<script src="js/jquery.datetimepicker.js"></script>
 	</head>
 	<body align="center">
 		
@@ -89,14 +85,14 @@
 		<div id="light">
 			<!-- Content for Event Menagement -->
 			<form action="#" method="POST">
-				New Event:<br>
-				<input type="text" name="title" id="title" placeholder="Title" alt="Title of the event"><br>
-				<br>
-				<input type="text" placeholder="Choose a date" value="" id="datetimepicker"><br>
-				<br>
-				<input type="button" onClick="addEvent();" name="submit" value="Save" alt="Save">
-				<input type="button" onCLick="lightbox_close();"name="Cancel" value="Cancel" alt="Cancle">
-			</form>
+	            New Event:<br>
+	            <input type="text" name="title" id="title" placeholder="Title" alt="Title of the event"><br>
+	            <br>
+	            <input type="text" placeholder="Choose a date" value="" id="datetimepicker"><br>
+	            <br>
+	            <input type="button" onClick="addEvent();" name="submit" value="Save" alt="Save">
+	            <input type="button" onCLick="lightbox_close();"name="Cancel" value="Cancel" alt="Cancle">
+        	</form>
 		</div>
 		<div id="fade" onClick="lightbox_close();"></div>
 	</body>
