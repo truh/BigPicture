@@ -63,6 +63,12 @@ body {
 	float: right;
 }
 
+textarea {
+   resize: none;
+   font-size: 12px;
+   font-family: Arial, Helvetica;
+}
+
 /* menu link behaviour */
 
 a.menu:link {
