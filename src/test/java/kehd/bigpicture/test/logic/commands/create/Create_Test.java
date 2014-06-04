@@ -32,10 +32,10 @@ public class Create_Test {
 
 	@Test
 	public void test() throws FieldMissing, NotAuthentificated {
-		Create ct= new Create(entityManagerFactory);
-		ct.execute("username", new HashMap<String, String>(){{
-            put("eventname", "test");
-        }});
+//		Create ct= new Create(entityManagerFactory);
+//		ct.execute("username", new HashMap<String, String>(){{
+//            put("eventname", "test");
+//        }});
 		
 		
 		
