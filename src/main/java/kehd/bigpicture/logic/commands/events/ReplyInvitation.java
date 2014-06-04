@@ -23,7 +23,7 @@ public class ReplyInvitation implements Command {
     public ReplyInvitation(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
-
+    // TODO ueberlegen ob aender damit geht
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
             throws NotAuthentificated, FieldMissing, DateInvalid, NoSuchElement {

@@ -51,6 +51,7 @@ public class AddComment implements Command {
                     .setParameter("userName", username)
                     .getSingleResult();
         } catch (NoResultException noResultException) {
+            // TODO Organisator darf auch posten
             throw new UserDoesNotExist(noResultException);
         }
 
