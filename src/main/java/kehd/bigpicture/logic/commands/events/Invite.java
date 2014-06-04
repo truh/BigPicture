@@ -4,10 +4,13 @@ import argo.jdom.JsonNodeBuilder;
 import kehd.bigpicture.exceptions.*;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.Event;
+import kehd.bigpicture.model.Notification;
+import kehd.bigpicture.model.NotificationType;
 import kehd.bigpicture.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.Date;
 import java.util.Map;
 
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
@@ -64,6 +67,15 @@ public class Invite implements Command {
 
         event.getUsers().add(user);
         manager.persist(event);
+
+        // Notification
+        Notification notification = new Notification();
+        notification.setEvent(event);
+        notification.setMessage("Sie wurden zu einem Event eingeladen.");
+        notification.getRecipients().add(user);
+        notification.setTimestamp(new Date());
+        notification.setType(NotificationType.NEW_INVITATION);
+        manager.persist(notification);
 
         manager.getTransaction().commit();
 

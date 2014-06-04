@@ -130,6 +130,10 @@ public class REST extends HttpServlet {
         Create create = new Create(entityManagerFactory);
         executor.registerCommand(create, "create");
 
+        // GetAppointments
+        GetAppointments getAppointments = new GetAppointments(entityManagerFactory);
+        executor.registerCommand(getAppointments, "getAppointments");
+
         // GetComments
         GetComments getComments = new GetComments(entityManagerFactory);
         executor.registerCommand(getComments, "getComments");
@@ -137,14 +141,6 @@ public class REST extends HttpServlet {
         // GetEvents
         GetEvents getEvents = new GetEvents(entityManagerFactory);
         executor.registerCommand(getEvents, "getEvents");
-
-        // GetInvitations
-        GetInvitations getInvitations = new GetInvitations(entityManagerFactory);
-        executor.registerCommand(getInvitations, "getInvitations");
-
-        // GetInvitedUsers
-        GetInvitedUsers getInvitedUsers = new GetInvitedUsers(entityManagerFactory);
-        executor.registerCommand(getInvitedUsers, "getInvitedUsers");
 
         // GetVotes
         GetVotes getVotes = new GetVotes(entityManagerFactory);
