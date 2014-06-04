@@ -19,7 +19,7 @@ import java.util.Map;
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
 
 public class AddComment_Test {
-	 private Logger log = Logger.getLogger(Executor_Test.class);
+	 private Logger log = Logger.getLogger(AddComment_Test.class);
 	    public Integer executionCount = 0;
 	    public Map paramMap;
 	    private EntityManagerFactory entityManagerFactory;
@@ -43,13 +43,12 @@ public class AddComment_Test {
 		};
 		
 		
-//		 JsonNodeBuilder result = ac.execute("username", new HashMap<String, String>(){{
-//	            put("param", "test");
-//	        }});
-		
-		cm.execute("username", new HashMap<String, String>(){{
+		 JsonNodeBuilder result = ac.execute("username", new HashMap<String, String>(){{
 	            put("param", "test");
 	        }});
+		 
+		
+	      
 		
 		 
 		
