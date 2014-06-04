@@ -52,11 +52,11 @@ public class GetEvents implements Command {
 
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
-            throws NotAuthentificated {
-        if(username == null) {
-            throw new NotAuthentificated();
-        }
-
+            throws NotAuthentificated {	
+        if(username == null) {	
+            throw new NotAuthentificated();	
+        }	
+        
         EntityManager manager = entityManagerFactory.createEntityManager();
 
         TypedQuery<Event> query = manager.createQuery("SELECT Event FROM Event", Event.class);
