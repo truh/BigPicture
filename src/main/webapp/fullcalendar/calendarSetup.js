@@ -55,9 +55,19 @@ $(document).ready(function() {
 
 		events: [
 			{
-				title: 'test',
-				start: "2014-06-07T13:30:00.000Z"
-			}
+				title: 'BigPicture',
+				start: "2014-06-06T09:40:00.000Z"
+			},
+
+			{
+				title: 'Notenschluss',
+				start: "2014-06-13T17:00:00.000Z"
+			},
+
+			{
+				title: 'Zeugnis',
+				start: "2014-06-26T08:00:00.000Z"
+			},
 		]
 
 	});
@@ -293,12 +303,16 @@ function getData(method, data) {
          },
 
          error: function (jqXHR, status) {
-              alert('Unable to load data!\nStatus: ' + status);
-              alert("ErrorResponse: " + JSON.stringify(jqXHR));
+              alert(errorMessage[method]);
          },
 
          timeout: 12000
      });
+}
+
+var errorMessage= {
+	'register': 'User could not be created!',
+	'getEvents': 'Unable to load Events'
 }
 
  /* Debugging

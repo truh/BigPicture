@@ -64,10 +64,11 @@ public class Executor {
             StringBuilder sb = new StringBuilder();
             sb.append("params");
             for(Map.Entry<String, String> entry: params.entrySet()) {
+                String value = entry.getValue();
                 sb.append("\n\t")
                   .append(entry.getKey())
                   .append(" : ")
-                  .append(entry.getValue());
+                  .append(value);
             }
             log.info(sb.toString());
         }

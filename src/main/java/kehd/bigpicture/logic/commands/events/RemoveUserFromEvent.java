@@ -10,9 +10,9 @@ import kehd.bigpicture.model.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Map;
 
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
@@ -54,11 +54,15 @@ public class RemoveUserFromEvent implements Command {
 
         manager.getTransaction().begin();
 
-        Event event = manager.createQuery(
-                "SELECT DISTINCT Event FROM Event " +
-                        "WHERE Event.title = :eventName", Event.class)
-                .setParameter("eventName", eventName)
-                .getSingleResult();
+        Event event = null;
+
+        try {
+            event = manager.createQuery(
+                    "SELECT DISTINCT Event FROM Event " +
+                            "WHERE Event.title = :eventName", Event.class)
+                    .setParameter("eventName", eventName)
+                    .getSingleResult();
+        } catch (NoResultException nre) {}
 
         if(!event.getOrganisator().getName().equals(username)) {
             manager.getTransaction().rollback();

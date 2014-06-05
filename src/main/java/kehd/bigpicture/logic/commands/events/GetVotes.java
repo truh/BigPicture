@@ -11,6 +11,7 @@ import kehd.bigpicture.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import java.util.Map;
 
 import static argo.jdom.JsonNodeBuilders.*;
@@ -43,12 +44,15 @@ public class GetVotes implements Command {
 
         EntityManager manager = entityManagerFactory.createEntityManager();
 
-        Event event = manager.createQuery(
-                "SELECT DISTINCT Event " +
-                        "FROM Event WHERE " +
-                        "Event.title = :eventName", Event.class)
-                .setParameter("eventName", eventName)
-                .getSingleResult();
+        Event event = null;
+        try {
+            event = manager.createQuery(
+                    "SELECT DISTINCT Event " +
+                            "FROM Event WHERE " +
+                            "Event.title = :eventName", Event.class)
+                    .setParameter("eventName", eventName)
+                    .getSingleResult();
+        } catch (NoResultException nre) {}
 
         if(event == null) {
             throw new NoSuchElement("Event");

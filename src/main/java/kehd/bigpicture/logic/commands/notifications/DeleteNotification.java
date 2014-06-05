@@ -10,6 +10,7 @@ import kehd.bigpicture.model.Notification;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import java.util.Map;
 
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
@@ -54,11 +55,14 @@ public class DeleteNotification implements Command {
 
         manager.getTransaction().begin();
 
-        Notification notification = manager.createQuery(
+        Notification notification = null;
+        try {
+        notification = manager.createQuery(
                 "SELECT DISTINCT Notification FROM Notification " +
                         "WHERE Notification.id = :notificationId", Notification.class)
                 .setParameter("notificationId", notificationId)
                 .getSingleResult();
+        } catch (NoResultException nre) {}
 
         if(notification == null) {
             manager.getTransaction().rollback();

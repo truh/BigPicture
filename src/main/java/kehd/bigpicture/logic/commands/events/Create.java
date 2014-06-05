@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import java.util.Map;
 
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
@@ -71,13 +72,16 @@ public class Create implements Command {
 
         manager.getTransaction().begin();
 
-        User organisator = manager.createQuery(
-                "SELECT DISTINCT User " +
-                        "FROM User " +
-                        "JOIN User " +
-                        "WHERE User.name = :userName", User.class)
-                .setParameter("userName", username)
-                .getSingleResult();
+        User organisator = null;
+        try {
+            organisator = manager.createQuery(
+                    "SELECT DISTINCT User " +
+                            "FROM User " +
+                            "JOIN User " +
+                            "WHERE User.name = :userName", User.class)
+                    .setParameter("userName", username)
+                    .getSingleResult();
+        } catch (NoResultException nre) {}
 
         if(organisator == null) {
             manager.getTransaction().rollback();
