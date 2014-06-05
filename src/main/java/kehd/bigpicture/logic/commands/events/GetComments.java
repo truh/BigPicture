@@ -48,20 +48,22 @@ public class GetComments implements Command {
                         "WHERE Event.title = :eventName", Event.class)
                 .setParameter("eventName", eventName)
                 .getSingleResult();
-
+       
+       
         if(event == null) {
             throw new NoSuchElement("Event");
         }
-
+       
         List<Comment> comments = manager.createQuery(
                 "SELECT Comment " +
                         "FROM Comment " +
                         "WHERE Comment.event = :event ", Comment.class)
                 .setParameter("event", event)
                 .getResultList();
-
+        
         JsonArrayNodeBuilder arrayNodeBuilder = anArrayBuilder();
         for(Comment comment: comments) {
+        	 
             arrayNodeBuilder.withElement(
                     anObjectBuilder()
                             .withField("timestamp", aStringBuilder(DATE_FORMAT.format(comment.getTimestamp())))
@@ -69,7 +71,8 @@ public class GetComments implements Command {
                             .withField("author", aStringBuilder(comment.getAuthor().getName()))
             );
         }
-
+       
         return arrayNodeBuilder;
+        
     }
 }
