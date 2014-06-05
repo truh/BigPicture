@@ -37,10 +37,21 @@ import static argo.jdom.JsonNodeBuilders.*;
 public class GetEvents implements Command {
     private EntityManagerFactory entityManagerFactory;
 
+    /**
+     * Instantiates a new gets the events.
+     *
+     * @param entityManagerFactory the entity manager factory
+     */
     public GetEvents(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
 
+    /**
+     * Appointments.
+     *
+     * @param appointments the appointments
+     * @return the json node builder
+     */
     private JsonNodeBuilder appointments(Collection<Appointment> appointments) {
         JsonArrayNodeBuilder nodeBuilder = anArrayBuilder();
         for(Appointment appointment: appointments) {
@@ -50,6 +61,9 @@ public class GetEvents implements Command {
         return nodeBuilder;
     }
 
+    /* (non-Javadoc)
+     * @see kehd.bigpicture.logic.commands.Command#execute(java.lang.String, java.util.Map)
+     */
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
             throws NotAuthentificated {	

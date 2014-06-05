@@ -16,8 +16,9 @@ import java.util.Map;
 
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
 
+
 /**
- *
+ * The Class RemoveAppointment.
  */
 public class RemoveAppointment implements Command {
     private EntityManagerFactory entityManagerFactory;
@@ -26,6 +27,9 @@ public class RemoveAppointment implements Command {
         this.entityManagerFactory = entityManagerFactory;
     }
 
+    /* (non-Javadoc)
+     * @see kehd.bigpicture.logic.commands.Command#execute(java.lang.String, java.util.Map)
+     */
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
             throws NotAuthentificated, FieldMissing, NoSuchElement, NotAuthorized, DateInvalid {

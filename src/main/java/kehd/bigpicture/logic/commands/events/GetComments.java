@@ -16,13 +16,24 @@ import static argo.jdom.JsonNodeBuilders.aStringBuilder;
 import static argo.jdom.JsonNodeBuilders.anArrayBuilder;
 import static argo.jdom.JsonNodeBuilders.anObjectBuilder;
 
+/**
+ * The Class GetComments.
+ */
 public class GetComments implements Command {
     private EntityManagerFactory entityManagerFactory;
 
+    /**
+     * Instantiates a new gets the comments.
+     *
+     * @param entityManagerFactory the entity manager factory
+     */
     public GetComments(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
 
+    /* (non-Javadoc)
+     * @see kehd.bigpicture.logic.commands.Command#execute(java.lang.String, java.util.Map)
+     */
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
             throws NoSuchElement {

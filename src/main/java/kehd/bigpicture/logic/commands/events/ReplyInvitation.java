@@ -17,13 +17,24 @@ import java.util.Map;
 
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
 
+/**
+ * The Class ReplyInvitation.
+ */
 public class ReplyInvitation implements Command {
     private EntityManagerFactory entityManagerFactory;
 
+    /**
+     * Instantiates a new reply invitation.
+     *
+     * @param entityManagerFactory the entity manager factory
+     */
     public ReplyInvitation(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
     // TODO ueberlegen ob aender damit geht
+    /* (non-Javadoc)
+     * @see kehd.bigpicture.logic.commands.Command#execute(java.lang.String, java.util.Map)
+     */
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
             throws NotAuthentificated, FieldMissing, DateInvalid, NoSuchElement {

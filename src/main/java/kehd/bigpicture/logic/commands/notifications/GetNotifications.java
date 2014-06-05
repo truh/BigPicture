@@ -17,17 +17,25 @@ import java.util.Map;
 import static argo.jdom.JsonNodeBuilders.*;
 
 /**
- *
+ * The Class GetNotifications.
  */
 public class GetNotifications implements Command {
     private static final Logger log = Logger.getLogger(GetNotifications.class);
 
     private EntityManagerFactory entityManagerFactory;
 
+    /**
+     * Instantiates a new gets the notifications.
+     *
+     * @param entityManagerFactory the entity manager factory
+     */
     public GetNotifications(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
 
+    /* (non-Javadoc)
+     * @see kehd.bigpicture.logic.commands.Command#execute(java.lang.String, java.util.Map)
+     */
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
             throws NotAuthentificated {

@@ -15,13 +15,24 @@ import java.util.Map;
 
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
 
+/**
+ * The Class Invite.
+ */
 public class Invite implements Command {
     private EntityManagerFactory entityManagerFactory;
 
+    /**
+     * Instantiates a new invite.
+     *
+     * @param entityManagerFactory the entity manager factory
+     */
     public Invite(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
 
+    /* (non-Javadoc)
+     * @see kehd.bigpicture.logic.commands.Command#execute(java.lang.String, java.util.Map)
+     */
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
             throws NoSuchElement, NotAuthentificated, NotAuthorized, DateInvalid {
