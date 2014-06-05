@@ -43,7 +43,7 @@
 								<a href="#">EVENTS</a>
 								<ul>
 									<li><a href="#" onClick="lightbox_open();">NEW</a></li>
-									<li><a href="#"onClick="loadEvents();">SEARCH</a></li>
+									<li><a href="#"onClick="getData('getEvents');">SEARCH</a></li>
 								</ul>
 							</li>
 							<li>
@@ -129,8 +129,10 @@
 		        <input type="password" class="log" id="u-passwd" name="password" value="" placeholder="Password"><br>
 		        <br>
 		        <br>
-		        <input class="log" type="submit" onClick="login();" name="commit" value="Login">
-		        <input class="log" type="submit" onClick="notImplemented();" name="commit" value="Create">
+		        <div align="center">
+			        <input class="log" type="submit" onClick="login();" name="commit" value="Login">
+			        <input class="log" type="submit" onClick="notImplemented();" name="commit" value="Create">
+		    	</div>
 		    </div>
 		</div>
 		<div id="hide"></div>

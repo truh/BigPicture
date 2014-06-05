@@ -15,15 +15,23 @@ import java.util.Map;
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
 
 /**
- *
+ * The Class DeleteNotification.
  */
 public class DeleteNotification implements Command {
     private EntityManagerFactory entityManagerFactory;
 
+    /**
+     * Instantiates a new delete notification.
+     *
+     * @param entityManagerFactory the entity manager factory
+     */
     public DeleteNotification(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
 
+    /* (non-Javadoc)
+     * @see kehd.bigpicture.logic.commands.Command#execute(java.lang.String, java.util.Map)
+     */
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
             throws NotAuthentificated, FieldMissing, NotANumber, NoSuchElement {

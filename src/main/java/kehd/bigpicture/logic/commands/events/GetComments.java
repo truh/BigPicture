@@ -16,13 +16,24 @@ import static argo.jdom.JsonNodeBuilders.aStringBuilder;
 import static argo.jdom.JsonNodeBuilders.anArrayBuilder;
 import static argo.jdom.JsonNodeBuilders.anObjectBuilder;
 
+/**
+ * The Class GetComments.
+ */
 public class GetComments implements Command {
     private EntityManagerFactory entityManagerFactory;
 
+    /**
+     * Instantiates a new gets the comments.
+     *
+     * @param entityManagerFactory the entity manager factory
+     */
     public GetComments(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
 
+    /* (non-Javadoc)
+     * @see kehd.bigpicture.logic.commands.Command#execute(java.lang.String, java.util.Map)
+     */
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
             throws NoSuchElement {
@@ -37,20 +48,22 @@ public class GetComments implements Command {
                         "WHERE Event.title = :eventName", Event.class)
                 .setParameter("eventName", eventName)
                 .getSingleResult();
-
+       
+       
         if(event == null) {
             throw new NoSuchElement("Event");
         }
-
+       
         List<Comment> comments = manager.createQuery(
                 "SELECT Comment " +
                         "FROM Comment " +
                         "WHERE Comment.event = :event ", Comment.class)
                 .setParameter("event", event)
                 .getResultList();
-
+        
         JsonArrayNodeBuilder arrayNodeBuilder = anArrayBuilder();
         for(Comment comment: comments) {
+        	 
             arrayNodeBuilder.withElement(
                     anObjectBuilder()
                             .withField("timestamp", aStringBuilder(DATE_FORMAT.format(comment.getTimestamp())))
@@ -58,7 +71,8 @@ public class GetComments implements Command {
                             .withField("author", aStringBuilder(comment.getAuthor().getName()))
             );
         }
-
+       
         return arrayNodeBuilder;
+        
     }
 }

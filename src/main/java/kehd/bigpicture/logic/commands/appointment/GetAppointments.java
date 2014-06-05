@@ -13,8 +13,9 @@ import java.util.Map;
 
 import static argo.jdom.JsonNodeBuilders.*;
 
+
 /**
- *
+ * The Class GetAppointments.
  */
 public class GetAppointments implements Command {
     private EntityManagerFactory entityManagerFactory;
@@ -23,6 +24,9 @@ public class GetAppointments implements Command {
         this.entityManagerFactory = entityManagerFactory;
     }
 
+    /* (non-Javadoc)
+     * @see kehd.bigpicture.logic.commands.Command#execute(java.lang.String, java.util.Map)
+     */
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
             throws NotAuthentificated {

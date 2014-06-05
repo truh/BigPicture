@@ -20,6 +20,7 @@ import static kehd.bigpicture.mock.model.MockModels.event0;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static kehd.bigpicture.mock.model.MockModels.*;
 
 public class GetVotes_Test {
 
@@ -41,15 +42,14 @@ public class GetVotes_Test {
 			}
 		}).when(emf).createEntityManager();
 
-		
 		GetVotes hv = new GetVotes(emf);
-
-		JsonNodeBuilder nodeBuilder = hv.execute("user0",
+		
+		JsonNodeBuilder nodeBuilder = hv.execute("user1",
                 new HashMap<String, String>(){{
                     put("eventName", "event0");
                 }}
         );
-
+		
 		assertNotNull("Sollte nicht null zurückgeben.", nodeBuilder);
 
 		List<JsonNode> nodes = nodeBuilder.build().getElements();

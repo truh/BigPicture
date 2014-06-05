@@ -23,15 +23,23 @@ import static argo.jdom.JsonNodeBuilders.anArrayBuilder;
 import static argo.jdom.JsonNodeBuilders.anObjectBuilder;
 
 /**
- *
+ * The Class FindUser.
  */
 public class FindUser implements Command {
     private EntityManagerFactory entityManagerFactory;
 
+    /**
+     * Instantiates a new find user.
+     *
+     * @param entityManagerFactory the entity manager factory
+     */
     public FindUser(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
 
+    /* (non-Javadoc)
+     * @see kehd.bigpicture.logic.commands.Command#execute(java.lang.String, java.util.Map)
+     */
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
             throws FieldMissing {

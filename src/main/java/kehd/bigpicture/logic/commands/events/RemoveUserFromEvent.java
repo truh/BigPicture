@@ -17,15 +17,23 @@ import java.util.Map;
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
 
 /**
- *
+ * The Class RemoveUserFromEvent.
  */
 public class RemoveUserFromEvent implements Command {
     private EntityManagerFactory entityManagerFactory;
 
+    /**
+     * Instantiates a new removes the user from event.
+     *
+     * @param entityManagerFactory the entity manager factory
+     */
     public RemoveUserFromEvent(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
 
+    /* (non-Javadoc)
+     * @see kehd.bigpicture.logic.commands.Command#execute(java.lang.String, java.util.Map)
+     */
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
             throws FieldMissing, NotAuthentificated, NotAuthorized, NoSuchElement {

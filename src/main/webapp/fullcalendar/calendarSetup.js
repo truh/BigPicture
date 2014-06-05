@@ -136,11 +136,13 @@ function logout() {
 //Checks if the user is logged in
 function loginRequired() {
 	var data= document.cookie.split(';');
-	user.name= data[0].substr(data[0].search('=')+1, data[0].length);
-	user.passwd= data[1].substr(data[1].search('=')+1, data[1].length);
-
-	if (user.name == '') return true;
-	return false;
+	if (data == '') {
+		return true;
+	} else {
+		user.name= data[0].substr(data[0].search('=')+1, data[0].length);
+		user.passwd= data[1].substr(data[1].search('=')+1, data[1].length);
+		return false;
+	}
 
 }
 
@@ -162,26 +164,7 @@ function getSession() {
   return session;
 }
 
-//Function to get the session from the server, not tested yet!
-function buildSession() {
-  jQuery.ajax({
-         type: "POST",
-         //Serveradresse später dynamisch!--------------------------------!
-         url: "./rest?method=getSession",
-         contentType: "application/json; charset=utf-8",
-         dataType: "json",
-         success: function (data, status, jqXHR) {
-              alert(data);
-         },
 
-         error: function (jqXHR, status) {
-              alert('Unable to load Events!\nStatus: ' + status);
-              alert(JSON.stringify(jqXHR));
-         },
-
-         timeout: 12000
-     });
-}
 
 /* User
 ------------------------------------------------------------------------------*/
@@ -304,7 +287,7 @@ function toDateString(pickerTime) {
 ------------------------------------------------------------------------------*/
 function getData(method) {
 
-	var baseString= btoa(user.name + ':' + user.passwd);
+	var baseString= "Basic " + btoa(user.name + ':' + user.passwd);
 
 	jQuery.ajax({
          type: "POST",
@@ -318,12 +301,12 @@ function getData(method) {
          },
 
          success: function (data, status, jqXHR) {
-              alert(JSON.stringify(data));
+              alert(JSON.stringify("Success: " + data.error.message));
          },
 
          error: function (jqXHR, status) {
-              alert('Unable to load data!\nStatus: ' + status);
-              alert(JSON.stringify(jqXHR));
+              alert('Unable to load data!\nStatus: ' + status.error.message);
+              alert(JSON.stringify(jqXHR.error.message));
          },
 
          timeout: 12000

@@ -12,6 +12,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * The Class Main.
+ */
 public class Main {
 
 	private static final Logger log = Logger.getLogger(Main.class);
