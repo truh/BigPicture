@@ -10,6 +10,7 @@ import kehd.bigpicture.model.NotificationType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Map;
@@ -33,10 +34,6 @@ public class RemoveAppointment implements Command {
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
             throws NotAuthentificated, FieldMissing, NoSuchElement, NotAuthorized, DateInvalid {
-        if(username == null) {
-            throw new NotAuthentificated();
-        }
-
         // authentifizierung ueberpruefen
         if(username == null) {
             throw new NotAuthentificated();
@@ -77,19 +74,20 @@ public class RemoveAppointment implements Command {
         }
 
         // ueberpruefen: username == event.organisator
-        if (event.getOrganisator().getName().equals(username)) {
+        if (!event.getOrganisator().getName().equals(username)) {
             manager.getTransaction().rollback();
             throw new NotAuthorized("RemoveAppointment");
         }
 
-        // Appointment finden
-        Appointment appointment = manager.createQuery(
+        TypedQuery<Appointment> query = manager.createQuery(
                 "SELECT DISTINCT Appointment FROM Appointment " +
                         "WHERE Appointment.timestamp = :timestamp " +
-                        "AND Appointment.event = :event", Appointment.class)
-                .setParameter("timestamp", date)
-                .setParameter("event", event)
-                .getSingleResult();
+                        "AND Appointment.event = :event", Appointment.class);
+        query = query.setParameter("timestamp", date);
+        query = query.setParameter("event", event);
+
+        // Appointment finden
+        Appointment appointment = query.getSingleResult();
 
         // Appointment entfernen
         event.getAppointments().remove(appointment);
