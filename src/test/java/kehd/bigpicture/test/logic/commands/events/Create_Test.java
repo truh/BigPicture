@@ -1,15 +1,13 @@
 package kehd.bigpicture.test.logic.commands.events;
-import java.util.Map;
-
-import javax.persistence.EntityManagerFactory;
-
-import kehd.bigpicture.exceptions.FieldMissing;
-import kehd.bigpicture.exceptions.NotAuthentificated;
-
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import javax.persistence.EntityManagerFactory;
+import java.util.Map;
+
+import static org.junit.Assert.fail;
 
 public class Create_Test {
 	private Logger log = Logger.getLogger(Create_Test.class);
@@ -25,17 +23,9 @@ public class Create_Test {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void test() throws FieldMissing, NotAuthentificated {
-//		Create ct= new Create(entityManagerFactory);
-//		ct.execute("username", new HashMap<String, String>(){{
-//            put("eventname", "test");
-//        }});
-		
-		
-		
-		
-		
-	}
+    @Test
+    public void test() {
+        fail("Not implemented");
+    }
 
 }
