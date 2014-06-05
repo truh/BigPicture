@@ -13,6 +13,7 @@ import kehd.bigpicture.model.NotificationType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import java.util.Date;
 import java.util.Map;
 
@@ -56,11 +57,14 @@ public class AddAppointment implements Command {
         manager.getTransaction().begin();
 
         // event object holen
-        Event event = manager.createQuery(
-                "SELECT DISTINCT Event FROM Event " +
-                        "WHERE Event.title = :eventName", Event.class)
-                .setParameter("eventName", eventName)
-                .getSingleResult();
+        Event event = null;
+        try {
+            event = manager.createQuery(
+                    "SELECT DISTINCT Event FROM Event " +
+                            "WHERE Event.title = :eventName", Event.class)
+                    .setParameter("eventName", eventName)
+                    .getSingleResult();
+        } catch (NoResultException nre) {}
 
         // event object ueberpruefen
         if (event == null) {

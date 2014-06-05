@@ -1,15 +1,13 @@
 package kehd.bigpicture.logic.commands.events;
 
 import argo.jdom.JsonNodeBuilder;
-import kehd.bigpicture.exceptions.DateInvalid;
-import kehd.bigpicture.exceptions.FieldMissing;
-import kehd.bigpicture.exceptions.NoSuchElement;
-import kehd.bigpicture.exceptions.NotAuthentificated;
+import kehd.bigpicture.exceptions.*;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,11 +67,14 @@ public class ReplyInvitation implements Command {
 
         manager.getTransaction().begin();
 
-        Event event = manager.createQuery(
-                "SELECT Event FROM Event " +
-                    "WHERE Event.title = :eventName", Event.class)
-                .setParameter("eventName", eventName)
-                .getSingleResult();
+        Event event = null;
+        try {
+            event = manager.createQuery(
+                    "SELECT Event FROM Event " +
+                        "WHERE Event.title = :eventName", Event.class)
+                    .setParameter("eventName", eventName)
+                    .getSingleResult();
+        } catch (NoResultException nre) {}
 
         if(event == null) {
             manager.getTransaction().rollback();
@@ -94,11 +95,19 @@ public class ReplyInvitation implements Command {
             throw new NoSuchElement("Appointment");
         }
 
-        User user = manager.createQuery(
+        User user = null;
+        try {
+        user = manager.createQuery(
                 "SELECT User FROM User " +
                         "WHERE User.name = :username", User.class)
                 .setParameter("username", username)
                 .getSingleResult();
+        } catch (NoResultException nre) {}
+
+        if(user == null) {
+            manager.getTransaction().rollback();
+            throw new UserDoesNotExist();
+        }
 
         // ueberpruefen ob user teil des events ist
         // user soll termin nur annehmen wenn er eingeladen wurde
