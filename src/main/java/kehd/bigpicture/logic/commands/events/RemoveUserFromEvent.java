@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Map;
 
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
@@ -69,6 +70,7 @@ public class RemoveUserFromEvent implements Command {
         for(User user: event.getUsers()) {
             if(user.getName().equals(targetUser)) {
                 targetUserObj = user;
+               
             }
         }
         if(targetUserObj == null) {
