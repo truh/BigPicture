@@ -1,9 +1,11 @@
 package kehd.bigpicture.logic.commands.events.getvotes;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.management.Query;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 
@@ -38,67 +40,56 @@ public class GetVotes_Test {
 					Class<T> resultClass) {
 				TypedQuery<T> query = mock(TypedQuery.class);
 
-				ArrayList<Event> notifications = new ArrayList<Event>() {
+				ArrayList<User> notifications = new ArrayList<User>() {
 					{
-						Event e1 = new Event();
-						e1.setId(1);
-						e1.setTitle("Event1");
-						add(e1);
+						User johnDoe = new User();
+						johnDoe.setName("JohnDoe");
 
-						Event e2 = new Event();
-						e2.setId(2);
-						e2.setTitle("Event2");
-						add(e2);
-						
-						final ArrayList<Event> al= new ArrayList<>();
-						al.add(e1);
-						al.add(e2);
+						User huah = new User();
+						huah.setName("SLLE");
+						add(huah);
 
-						ArrayList<User> recipients = new ArrayList<User>() {
+						ArrayList<Event> recipients = new ArrayList<Event>() {
 							{
-								User johnDoe = new User();
-								johnDoe.setName("JohnDoe");
-								
-								
-								User huah= new User();
-								huah.setName("SLLE");
-								add(huah);
-								
-								ArrayList<Appointment> appointments = new ArrayList<Appointment>() {
-									{
-										Appointment ap = new Appointment();
-										ap.setEvent(al.get(0));
-										ap.setTimestamp(new Date());
-										add(ap);
-										
-									}};
-								johnDoe.setAppointments(appointments);
-								add(johnDoe);
-								
+
+								Event e1 = new Event();
+								e1.setId(1);
+								e1.setTitle("Event1");
+								add(e1);
+
+								Event e2 = new Event();
+								e2.setId(2);
+								e2.setTitle("Event2");
+								add(e2);
 							}
 						};
 
-						
+						ArrayList<Appointment> appointments = new ArrayList<Appointment>() {
+							{
+								Appointment ap = new Appointment();
+								ap.setEvent(new Event());
+								ap.setTimestamp(new Date());
+								add(ap);
+
+							}
+						};
+						johnDoe.setAppointments(appointments);
+						add(johnDoe);
+
 					}
 				};
-
 				doReturn(notifications).when(query).getResultList();
-
 				return query;
+
 			}
 		}).when(emf).createEntityManager();
-		GetNotifications getNotifications = new GetNotifications(emf);
-		
-		GetVotes hv = new GetVotes(emf);
 
-		JsonNodeBuilder nodeBuilder = hv.execute("JohnDoe",
-				new HashMap<String, String>()
-				{
-			{
-				put("eventName", "Event1");
-			}
-		}
-		);
+		GetVotes hv = new GetVotes(emf);
+		
+		JsonNodeBuilder nodeBuilder = hv.execute("johnDoe",
+				new HashMap<String, String>(){{
+					put("eventName","Event1");
+				}});
 
 		assertNotNull("Sollte nicht null zurückgeben.", nodeBuilder);
 
