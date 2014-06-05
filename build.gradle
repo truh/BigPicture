@@ -1,18 +1,13 @@
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'jetty'
 apply plugin: 'idea'
+apply plugin: 'eclipse'
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.2.3'
-    }
-}
-apply plugin: 'tomcat'
+logging.captureStandardOutput LogLevel.INFO
 
 sourceCompatibility = 1.7
 version = '1.0'
@@ -23,22 +18,97 @@ repositories {
 
 dependencies {
     // compile
-    compile     group: 'org.hibernate',     name: 'hibernate-core',         version: '3.6.10.Final'
-    compile     group: 'log4j',             name: 'log4j',                  version: '1.2.17'
-    compile     group: 'javax.servlet',     name: 'servlet-api',            version: '2.5'
-    compile     group: 'javax.validation',  name: 'validation-api',         version: '1.1.0.Final'
-    compile     group: 'org.hibernate',	    name: 'hibernate-validator',    version: '5.1.1.Final'
-    compile     group: 'org.hibernate',     name: 'hibernate-annotations',  version: '3.5.6-Final'
-    //compile     group: 'javax.persistence', name: 'ejb',                    version: '3.0-public_review'
+    compile 'log4j:log4j:1.2.17'
+    compile 'javax.servlet:servlet-api:2.5'
+    compile 'javax.validation:validation-api:1.1.0.Final'
+    compile 'net.sourceforge.argo:argo:3.10'
+    compile 'org.hibernate:hibernate-core:4.3.5.Final'
+    compile 'org.hibernate:hibernate-entitymanager:4.3.5.Final'
+    compile 'org.hibernate:hibernate-validator:5.1.1.Final'
+    compile 'org.hsqldb:hsqldb:2.3.2'
+    compile 'org.mindrot:jbcrypt:0.3m'
+    compile 'org.slf4j:slf4j-parent:1.7.7'
+    compile 'org.apache.directory.studio:org.apache.commons.codec:1.8'
 
     // test
-    testCompile group: 'junit',             name: 'junit',          version: '4.11'
+    testCompile 'junit:junit:4.11'
+    testCompile 'org.mockito:mockito-all:1.9.5'
+}
 
-    // tomcat
-    def tomcatVersion = '7.0.11'
-    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
-            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
-    tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}") {
-        exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+void rst2pdf(String fileOut, String fileIn) {
+    println "rst2pdf ${fileIn} -o ${fileOut}"  
+    
+    if(file(fileOut).lastModified() > file(fileIn).lastModified()) {
+        println "[UP-TO-DATE]"
+    } else {
+        exec {
+            commandLine "rst2pdf"
+            args fileIn, '-o', fileOut 
+        }  
     }
+}
+
+void concatPdfs(String fileOut, List<String> inFiles) {
+    def upToDate = true
+
+    println '[' + fileOut + '] ->'
+
+    for(String filename: inFiles) {
+        println '\t' + filename
+        if(file(filename).lastModified() > file(fileOut).lastModified()) {
+            upToDate = false
+        }
+    }
+
+    if(upToDate) {
+        println "[UP-TO-DATE]"
+    } else {
+        def arguments = ["-sPAPERSIZE=a4", "-dNOPAUSE", "-dBATCH", "-sDEVICE=pdfwrite", 
+            "-sOutputFile=" + fileOut]   
+        arguments.addAll(inFiles) 
+    
+        exec {
+            commandLine "gs"
+            args arguments
+        }
+    }
+}
+
+task pdfChangeRequests << {
+    def inPath = "doc/"
+    def outPath = "build/docs/pdf/pdfChangeRequests/"
+
+    mkdir(outPath)
+
+    def files = file(inPath).listFiles()
+    files.each { File file ->
+        if (file.name.toLowerCase().endsWith(".rst")) {
+            def filename = file.name.split(".rst")[0]
+            rst2pdf(outPath + filename + ".pdf", inPath + file.name)
+        }
+    }
+}
+
+task pdfReadme << {
+    def inPath = ""
+    def outPath = "build/docs/pdf/"
+
+    mkdir(outPath)
+
+    rst2pdf(outPath + "README.pdf", inPath + "README.rst")
+}
+
+task pdf(dependsOn: [pdfChangeRequests, pdfReadme]) << {
+    def pdfChangeRequests = "build/docs/pdf/pdfChangeRequests/"
+    def outPath = "build/docs/pdf/"
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    String filename = "BigPicture_kehd_${dateFormat.format(new Date())}.pdf"
+
+    mkdir(outPath)
+
+    def files = file(pdfChangeRequests).listFiles()
+    def pdfs = [outPath + "README.pdf"]
+    pdfs.addAll(files)
+
+    concatPdfs(outPath + filename, pdfs)
 }

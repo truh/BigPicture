@@ -16,8 +16,11 @@ public class Comment {
 	@Column
 	private String comment;
 	
-	@ManyToOne //Mehrere Comments können von einem User erstellt werden.
-	private User user;
+	@ManyToOne //Mehrere Comments koennen von einem User erstellt werden.
+	private User author;
+
+    @ManyToOne
+    private Event event;
 
 	public long getId() {
 		return id;
@@ -43,12 +46,19 @@ public class Comment {
 		this.comment = comment;
 	}
 
-	public User getUserid() {
-		return user;
+	public User getAuthor() {
+		return author;
 	}
 
-	public void setUserid(User userid) {
-		this.user = user;
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 }

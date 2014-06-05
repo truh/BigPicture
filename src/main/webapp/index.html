@@ -22,15 +22,15 @@
 		<link rel="stylesheet" href="css/mainFormat.css" type="text/css">
 		<link rel="stylesheet" href="css/menu-style.css" type="text/css">
 
-		<!-- DateTimePicker imports
-		<script type="text/javascript" src="js/jquery.js"></script> -->
-		<script type="text/javascript" src="js/jquery.datetimepicker.js"></script>
-		<script type="text/javascript">
-			$('#datetimepicker').datetimepicker()
-				.datetimepicker({value:'2015/04/15 05:03',step:10});
-		</script>
+		<!-- DateTimePicker imports -->
+		<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/ >
+		<script src="js/jquery.datetimepicker.js"></script>
+
+		<!-- Login imports -->
+		<link rel="stylesheet" href="css/login.css">
+
 	</head>
-	<body align="center">
+	<body align="center" onload="authorize()">
 		
 		<div id="wrapper">
 
@@ -43,17 +43,17 @@
 								<a href="#">EVENTS</a>
 								<ul>
 									<li><a href="#" onClick="lightbox_open();">NEW</a></li>
-									<li><a href="#"onClick="loadEvents();">SEARCH</a></li>
+									<li><a href="#"onClick="getData('getEvents');">SEARCH</a></li>
 								</ul>
 							</li>
 							<li>
 								<a href="#">USERS</a>
 								<ul>
-									<li><a href="">LIST</a></li>
-									<li><a href="">SEARCH</a></li>
+									<li><a href="#" onClick="notImplemented();">LIST</a></li>
+									<li><a href="#" onClick="notImplemented();">SEARCH</a></li>
 								</ul>
 							</li>
-							<li><a href="">NOTIFIES</a></li>
+							<li><a href="#">NOTIFIES</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -61,8 +61,8 @@
 					<!-- LOGOUT | SETTINGS -->
 					<nav>
 						<ul>
-							<li><a class="menu" href="#">LOGOUT</a></li>
-							<li><a href="">SETTINGS</a></li>
+							<li><a href="#" onClick="logout();">LOGOUT</a></li>
+							<li><a href="#" onClick="notImplemented();">SETTINGS</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -88,16 +88,53 @@
 		<!-- Fading containers -->
 		<div id="light">
 			<!-- Content for Event Menagement -->
-			<form action="#" method="POST">
-				New Event:<br>
-				<input type="text" name="title" id="title" placeholder="Title" alt="Title of the event"><br>
-				<br>
-				<input type="text" placeholder="Choose a date" value="" id="datetimepicker"><br>
-				<br>
-				<input type="button" onClick="addEvent();" name="submit" value="Save" alt="Save">
-				<input type="button" onCLick="lightbox_close();"name="Cancel" value="Cancel" alt="Cancle">
-			</form>
+			<div id="e-header">
+				<!--Header of the event window -->
+			</div>
+			<div id="e-content">
+				<!-- Content-Wrapper -->
+				<div id="e-right">
+					<!-- right-content -->
+					Title:<br>
+					<input type="text" name="title" id="title" placeholder="Eventname" alt="Title of the event"><br>
+					<br>
+					Location:<br>
+					<input type="text" name="loc" id="loc" placeholder="Eventlocation" alt="Location of the event"><br>
+					<br>
+					Date:<br>
+					<input type="text" placeholder="Choose a date" value="" id="datetimepicker"><br>
+					<br>
+					Discription:<br>
+					<textarea name="discription" placeholder="Something you'd like to say..." cols="30" rows="2"></textarea><br>
+					<br>
+					OneToOne-Meeting
+					<input type="checkbox" name="single" id="single" value="true"><br>
+					<br>
+					<input type="button" onClick="addEvent();" name="submit" value="Save" alt="Save">
+	           		<input type="button" onClick="removeEvent();" name="Remove" value="Remove" alt="Remove this event">
+	           		<input type="button" onCLick="lightbox_close();" name="Cancel" value="Cancel" alt="Cancle">
+				</div>
+				<div id="e-left">
+					<!-- left-content -->
+				</div>
+			</div>
 		</div>
 		<div id="fade" onClick="lightbox_close();"></div>
+		
+		<div id="login">
+			<!-- Login-screen -->
+		    <div class="login">
+		      <h1>Login</h1>
+		        <input type="text" class="log" id="u-name" name="login" value="" placeholder="Username">
+		        <input type="password" class="log" id="u-passwd" name="password" value="" placeholder="Password"><br>
+		        <br>
+		        <br>
+		        <div align="center">
+			        <input class="log" type="submit" onClick="login();" name="commit" value="Login">
+			        <input class="log" type="submit" onClick="createUser();" name="createUser" value="Create">
+		    	</div>
+		    </div>
+		</div>
+		<div id="hide"></div>
 	</body>
 </html>

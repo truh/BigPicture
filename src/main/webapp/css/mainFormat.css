@@ -6,11 +6,16 @@
 
 body {
 		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		background: url(../img/bg.jpg);
 }
 
 #wrapper {
 	width: 60%;
+	background: #ffffff;
 	margin: auto;
+	-webkit-box-shadow: 0px 0px 15px 5px rgba(173, 205, 255, .75);
+	-moz-box-shadow: 0px 0px 15px 5px rgba(173, 205, 255, .75);
+	box-shadow: 0px 0px 15px 5px rgba(173, 205, 255, .75);
 }
 
 #menu {
@@ -63,6 +68,26 @@ body {
 	float: right;
 }
 
+/* Event-Frame */
+
+#e-header {
+	background: #368EB2;
+	color: #ffffff;
+	font-size: 18px;
+	padding: 5px;
+	font-weight: bold;
+}
+
+#e-content {
+	margin-top: 10px;
+}
+
+textarea {
+   resize: none;
+   font-size: 12px;
+   font-family: Arial, Helvetica;
+}
+
 /* menu link behaviour */
 
 a.menu:link {
@@ -82,7 +107,7 @@ a.menu:hover {
 	color: #ffffff;
 }
 
-/* lightbox effect */
+/* Event view */
 
 #fade{
     display: none;
@@ -94,21 +119,48 @@ a.menu:hover {
     background-color: #000;
     z-index:1001;
     -moz-opacity: 0.7;
-    opacity:.70;
+    opacity:.80;
     filter: alpha(opacity=70);
 }
+
 #light{
     display: none;
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 400px;
-    height: 300px;
-    margin-left: -200px;
-    margin-top: -150px;                 
+    width: 550px;
+    height: 400px;
+    margin-left: -275px;
+    margin-top: -200px;                 
     padding: 10px;
-    background: #CCC;
+    background: #fff;
     z-index:1002;
     overflow:visible;
 }
 
+/* Event view */
+
+#hide{
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    z-index:1001;
+    background: url(../img/bg.jpg);
+}
+
+#login{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 230px;
+    height: 250px;
+    margin-left: -115px;
+    margin-top: -175px;                 
+    background: blue;
+    z-index:1002;
+    overflow:visible;
+}

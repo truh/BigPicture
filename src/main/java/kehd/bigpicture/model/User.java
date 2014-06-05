@@ -1,16 +1,7 @@
 package kehd.bigpicture.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
-
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class User {
@@ -19,13 +10,23 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column
+	@Column(unique=true)
 	private String name;
 	
 	@Column
-	@javax.validation.constraints.Size(min=2, max=150)
-	@javax.validation.constraints.Pattern(regexp = "[a-zA-Z_0-9-]")
-	private char[] password;
+	private String password;
+
+    @ManyToMany
+    private Collection<Appointment> appointments;
+
+    @OneToMany(mappedBy = "author")
+    private Collection<Comment> comments;
+
+    @ManyToMany(mappedBy = "users")
+    private Collection<Event> events;
+
+    @OneToMany(mappedBy = "organisator")
+    private Collection<Event> organisedEvents;
 
 	public long getId() {
 		return id;
@@ -43,11 +44,43 @@ public class User {
 		this.name = name;
 	}
 
-	public char[] getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(char[] password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
+
+    public Collection<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(Collection<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
+    public Collection<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Collection<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(Collection<Event> events) {
+        this.events = events;
+    }
+
+    public Collection<Event> getOrganisedEvents() {
+        return organisedEvents;
+    }
+
+    public void setOrganisedEvents(Collection<Event> organisedEvents) {
+        this.organisedEvents = organisedEvents;
+    }
 }

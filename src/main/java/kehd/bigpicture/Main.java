@@ -3,16 +3,18 @@ package kehd.bigpicture;
 import kehd.bigpicture.model.*;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
+/**
+ * The Class Main.
+ */
 public class Main {
 
 	private static final Logger log = Logger.getLogger(Main.class);
@@ -20,23 +22,16 @@ public class Main {
 	static SimpleDateFormat dateForm = new SimpleDateFormat("dd.MM.yyyy");
 	static SimpleDateFormat timeForm = new SimpleDateFormat("dd.MM.yyyy mm:hh");
 
-	private static final SessionFactory sessionFactory;
+    private static final EntityManagerFactory entityManagerFactory;
 
 	static {
-		try {
-			// Create the SessionFactory from hibernate.cfg.xml
-			sessionFactory = new AnnotationConfiguration().configure()
-					.buildSessionFactory();
-		} catch (Throwable ex) {
-			// Make sure you log the exception, as it might be swallowed
-			System.err.println("Initial SessionFactory creation failed." + ex);
-			throw new ExceptionInInitializerError(ex);
-		}
+
+        entityManagerFactory = Persistence.createEntityManagerFactory("BigPicture");
 	}
 
-	public static SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
+    public static EntityManagerFactory getEntityManagerFactory() {
+        return entityManagerFactory;
+    }
 
 	private Main() {
 		super();
@@ -97,8 +92,8 @@ public class Main {
 
 		
 		long[] aids = { 1, 2, 3, 4, 5 };
-		String[] date3 = { "13-02-2014 ", "14-10-2014", "22-09-2014",
-				"02-12-2014", "01-11-2011" };
+		String[] date3 = { "13-02-2014 21:00:11", "14-10-2014 17:20:11", "22-09-2014 05:00:11",
+				"02-12-2014 10:10:10", "01-11-2011 23:023:23" };
 		Date[] ar = new Date[date2.length];
 //		for (int j = 0; j < date2.length; j++) {
 //			ar[j] = sdf.parse(date2[j]);
@@ -106,72 +101,81 @@ public class Main {
 		
 		char[] sd={'s','h'};
 		for (int i = 0; i < 5; i++) {
-			User n = new User();
+			User org = new User();
 			Comment c = new Comment();
-			Organisator org = new Organisator();
 			Notification nf = new Notification();
 			Event e = new Event();
 			Appointment ap = new Appointment();
-			Session session = getSessionFactory().getCurrentSession();
-			Transaction tx = session.beginTransaction();
-			
-			n.setName(name[i]);
-			n.setPassword(pass[i].toCharArray());
-			session.save(n);
-			
-			
+
+            EntityManager manager = getEntityManagerFactory().createEntityManager();
+            manager.getTransaction().begin();
+
+
+			org.setName(name[i]);
+			org.setPassword(pass[i]);
+            manager.persist(org);
+
 			c.setTimestamp(sdf.parse(date[i]));
 			c.setComment(com[i]);
-			c.setUserid(n);
-			session.save(c);
-//			
-			
-//			org.setId(ids3[i]);
-//			org.setPassword(pass[i].toCharArray());
-//	    	org.setPassword(sd);
-//			org.setTermine(ar);
-		
-//			nf.setId(ids4[i]);
-//			nf.setMessage(mes[i]);
-//
-//			e.setId(eids[i]);
-//			e.setTitle(titles[i]);
-//			e.setDescription(title[i]);
-//
-//			ap.setId(aids[i]);
-//			ap.setTimestamp(sdf.parse(date3[i]));
-			
-			
-			
-//			session.save(org);
-			tx.commit();
 
-		}
+			c.setAuthor(org);
+			manager.persist(c);
+			
+			ap.setTimestamp(sdf.parse(date3[i]));
+			
+			e.setTitle(titles[i]);
+			e.setOrganisator(org);
+			Collection<Appointment> a= new ArrayList<>();
+			a.add(ap);
+			e.setAppointments(a);
+			
+			Collection<Event> ee= new ArrayList<>();
+			ee.add(e);
 
-		
-		
-//		
-//		session.save(nf);
-//		session.save(e);
-//		session.save(ap);
-		
-	}
+			ap.setEvent(e);
+
+            manager.persist(e);
+            manager.persist(org);
+            manager.persist(ap);
+				
+			manager.getTransaction().commit();
+        }
+
+	}	
 
 	public static void task02a() throws ParseException {
-		// System.out.println("\n\nQuery 2a:\n-------------");
-		// Session s = sessionFactory.openSession();
-		//
-		// Query nq = s.getNamedQuery("ReservierungByMail");
-		//
-		// nq.setString("eMail", "Aiden@Smith.com");
-		//
-		// @SuppressWarnings("unchecked")
-		// List<Reservierung> l = nq.list();
-		//
-		// System.out.println();
-		// for(int i=0; i<l.size(); i++) {
-		// System.out.println("Reservierung "+(i+1)+": ID:"+l.get(i).getID()+", Preis:"+l.get(i).getPreis()+", Benutzer-Mail:"+l.get(i).getBenutzer().geteMail());
-		// }
+		EntityManager manager = getEntityManagerFactory().createEntityManager();
+		System.out.println("HALLOOOOO");
+
+		manager.getTransaction().begin();
+        Query query = manager.createNativeQuery("SELECT * FROM User");
+
+		//session.getTransaction().commit();
+		List result = query.getResultList();
+		Iterator iterator = result.iterator();
+		
+		while(iterator.hasNext()){
+			Object[] row = (Object[])iterator.next();
+			for(int col=0;col<row.length;col++){
+				System.out.println(row[col]);
+			}
+		}
+
+		Query query2= manager.createNativeQuery(
+                "SELECT timestamp,comment " +
+                        "FROM Comment c " +
+                        "INNER JOIN User u on u.id=c.id " +
+                        "WHERE u.name = :vname ").setParameter("vname", "Jerome");
+
+		List result2= query2.getResultList();
+		Iterator iterator1 = result2.iterator();
+		
+		while(iterator1.hasNext()){
+			Object[] row = (Object[])iterator1.next();
+			for(int col=0;col<row.length;col++){
+				System.out.println(row[col]);
+			}
+		}
 	}
 
 	public static void task02b() throws ParseException {
@@ -192,5 +196,4 @@ public class Main {
 	public static void task02c() throws ParseException {
 		System.out.println("\n\nQuery 2c:\n-------------");
 	}
-
 }

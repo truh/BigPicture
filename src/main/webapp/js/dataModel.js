@@ -27,9 +27,8 @@ function getUsername(){
 }
 function getPassword(){
 	var password=$("#password-fl").val();
-	return password;
+	return password; 
 }
-
 
 /* Event
 ------------------------------------------------------------------------------*/

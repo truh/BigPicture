@@ -1,15 +1,7 @@
 package kehd.bigpicture.model;
 
+import javax.persistence.*;
 import java.util.Collection;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity //Gibt an, dass diese Klasse als Tabelle in die DB gespeichert werden soll
 public class Event {
@@ -20,20 +12,27 @@ public class Event {
 	
 	@Column //ueber @Column koennen Eigenschaften der Spalte angegeben werden wie z.B. der Name, ob sie unique ist oder ob sie den Wert null haben darf
 	private String title;
-		
-	@ManyToOne //Es können mehrere Events von einem Organisator erstellt werden.
-	private Organisator organisator;
+
+    @Enumerated(value = EnumType.STRING)
+    private EventType type;
+
+    @Column
+    private String description;
+
+    @ManyToOne //Es koennen mehrere Events von einem Organisator erstellt werden.
+	private User organisator;
+
+    @OneToMany(mappedBy = "event")
+    private Collection<Notification> notifications;
 	
-	@OneToMany //(mappedBy="Appointment")
+	@OneToMany(mappedBy = "event")
 	private Collection<Appointment> appointments;
 
-	public long getId() {
-		return id;
-	}
+    @OneToMany(mappedBy = "event")
+    private Collection<Comment> comments;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    @ManyToMany(mappedBy = "events")
+    private Collection<User> users;
 
 	public String getTitle() {
 		return title;
@@ -43,11 +42,67 @@ public class Event {
 		this.title = title;
 	}
 
-	public Organisator getOrganisator() {
+	public User getOrganisator() {
 		return organisator;
 	}
 
-	public void setOrganisator(Organisator organisator) {
+	public void setOrganisator(User organisator) {
 		this.organisator = organisator;
 	}
+
+	public Collection<Appointment> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(Collection<Appointment> appointments) {
+		this.appointments = appointments;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+    public Collection<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public EventType getType() {
+        return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Collection<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(Collection<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public Collection<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Collection<User> users) {
+        this.users = users;
+    }
 }
