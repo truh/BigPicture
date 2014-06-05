@@ -65,6 +65,7 @@ public class ReplyInvitation implements Command {
                 .getSingleResult();
 
         if(event == null) {
+            manager.getTransaction().rollback();
             throw new NoSuchElement("Event");
         }
 
@@ -78,6 +79,7 @@ public class ReplyInvitation implements Command {
         }
         // ueberpruefen ob appointment existiert
         if(appointment == null) {
+            manager.getTransaction().rollback();
             throw new NoSuchElement("Appointment");
         }
 
@@ -97,6 +99,7 @@ public class ReplyInvitation implements Command {
             }
         }
         if(!userInEvent) {
+            manager.getTransaction().rollback();
             throw new NoSuchElement("userInEvent");
         }
 

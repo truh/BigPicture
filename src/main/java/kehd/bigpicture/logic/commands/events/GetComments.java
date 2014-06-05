@@ -34,7 +34,9 @@ public class GetComments implements Command {
         Event event = manager.createQuery(
                 "SELECT DISTINCT Event " +
                         "FROM Event " +
-                        "WHERE Event.title = :eventName", Event.class).getSingleResult();
+                        "WHERE Event.title = :eventName", Event.class)
+                .setParameter("eventName", eventName)
+                .getSingleResult();
 
         if(event == null) {
             throw new NoSuchElement("Event");
@@ -44,7 +46,8 @@ public class GetComments implements Command {
                 "SELECT Comment " +
                         "FROM Comment " +
                         "WHERE Comment.event = :event ", Comment.class)
-                .setParameter("event", event).getResultList();
+                .setParameter("event", event)
+                .getResultList();
 
         JsonArrayNodeBuilder arrayNodeBuilder = anArrayBuilder();
         for(Comment comment: comments) {

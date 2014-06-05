@@ -52,6 +52,7 @@ public class RemoveUserFromEvent implements Command {
                 .getSingleResult();
 
         if(!event.getOrganisator().getName().equals(username)) {
+            manager.getTransaction().rollback();
             throw new NotAuthorized("RemoveUserFromEvent");
         }
 
@@ -63,6 +64,7 @@ public class RemoveUserFromEvent implements Command {
             }
         }
         if(targetUserObj == null) {
+            manager.getTransaction().rollback();
             throw new NoSuchElement("userInEvent");
         }
 
@@ -88,6 +90,8 @@ public class RemoveUserFromEvent implements Command {
         notification.setTimestamp(new Date());
         notification.setType(NotificationType.DEL_INVITATION);
         manager.persist(notification);
+
+        manager.getTransaction().commit();
 
         return aStringBuilder("Okay!");
     }

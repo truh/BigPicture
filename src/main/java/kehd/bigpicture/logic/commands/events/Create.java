@@ -4,10 +4,12 @@ import argo.jdom.JsonNodeBuilder;
 import kehd.bigpicture.exceptions.FieldMissing;
 import kehd.bigpicture.exceptions.NotAuthentificated;
 import kehd.bigpicture.exceptions.NotAuthorized;
+import kehd.bigpicture.exceptions.UserDoesNotExist;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.Event;
 import kehd.bigpicture.model.EventType;
 import kehd.bigpicture.model.User;
+import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,6 +18,7 @@ import java.util.Map;
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
 
 public class Create implements Command {
+    private static final Logger log = Logger.getLogger(Create.class);
     private EntityManagerFactory entityManagerFactory;
 
     public Create(EntityManagerFactory entityManagerFactory) {
@@ -24,7 +27,7 @@ public class Create implements Command {
 
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
-            throws FieldMissing, NotAuthentificated, NotAuthorized {
+            throws FieldMissing, NotAuthentificated, NotAuthorized, UserDoesNotExist {
         if(username == null) {
             throw new NotAuthorized("Create");
         }
@@ -55,6 +58,8 @@ public class Create implements Command {
             event.setType(EventType.MULTI);
         }
 
+        manager.getTransaction().begin();
+
         User organisator = manager.createQuery(
                 "SELECT DISTINCT User " +
                         "FROM User " +
@@ -63,7 +68,16 @@ public class Create implements Command {
                 .setParameter("userName", username)
                 .getSingleResult();
 
+        if(organisator == null) {
+            manager.getTransaction().rollback();
+            log.error("User fehlt, sollte aber wirklich nicht fehlen.");
+            throw new UserDoesNotExist();
+        }
+
         event.setOrganisator(organisator);
+
+        manager.persist(event);
+        manager.getTransaction().commit();
 
         return aStringBuilder("Okay!");
     }
