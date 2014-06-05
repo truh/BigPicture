@@ -1,4 +1,4 @@
-package kehd.bigpicture.logic.commands.events.getevents;
+package kehd.bigpicture.test.logic.commands.events;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

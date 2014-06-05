@@ -1,4 +1,4 @@
-package kehd.bigpicture.logic.commands.events.replyinvitation;
+package kehd.bigpicture.test.logic.commands.events;
 
 import java.util.HashMap;
 import java.util.Map;

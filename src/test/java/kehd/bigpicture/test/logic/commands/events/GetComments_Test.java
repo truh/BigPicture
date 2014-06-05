@@ -1,4 +1,4 @@
-package kehd.bigpicture.logic.commands.events.getcomments;
+package kehd.bigpicture.test.logic.commands.events;
 import java.util.Map;
 
 import javax.persistence.EntityManagerFactory;

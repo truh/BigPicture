@@ -1,39 +1,27 @@
-package kehd.bigpicture.logic.commands.events.invite;
+package kehd.bigpicture.test.logic.commands.events;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.TypedQuery;
-
+import argo.jdom.JsonNode;
+import argo.jdom.JsonNodeBuilder;
 import kehd.bigpicture.exceptions.DateInvalid;
 import kehd.bigpicture.exceptions.NoSuchElement;
 import kehd.bigpicture.exceptions.NotAuthentificated;
 import kehd.bigpicture.exceptions.NotAuthorized;
 import kehd.bigpicture.logic.commands.Command;
-import kehd.bigpicture.logic.commands.events.*;
+import kehd.bigpicture.logic.commands.events.Invite;
 import kehd.bigpicture.logic.commands.notifications.GetNotifications;
 import kehd.bigpicture.mock.EntityManagerAdapter;
 import kehd.bigpicture.model.Event;
-import kehd.bigpicture.model.Notification;
-import kehd.bigpicture.model.NotificationType;
 import kehd.bigpicture.model.User;
-import kehd.bigpicture.test.logic.commands.events.AddComment_Test;
+import org.apache.log4j.Logger;
+import org.junit.Test;
+
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
+import java.util.*;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
-
-import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import argo.jdom.JsonNode;
-import argo.jdom.JsonNodeBuilder;
 
 public class Invite_Test {
 

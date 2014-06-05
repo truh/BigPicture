@@ -1,4 +1,4 @@
-package kehd.bigpicture.logic.commands.events.getvotes;
+package kehd.bigpicture.test.logic.commands.events;
 
 
 import argo.jdom.JsonNode;
