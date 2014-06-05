@@ -1,4 +1,4 @@
-package kehd.bigpicture.logic.commands.events;
+package kehd.bigpicture.logic.commands.appointment;
 
 import argo.jdom.JsonArrayNodeBuilder;
 import argo.jdom.JsonNodeBuilder;

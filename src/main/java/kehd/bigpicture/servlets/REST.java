@@ -4,6 +4,7 @@ import kehd.bigpicture.Main;
 import kehd.bigpicture.exceptions.NotAuthentificated;
 import kehd.bigpicture.logic.Authentificator;
 import kehd.bigpicture.logic.Executor;
+import kehd.bigpicture.logic.commands.appointment.GetAppointments;
 import kehd.bigpicture.logic.commands.events.*;
 import kehd.bigpicture.logic.commands.notifications.DeleteNotification;
 import kehd.bigpicture.logic.commands.notifications.GetNotifications;
@@ -48,7 +49,7 @@ import java.util.Map;
 //
 // // -- exceptions --
 //         AppointmentContainsUser
-//         UserAlreadyAccepted
+//         UserAlreadyAcceptedAppointment
 //
 // // -- sonstiges --
 //         NotificationType.APPOINTMENT_FIXED

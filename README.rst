@@ -181,9 +181,25 @@ Entscheidung ist auf diese Technik gefallen da sie besonders einfach zu
 implementieren ist und denoch eine wohl strukturierte Kommunikation 
 ermöglicht.
 
---------------
-Authentication
---------------
+------------
+Appointments
+------------
+
+==================== ==================== =====================================
+ Method               Params               Response
+==================== ==================== =====================================
+addAppointment
+                     - timestamp
+                     - eventName
+getAppointments
+                                          - error:
+
+                                            * ""
+                                            * "NotAuthentificated"
+removeAppointment
+                     - timestamp
+                     - eventName
+==================== ==================== =====================================
 
 ------
 Events
@@ -205,11 +221,6 @@ create
                                             * ""
                                             * "Empty eventName."
                                             * "No such eventType."
-getAppointments
-                                          - error:
-
-                                            * ""
-                                            * "NotAuthentificated"
 getComments
                      - eventName          - error
 
@@ -234,6 +245,12 @@ invite
                                             * "Not authorized to invite users
                                               to this event."
                                             * "Date has to be in the future."
+removeUserFromEvent
+                     - eventName          - error
+                     - userName
+                                            * ""
+                                            * "UserDoesNotExist"
+                                            * "NoSuchElement"
 replyInvitation
                      - eventName          - error:
                      - accept
@@ -267,6 +284,8 @@ User
 ==================== ==================== =====================================
  Method               Params               Response
 ==================== ==================== =====================================
+findUser
+                     - userPattern
 register
                      - username           - error:
                      - password                  
@@ -539,11 +558,11 @@ Zeitaufzeichnung
 +-------------------------------+---------------+-------------------+---------+---------+----------+
 | TODO                          | 2014-06-04    | Jakob Klepp       |  23:40  |  23:50  |     0:10 |
 +-------------------------------+---------------+-------------------+---------+---------+----------+
-|                               | 2014-06-05    | Jakob Klepp       |  00:00  |  23:50  |     0:10 |
+|                               | 2014-06-05    | Jakob Klepp       |  08:15  |  08:55  |     0:40 |
 +-------------------------------+---------------+-------------------+---------+---------+----------+
 
 +-------------------+------------+
-| Jakob Klepp       |      39:50 |
+| Jakob Klepp       |      40:30 |
 +-------------------+------------+
 | Martin Haidn      |      31:25 |
 +-------------------+------------+
@@ -551,7 +570,7 @@ Zeitaufzeichnung
 +-------------------+------------+
 | Mathias El-Far    |      06:10 |
 +-------------------+------------+
-| **Sum:**          | **104:30** |
+| **Sum:**          | **105:10** |
 +-------------------+------------+
 
 =======

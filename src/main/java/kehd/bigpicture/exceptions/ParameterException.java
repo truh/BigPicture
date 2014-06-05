@@ -15,6 +15,8 @@ public abstract class ParameterException extends Exception {
     public static final int NOT_AUTHENTIFICATED_ERROR_ID = 8;
     public static final int NO_SUCH_METHOD_ERROR_ID = 9;
     public static final int NOT_A_NUMBER_ERROR_ID = 10;
+    public static final int APPOINTMENT_CONTAINS_USER_ERROR_ID = 11;
+    public static final int USER_ALREADY_ACCEPTED_APPOINTMENT_ERROR_ID = 12;
 
     private int errorId;
 

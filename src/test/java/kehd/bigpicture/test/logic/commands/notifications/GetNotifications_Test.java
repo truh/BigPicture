@@ -2,6 +2,7 @@ package kehd.bigpicture.test.logic.commands.notifications;
 
 import argo.jdom.JsonNode;
 import argo.jdom.JsonNodeBuilder;
+import kehd.bigpicture.exceptions.NotAuthentificated;
 import kehd.bigpicture.logic.commands.notifications.GetNotifications;
 import kehd.bigpicture.mock.EntityManagerAdapter;
 import kehd.bigpicture.model.Event;
@@ -23,7 +24,7 @@ import static org.mockito.Mockito.mock;
 
 public class GetNotifications_Test {
 	@Test
-	public void execution() {
+	public void execution() throws NotAuthentificated {
 		EntityManagerFactory emf = mock(EntityManagerFactory.class);
 		doReturn(new EntityManagerAdapter() {
 			@Override
