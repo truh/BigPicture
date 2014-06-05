@@ -151,6 +151,7 @@ public abstract class EntityManagerAdapter implements EntityManager {
     public <T> TypedQuery<T> createQuery(String qlString, Class<T> resultClass) {
         return null;
     }
+    
 
     @Override
     public Query createNamedQuery(String name) {
