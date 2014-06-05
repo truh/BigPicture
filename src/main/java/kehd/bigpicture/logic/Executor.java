@@ -58,7 +58,7 @@ public class Executor {
 
         log.info("execute: " + commandName);
 
-        log.info("username" + username);
+        log.info("username: " + username);
 
         if(params != null) {
             StringBuilder sb = new StringBuilder();

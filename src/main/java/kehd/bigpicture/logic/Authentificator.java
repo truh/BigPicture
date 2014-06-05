@@ -2,6 +2,7 @@ package kehd.bigpicture.logic;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import kehd.bigpicture.exceptions.NotAuthentificated;
+import kehd.bigpicture.exceptions.UnableToLogin;
 import kehd.bigpicture.model.User;
 import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
@@ -26,7 +27,8 @@ public class Authentificator {
      * @param basicAuthorisationString
      * @return Username
      */
-    public String authentificate(String basicAuthorisationString) throws NotAuthentificated {
+    public String authentificate(String basicAuthorisationString)
+            throws UnableToLogin {
         log.info(basicAuthorisationString);
         try {
             String auth = new String(
@@ -53,13 +55,18 @@ public class Authentificator {
 
             boolean valid = BCrypt.checkpw(password, user.getPassword());
 
+            log.info("username: " + username);
+
             if(!valid) {
                 throw new NotAuthentificated();
             }
 
+            log.info("username: " + username);
+
             return valid?username:null;
         } catch (Throwable t) {
-            throw new NotAuthentificated(t);
+            log.info("UnableToLogin", t);
+            throw new UnableToLogin(t);
         }
     }
 }

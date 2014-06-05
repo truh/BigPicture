@@ -1,6 +1,7 @@
 package kehd.bigpicture.test.logic;
 
 import kehd.bigpicture.exceptions.NotAuthentificated;
+import kehd.bigpicture.exceptions.UnableToLogin;
 import kehd.bigpicture.logic.Authentificator;
 import kehd.bigpicture.mock.EntityManagerAdapter;
 import kehd.bigpicture.mock.TypedQueryAdapter;
@@ -27,7 +28,7 @@ public class Authentificator_Test {
 
     TypedQueryAdapter query;
 	@Test
-	public void test() throws NotAuthentificated {
+	public void test() throws UnableToLogin {
         query = mock(TypedQueryAdapter.class);
         doReturn(user0).when(query).getSingleResult();
         doReturn(query).when(query).setParameter("userName", "user0");
@@ -79,7 +80,7 @@ public class Authentificator_Test {
         boolean exceptionThrown =false;
         try {
             String username = ar.authentificate(base64);
-        } catch (NotAuthentificated na) {
+        } catch (UnableToLogin na) {
             exceptionThrown = true;
         }
 
