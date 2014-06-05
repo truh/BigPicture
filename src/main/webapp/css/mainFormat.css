@@ -12,8 +12,8 @@ body {
 #wrapper {
 	width: 60%;
 	background: #ffffff;
-	margin: auto;
-	-webkit-box-shadow: 0px 0px 15px 5px rgba(173, 205, 255, .75);
+	margin: 40px auto;
+	-webkit-px; shadow: 0px 0px 15px 5px rgba(173, 205, 255, .75);
 	-moz-box-shadow: 0px 0px 15px 5px rgba(173, 205, 255, .75);
 	box-shadow: 0px 0px 15px 5px rgba(173, 205, 255, .75);
 }
@@ -43,20 +43,20 @@ body {
 }
 
 #content-left {
+	width: 70%;
+	display: inline-block;
 
 }
 
 #calendar {
-	position: boxed;
+	position: relative;
 	padding: 5px;
-	width: 70%;
 }
 
 #apointments {
-	position: boxed;
 	border: 1px  solid grey;
 	height: 20%;
-
+	margin: 5px;
 	font-family: Arial, Verdana;
 	text-align: left;
 
@@ -64,8 +64,14 @@ body {
 }
 
 #content-right {
-	position: relative;
+	width: 28%;
 	float: right;
+	display: inherit;
+
+}
+
+#notifies {
+	text-align: left;
 }
 
 /* Event-Frame */
@@ -74,12 +80,20 @@ body {
 	background: #368EB2;
 	color: #ffffff;
 	font-size: 18px;
-	padding: 5px;
+	padding-left: 5px;
 	font-weight: bold;
 }
 
 #e-content {
 	margin-top: 10px;
+}
+
+#e-left {
+	float: left;
+}
+
+#e-right {
+	padding-left-left: 40px;
 }
 
 textarea {

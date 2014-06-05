@@ -55,9 +55,19 @@ $(document).ready(function() {
 
 		events: [
 			{
-				title: 'test',
-				start: "2014-06-07T13:30:00.000Z"
-			}
+				title: 'BigPicture',
+				start: "2014-06-06T09:40:00.000Z"
+			},
+
+			{
+				title: 'Notenschluss',
+				start: "2014-06-13T17:00:00.000Z"
+			},
+
+			{
+				title: 'Zeugnis',
+				start: "2014-06-26T08:00:00.000Z"
+			},
 		]
 
 	});
