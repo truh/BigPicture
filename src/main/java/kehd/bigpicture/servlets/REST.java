@@ -1,7 +1,7 @@
 package kehd.bigpicture.servlets;
 
 import kehd.bigpicture.Main;
-import kehd.bigpicture.exceptions.NotAuthentificated;
+import kehd.bigpicture.exceptions.UnableToLogin;
 import kehd.bigpicture.logic.Authentificator;
 import kehd.bigpicture.logic.Executor;
 import kehd.bigpicture.logic.commands.appointment.AddAppointment;
@@ -120,14 +120,16 @@ public class REST extends HttpServlet {
 
             String username = null;
 
-            Enumeration<String> enumeration;
-            enumeration = request.getHeaders("Authorization");
-            if(enumeration.hasMoreElements()) {
-                String authString = enumeration.nextElement();
-                try {
-                    username = authentificator.authentificate(authString);
-                } catch (NotAuthentificated notAuthentificated) {
-                    log.debug("Not authentificated user.");
+            if(methodName.equals("register")) {
+                Enumeration<String> enumeration;
+                enumeration = request.getHeaders("Authorization");
+                if(enumeration.hasMoreElements()) {
+                    String authString = enumeration.nextElement();
+                    try {
+                        username = authentificator.authentificate(authString);
+                    } catch (UnableToLogin unableToLogin) {
+                        log.debug("Not authentificated user.");
+                    }
                 }
             }
 
