@@ -1,5 +1,6 @@
 package kehd.bigpicture.logic.commands.events.getvotes;
 
+
 import argo.jdom.JsonNode;
 import argo.jdom.JsonNodeBuilder;
 import kehd.bigpicture.exceptions.FieldMissing;
@@ -35,10 +36,11 @@ public class GetVotes_Test {
                         return event0;
                     }
                 };
-
 				return query;
+
 			}
 		}).when(emf).createEntityManager();
+
 		
 		GetVotes hv = new GetVotes(emf);
 
@@ -55,6 +57,5 @@ public class GetVotes_Test {
 		assertSame("Laenge sollte wie gegeben sein.", 1, nodes.size());
 
 		assertEquals("Nachricht sollte wie gegeben sein.", "user1", nodes.get(0).getStringValue("username"));
-
 	}
 }
