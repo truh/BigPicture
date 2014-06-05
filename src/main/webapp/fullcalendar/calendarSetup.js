@@ -64,33 +64,6 @@ $(document).ready(function() {
 		
 });
 
-
-/* Adding a new event to the calendar
- *
- * Martin Haidn
- * 28.05.2014
-*/
-
-function addEvent() {
-
-	//Reading eventdetails from user form
-	var title= $('#title').val();
-	var start= toDateString($('#datetimepicker').val());
-
-	if (title) {
-		$('#calendar').fullCalendar('renderEvent', {
-			title: title,
-			start: start,
-			end: start,
-			allDay: false
-		});
-		lightbox_close();
-	} else {
-		alert("Please selcet a title!");
-	}
-
-}
-
 /* BigPicture - DataModel
  * Martin Haidn
  * 2014-05-28
@@ -103,7 +76,7 @@ window.onload = function() {
 };
 
 function authorize() {
-	if (loginRequired() == true) {
+	if (loginRequired()) {
 		show_login();
 	}
 }
@@ -115,14 +88,14 @@ function login() {
 	user.name= $('#u-name').val();
 	user.passwd= $('#u-passwd').val();
 
-	if (user.name == '' || user.passwd == '') {
-		alert('Uups, please try agan!');
+	if (validLoginData()) {
+		//Writing the user data for this session into cookie
+		document.cookie="username=" + user.name;
+		document.cookie="passwd=" + user.passwd;
+		hide_login();
+		flushLogin();
 	} else {
-		//Funtion to check user data
-	hide_login();
-	flushLogin();
-	document.cookie="username=" + user.name;
-	document.cookie="passwd=" + user.passwd;
+		alert('User and password, maybe? (;');
 	}
 }
 
@@ -133,10 +106,20 @@ function logout() {
 
 }
 
+function createUser() {
+	
+	if (validLoginData()) {
+		var dataString= "&username=" + $('#u-name').val() + "&password=" + $('#u-passwd').val();
+		getData('register', dataString);
+	} else {
+		alert('User and password, maybe? (;');
+	}
+}
+
 //Checks if the user is logged in
 function loginRequired() {
 	var data= document.cookie.split(';');
-	if (data == '') {
+	if (data == '' || data[0].substr(data[0].search('=')+1, data[0].length) == '') {
 		return true;
 	} else {
 		user.name= data[0].substr(data[0].search('=')+1, data[0].length);
@@ -146,6 +129,10 @@ function loginRequired() {
 
 }
 
+function validLoginData() {
+	if ($('#u-name').val() == '' || $('#u-passwd').val() == '') return false;
+	return true;
+}
 /* Session
 ------------------------------------------------------------------------------*/
 var session;
@@ -188,32 +175,32 @@ var events;
  * participants[]: users who are invited to participate
 */
 
-//Loading Events from Server
-function loadEvents() {
-	jQuery.ajax({
-         type: "POST",
-         //Serveradresse später dynamisch!--------------------------------!
-         url: "./rest?method=getEvents",
-         contentType: "application/json; charset=utf-8",
-         dataType: "json",
 
-         beforeSend: function(xhr) {
-         	xhr.setRequestHeader('Authorization', 'Basic ZWx1c3Vhcm1vOn1sYWNsYXZ1');
-         },
+/* Adding a new event to the calendar
+ *
+ * Martin Haidn
+ * 28.05.2014
+*/
 
-         success: function (data, status, jqXHR) {
-              alert(JSON.stringify(data));
-         },
+function addEvent() {
 
-         error: function (jqXHR, status) {
-              alert('Unable to load Events!\nStatus: ' + status);
-              alert(JSON.stringify(jqXHR));
-         },
+	//Reading eventdetails from user form
+	var title= $('#title').val();
+	var start= toDateString($('#datetimepicker').val());
 
-         timeout: 12000
-     });
+	if (title) {
+		$('#calendar').fullCalendar('renderEvent', {
+			title: title,
+			start: start,
+			end: start,
+			allDay: false
+		});
+		lightbox_close();
+	} else {
+		alert("Please selcet a title!");
+	}
+
 }
-
 
 //Adds a new Event to the Calendar
 function addEvent() {
@@ -285,14 +272,14 @@ function toDateString(pickerTime) {
 
  /* Connection
 ------------------------------------------------------------------------------*/
-function getData(method) {
+function getData(method, data) {
 
 	var baseString= "Basic " + btoa(user.name + ':' + user.passwd);
 
 	jQuery.ajax({
          type: "POST",
          //Serveradresse später dynamisch!--------------------------------!
-         url: "./rest?method=" + method,
+         url: "./rest?method=" + method + data,
          contentType: "application/json; charset=utf-8",
          dataType: "json",
 
@@ -301,12 +288,13 @@ function getData(method) {
          },
 
          success: function (data, status, jqXHR) {
-              alert(JSON.stringify("Success: " + data.error.message));
+              alert("Success: " + JSON.stringify(data));
+              alert(JSON.stringify(jqXHR));
          },
 
          error: function (jqXHR, status) {
-              alert('Unable to load data!\nStatus: ' + status.error.message);
-              alert(JSON.stringify(jqXHR.error.message));
+              alert('Unable to load data!\nStatus: ' + status);
+              alert("ErrorResponse: " + JSON.stringify(jqXHR));
          },
 
          timeout: 12000
