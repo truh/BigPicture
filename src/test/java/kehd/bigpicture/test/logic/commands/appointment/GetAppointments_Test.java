@@ -1,6 +1,7 @@
 package kehd.bigpicture.test.logic.commands.appointment;
 
 import argo.jdom.JsonNode;
+import kehd.bigpicture.exceptions.NoSuchElement;
 import kehd.bigpicture.exceptions.NotAuthentificated;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.logic.commands.appointment.GetAppointments;
@@ -45,7 +46,7 @@ public class GetAppointments_Test {
     }
 
     @Test
-    public void test() throws NotAuthentificated {
+    public void test() throws NotAuthentificated, NoSuchElement {
         GetAppointments getAppointments = new GetAppointments(emf);
         JsonNode node = getAppointments.execute(user0.getName(), new HashMap<String, String>()).build();
 
