@@ -27,12 +27,14 @@ public class Authentificator {
      * @return Username
      */
     public String authentificate(String basicAuthorisationString) throws NotAuthentificated {
+        log.info(basicAuthorisationString);
         try {
             String auth = new String(
                     Base64.getDecoder().decode(
                             basicAuthorisationString.split(" ")[1].getBytes()
                     )
             );
+            log.info(auth);
 
             String[] auths = auth.split(":");
             String username = auths[0];
