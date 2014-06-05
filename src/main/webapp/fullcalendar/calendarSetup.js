@@ -184,7 +184,11 @@ var events;
  * appointments[]: times where the event can take place (!requred, at least one)
  * participants[]: users who are invited to participate
 */
-
+/* Emptying the Textfields and set it to the default value
+ *
+ * Matthias EL-Far
+ * 05.06.2014
+*/
 
 /* Adding a new event to the calendar
  *
@@ -209,7 +213,6 @@ function addEvent() {
 	} else {
 		alert("Please selcet a title!");
 	}
-
 }
 
 //Adds a new Event to the Calendar
