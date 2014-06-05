@@ -282,7 +282,7 @@ function toDateString(pickerTime) {
 
  /* Connection
 ------------------------------------------------------------------------------*/
-function getData(method, data) {
+function getData(method, data="") {
 
 	var baseString= "Basic " + btoa(user.name + ':' + user.passwd);
 
@@ -298,12 +298,12 @@ function getData(method, data) {
          },
 
          success: function (data, status, jqXHR) {
-              alert("Success: " + JSON.stringify(data));
-              alert(JSON.stringify(jqXHR));
+              alert('Success!');
          },
 
          error: function (jqXHR, status) {
               alert(errorMessage[method]);
+              alert(JSON.stringify(jqrXHR));
          },
 
          timeout: 12000
