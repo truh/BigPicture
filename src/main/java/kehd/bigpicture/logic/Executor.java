@@ -55,7 +55,25 @@ public class Executor {
      * @return Rueckgabe des Commands
      */
 	public String execute(String commandName, String username, Map<String, String> params) {
-        log.info("execute: " + commandName + " params: " + params.toString());
+
+        log.info("execute: " + commandName);
+
+        log.info("username" + username);
+
+        if(params != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("params");
+            for(Map.Entry<String, String> entry: params.entrySet()) {
+                sb.append("\n\t")
+                  .append(entry.getKey())
+                  .append(" : ")
+                  .append(entry.getValue());
+            }
+            log.info(sb.toString());
+        }
+        else {
+            log.info("params == null");
+        }
 
         Command command = commandMapping.get(commandName);
 
