@@ -1,5 +1,6 @@
 package kehd.bigpicture.logic;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import kehd.bigpicture.exceptions.NotAuthentificated;
 import kehd.bigpicture.model.User;
 import org.apache.log4j.Logger;
@@ -8,7 +9,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
-import java.util.Base64;
 
 /**
  * Created by jakob on 6/3/14.
@@ -30,8 +30,8 @@ public class Authentificator {
         log.info(basicAuthorisationString);
         try {
             String auth = new String(
-                    Base64.getDecoder().decode(
-                            basicAuthorisationString.split(" ")[1].getBytes()
+                    Base64.decode(
+                            basicAuthorisationString.split(" ")[1]
                     )
             );
             log.info(auth);

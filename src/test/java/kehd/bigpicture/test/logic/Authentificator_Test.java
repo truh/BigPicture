@@ -4,6 +4,7 @@ import kehd.bigpicture.exceptions.NotAuthentificated;
 import kehd.bigpicture.logic.Authentificator;
 import kehd.bigpicture.mock.EntityManagerAdapter;
 import kehd.bigpicture.mock.TypedQueryAdapter;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
@@ -73,7 +74,7 @@ public class Authentificator_Test {
 
         String userPass =  user0.getName() + ":" + password0;
 
-        String base64 = "Basic " + new String(java.util.Base64.getEncoder().encode(userPass.getBytes()));
+        String base64 = "Basic " + new String(Base64.encodeBase64(userPass.getBytes()));
 
         boolean exceptionThrown =false;
         try {
