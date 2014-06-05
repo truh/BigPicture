@@ -49,9 +49,9 @@ public class Register implements Command {
         boolean userExists = true;
 
         User user2 = manager.createQuery(
-            "SELECT DISTINCT User " +
-                    "FROM User " +
-                    "WHERE User.name = :userName", User.class)
+            "SELECT DISTINCT u " +
+                    "FROM User u " +
+                    "WHERE u.name = :userName", User.class)
             .setParameter("userName", username)
             .getSingleResult();
 
