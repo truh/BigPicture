@@ -84,7 +84,9 @@ public class GetVotes_Test {
 			}
 		}).when(emf).createEntityManager();
 
+		
 		GetVotes hv = new GetVotes(emf);
+
 		
 		JsonNodeBuilder nodeBuilder = hv.execute("johnDoe",
 				new HashMap<String, String>(){{

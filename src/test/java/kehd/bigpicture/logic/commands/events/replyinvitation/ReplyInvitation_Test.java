@@ -4,6 +4,10 @@ import java.util.Map;
 
 import javax.persistence.EntityManagerFactory;
 
+import kehd.bigpicture.exceptions.DateInvalid;
+import kehd.bigpicture.exceptions.FieldMissing;
+import kehd.bigpicture.exceptions.NoSuchElement;
+import kehd.bigpicture.exceptions.NotAuthentificated;
 import kehd.bigpicture.logic.commands.events.*;
 import kehd.bigpicture.test.logic.commands.events.AddComment_Test;
 import static org.junit.Assert.*;
@@ -23,7 +27,7 @@ public class ReplyInvitation_Test {
 
 	
 	@Test
-	public void test() {
+	public void test() throws NotAuthentificated, FieldMissing, DateInvalid, NoSuchElement {
 		ReplyInvitation kk = new ReplyInvitation(entityManagerFactory);
 		JsonNodeBuilder aa=kk.execute("username", new HashMap<String, String>(){{
             put("param", "test");

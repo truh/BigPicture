@@ -63,6 +63,12 @@ body {
 	float: right;
 }
 
+textarea {
+   resize: none;
+   font-size: 12px;
+   font-family: Arial, Helvetica;
+}
+
 /* menu link behaviour */
 
 a.menu:link {
@@ -94,7 +100,7 @@ a.menu:hover {
     background-color: #000;
     z-index:1001;
     -moz-opacity: 0.7;
-    opacity:.70;
+    opacity:.80;
     filter: alpha(opacity=70);
 }
 #light{
@@ -102,12 +108,12 @@ a.menu:hover {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 400px;
-    height: 300px;
-    margin-left: -200px;
-    margin-top: -150px;                 
+    width: 550px;
+    height: 400px;
+    margin-left: -275px;
+    margin-top: -200px;                 
     padding: 10px;
-    background: #CCC;
+    background: #fff;
     z-index:1002;
     overflow:visible;
 }

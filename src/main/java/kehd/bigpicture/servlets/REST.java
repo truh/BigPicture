@@ -4,9 +4,13 @@ import kehd.bigpicture.Main;
 import kehd.bigpicture.exceptions.NotAuthentificated;
 import kehd.bigpicture.logic.Authentificator;
 import kehd.bigpicture.logic.Executor;
+import kehd.bigpicture.logic.commands.appointment.AddAppointment;
+import kehd.bigpicture.logic.commands.appointment.GetAppointments;
+import kehd.bigpicture.logic.commands.appointment.RemoveAppointment;
 import kehd.bigpicture.logic.commands.events.*;
 import kehd.bigpicture.logic.commands.notifications.DeleteNotification;
 import kehd.bigpicture.logic.commands.notifications.GetNotifications;
+import kehd.bigpicture.logic.commands.user.FindUser;
 import kehd.bigpicture.logic.commands.user.Register;
 import org.apache.log4j.Logger;
 
@@ -20,6 +24,38 @@ import java.io.PrintWriter;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+
+// TODO Uebersicht was auf Server Seite noch zu tun ist
+// // Benutzer
+//         * Man kann nach registrierten Benutzern im System suchen (über ihren Namen).
+//
+// // Organisator
+//         * darf den Namen, die Termine und Zeiten eines Events ändern,
+//           aber nur bevor sich einer der Benutzer zu dem Event angemeldet hat
+//         * darf eingeladene Benutzer wieder löschen, bevor sich diese zu dem Event angemeldet haben
+//         * darf die Events jederzeit löschen
+//         * [Organisator] darf zu seinen Events Kommentare posten
+//         * darf Kommentare zu seinen Events löschen (auch die von anderen Benutzern)
+//
+// // Teilnehmer
+//         * darf seine Wahl ändern, bis ein fixer Termin existiert
+//
+// // Notifications
+//         * Ein Teilnehmer wird über jede neue/editierte/gelöschte Eventeinladung notifiziert.
+//         * Weiters wird ein Teilnehmer notifiziert, sobald ein fixer Termin für ein Event festgelegt wird.
+//
+// // -- commands --
+//         FindUser
+//         AddAppointment
+//         RemoveAppointment
+//         RemoveUserFromEvent
+//
+// // -- exceptions --
+//         AppointmentContainsUser
+//         UserAlreadyAcceptedAppointment
+//
+// // -- sonstiges --
+//         NotificationType.APPOINTMENT_FIXED
 
 /**
  * Servlet zum Empfang der der REST Anfragen.
@@ -116,6 +152,26 @@ public class REST extends HttpServlet {
     private void registerCommands(Executor executor) {
         EntityManagerFactory entityManagerFactory = Main.getEntityManagerFactory();
 
+        //                         _       _                        _
+        //  __ _ _ __  _ __   ___ (_)_ __ | |_ _ __ ___   ___ _ __ | |_ ___
+        // / _` | '_ \| '_ \ / _ \| | '_ \| __| '_ ` _ \ / _ \ '_ \| __/ __|
+        //| (_| | |_) | |_) | (_) | | | | | |_| | | | | |  __/ | | | |_\__ \
+        // \__,_| .__/| .__/ \___/|_|_| |_|\__|_| |_| |_|\___|_| |_|\__|___/
+        //      |_|   |_|
+        //
+
+        // AddAppointment
+        AddAppointment addAppointment = new AddAppointment(entityManagerFactory);
+        executor.registerCommand(addAppointment, "addAppointment");
+
+        // GetAppointments
+        GetAppointments getAppointments = new GetAppointments(entityManagerFactory);
+        executor.registerCommand(getAppointments, "getAppointments");
+
+        // RemoveAppointment
+        RemoveAppointment removeAppointment = new RemoveAppointment(entityManagerFactory);
+        executor.registerCommand(removeAppointment, "removeAppointment");
+
         //                      _
         //  _____   _____ _ __ | |_ ___
         // / _ \ \ / / _ \ '_ \| __/ __|
@@ -138,14 +194,6 @@ public class REST extends HttpServlet {
         GetEvents getEvents = new GetEvents(entityManagerFactory);
         executor.registerCommand(getEvents, "getEvents");
 
-        // GetInvitations
-        GetInvitations getInvitations = new GetInvitations(entityManagerFactory);
-        executor.registerCommand(getInvitations, "getInvitations");
-
-        // GetInvitedUsers
-        GetInvitedUsers getInvitedUsers = new GetInvitedUsers(entityManagerFactory);
-        executor.registerCommand(getInvitedUsers, "getInvitedUsers");
-
         // GetVotes
         GetVotes getVotes = new GetVotes(entityManagerFactory);
         executor.registerCommand(getVotes, "getVotes");
@@ -154,13 +202,13 @@ public class REST extends HttpServlet {
         Invite invite = new Invite(entityManagerFactory);
         executor.registerCommand(invite, "invite");
 
+        // RemoveUserFromEvent
+        RemoveUserFromEvent removeUserFromEvent = new RemoveUserFromEvent(entityManagerFactory);
+        executor.registerCommand(removeUserFromEvent, "removeUserFromEvent");
+
         // ReplyInvitation
         ReplyInvitation replyInvitation = new ReplyInvitation(entityManagerFactory);
         executor.registerCommand(replyInvitation, "replyInvitation");
-
-        // Vote
-        Vote vote = new Vote(entityManagerFactory);
-        executor.registerCommand(vote, "vote");
 
         //             _   _  __ _           _   _
         // _ __   ___ | |_(_)/ _(_) ___ __ _| |_(_) ___  _ __  ___
@@ -180,6 +228,10 @@ public class REST extends HttpServlet {
         //| | | / __|/ _ \ '__|
         //| |_| \__ \  __/ |
         // \__,_|___/\___|_|
+
+        //
+        FindUser findUser = new FindUser(entityManagerFactory);
+        executor.registerCommand(findUser, "findUser");
 
         // Register
         Register register = new Register(entityManagerFactory);

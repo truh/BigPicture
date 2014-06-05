@@ -1,4 +1,4 @@
-package kehd.bigpicture.logic.commands.events;
+package kehd.bigpicture.logic.commands.appointment;
 
 import argo.jdom.JsonNodeBuilder;
 import kehd.bigpicture.logic.commands.Command;
@@ -6,15 +6,20 @@ import kehd.bigpicture.logic.commands.Command;
 import javax.persistence.EntityManagerFactory;
 import java.util.Map;
 
-public class Vote implements Command {
+import static argo.jdom.JsonNodeBuilders.aStringBuilder;
+
+/**
+ *
+ */
+public class AddAppointment implements Command {
     private EntityManagerFactory entityManagerFactory;
 
-    public Vote(EntityManagerFactory entityManagerFactory) {
+    public AddAppointment(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
 
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params) {
-        return null;
+        return aStringBuilder("Okay!");
     }
 }

@@ -181,9 +181,25 @@ Entscheidung ist auf diese Technik gefallen da sie besonders einfach zu
 implementieren ist und denoch eine wohl strukturierte Kommunikation 
 ermöglicht.
 
---------------
-Authentication
---------------
+------------
+Appointments
+------------
+
+==================== ==================== =====================================
+ Method               Params               Response
+==================== ==================== =====================================
+addAppointment
+                     - timestamp
+                     - eventName
+getAppointments
+                                          - error:
+
+                                            * ""
+                                            * "NotAuthentificated"
+removeAppointment
+                     - timestamp
+                     - eventName
+==================== ==================== =====================================
 
 ------
 Events
@@ -192,12 +208,34 @@ Events
 ==================== ==================== =====================================
  Method               Params               Response
 ==================== ==================== =====================================
+addComment
+                     - eventName          - error
+                     - content
+                                            * ""
+                                            * "No such event."
+                                            * "Empty title."
+                                            * "Empty content."
 create
                      - eventName          - error:
                      - eventType
                                             * ""
                                             * "Empty eventName."
                                             * "No such eventType."
+getComments
+                     - eventName          - error
+
+                                            * ""
+                                            * "No such event."
+
+                                          - comments:
+
+                                            [{title, content, timestamp}, ...]
+getEvents
+getVotes
+                     - eventName          - error
+
+                                            * ""
+                                            * "No such event."
 invite
                      - eventName          - error:
                      - date
@@ -207,49 +245,17 @@ invite
                                             * "Not authorized to invite users
                                               to this event."
                                             * "Date has to be in the future."
+removeUserFromEvent
+                     - eventName          - error
+                     - username
+                                            * ""
+                                            * "UserDoesNotExist"
+                                            * "NoSuchElement"
 replyInvitation
                      - eventName          - error:
                      - accept
                                             * ""
                        true/false           * "No such event."
-getInvitations
-                     - eventName          - error:
-
-                                            * ""
-                                            * "No such event."
-vote
-                     - eventName          - error
-                     - date
-                                            * ""
-                                            * "No such event."
-                                            * "No such date."
-getEvents
-getInvitedUsers
-                     - eventName          - error
-
-                                            * ""
-                                            * "No such event."
-getVotes
-                     - eventName          - error
-
-                                            * ""
-                                            * "No such event."
-getComments
-                     - eventName          - error
-
-                                            * ""
-                                            * "No such event."
-
-                                          - comments: 
-                                          
-                                            [{title, content, timestamp}, ...]
-addComment
-                     - eventName          - error
-                     - content
-                                            * ""
-                                            * "No such event."
-                                            * "Empty title."
-                                            * "Empty content."
 ==================== ==================== =====================================
 
 ------------
@@ -259,16 +265,16 @@ Notification
 ==================== ==================== =====================================
  Method               Params               Response
 ==================== ==================== =====================================
-getNotifications
-                                          {id1:message1, id2:message2, ...}
-
-                                          * id: long
-                                          * message: String
 deleteNotification
                      - notificationId     - error:
 
                                             * ""
                                             * "No such notification."
+getNotifications
+                                          {id1:message1, id2:message2, ...}
+
+                                          * id: long
+                                          * message: String
 ==================== ==================== =====================================
 
 ----
@@ -278,30 +284,13 @@ User
 ==================== ==================== =====================================
  Method               Params               Response
 ==================== ==================== =====================================
+findUser
+                     - userPattern
 register
                      - username           - error:
                      - password                  
                                             * ""
                                             * "User does already exist"
-login
-                     - username           - error:
-                     - password                  
-                                            * ""
-                                            * "Username/password combination 
-                                              wrong."
-
-                                          - sessionToken
-
-                                            Zum unterscheiden von Sitzungen.
-
-                                          - secretToken
-
-                                            Zum signieren von Anfragen.
-
-logout
-
-                                          Macht sessionToken & secretToken
-                                          ungültig
 ==================== ==================== =====================================
 
 ======
@@ -542,17 +531,59 @@ Zeitaufzeichnung
 +-------------------------------+---------------+-------------------+---------+---------+----------+
 | JUnit tests                   | 2014-06-04    | Djuric Daniel     |  15:00  |  20:30  |     5:30 |
 +-------------------------------+---------------+-------------------+---------+---------+----------+
+<<<<<<< HEAD
+=======
+| Bug Suche                     | 2014-06-04    | Jakob Klepp       |  14:50  |  15:50  |     1:00 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| GetComments                   | 2014-06-04    | Jakob Klepp       |  15:50  |  16:05  |     0:15 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| GetAppointments               | 2014-06-04    | Jakob Klepp       |  16:05  |  16:35  |     0:30 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| Invite                        | 2014-06-04    | Jakob Klepp       |  17:35  |  18:25  |     0:50 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| ReplyInvitation               | 2014-06-04    | Jakob Klepp       |  18:25  |  20:00  |     1:35 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| UML                           | 2014-06-04    | Jakob Klepp       |  20:00  |  20:20  |     0:20 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| GetNotifications security     | 2014-06-04    | Jakob Klepp       |  20:20  |  20:40  |     0:20 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| Einbinden des DateTimePickers | 2014-06-04    | Martin Haidn      |  15:00  |  18:00  |     3:00 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| Viewupdate, Hinzufuegen und   | 2014-06-04    | Martin Haidn      |  18:30  |  20:40  |     2:10 |
+| Ändern von Terminen über View |               |                   |         |         |          |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| DeleteNotification            | 2014-06-04    | Jakob Klepp       |  23:25  |  23:40  |     0:15 |
+| Eventview Erweiterung /       | 2014-06-04    | Martin Haidn      |  21:00  |  23:00  |     2:00 |
+| Basic Authentification        |               |                   |         |         |          |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| DeleteNotification            | 2014-06-04    | Jakob Klepp       |  23:25  |  23:40  |     0:15 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| TODO                          | 2014-06-04    | Jakob Klepp       |  23:40  |  23:50  |     0:10 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| Selenium Tests                | 2014-06-02    | Matthias El-Far   |  09:50  |  12:30  |     2:40 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| Selenium Tests                | 2014-06-02    | Matthias El-Far   |  17:00  |  18:00  |     1:00 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| Selenium Tests                | 2014-06-03    | Matthias El-Far   |  08:00  |  12:30  |     4:30 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| Event GUI Überarbeitet        | 2014-06-04    | Matthias El-Far   |  12:30  |  17:30  |     5:00 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| FindUser                      | 2014-06-05    | Jakob Klepp       |  08:15  |  08:55  |     0:40 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+| RemoveUserFromEvent           | 2014-06-05    | Jakob Klepp       |  08:55  |  09:40  |     0:45 |
++-------------------------------+---------------+-------------------+---------+---------+----------+
+>>>>>>> 093a9298a3df56ed6e68dd5db5decbb384ee76a4
 
 +-------------------+------------+
-| Jakob Klepp       |      34:55 |
+| Jakob Klepp       |      41:15 |
 +-------------------+------------+
-| Martin Haidn      |      24:15 |
+| Martin Haidn      |      31:25 |
 +-------------------+------------+
 | Daniel Djuric     |      27:05 |
 +-------------------+------------+
-| Mathias El-Far    |      06:10 |
+| Mathias El-Far    |      19:20 |
 +-------------------+------------+
-| **Sum:**          |  **85:40** |
+| **Sum:**          | **119:05** |
 +-------------------+------------+
 
 =======
