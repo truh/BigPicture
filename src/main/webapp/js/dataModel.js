@@ -26,7 +26,7 @@ function getUsername(){
 	return username;
 }
 function getPassword(){
-	var password=&("#password-fl").val();
+	var password=$("#password-fl").val();
 	return password;
 }
 
