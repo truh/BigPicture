@@ -303,12 +303,16 @@ function getData(method, data) {
          },
 
          error: function (jqXHR, status) {
-              alert('Unable to load data!\nStatus: ' + status);
-              alert("ErrorResponse: " + JSON.stringify(jqXHR));
+              alert(errorMessage[method]);
          },
 
          timeout: 12000
      });
+}
+
+var errorMessage= {
+	'register': 'User could not be created!',
+	'getEvents': 'Unable to load Events'
 }
 
  /* Debugging
