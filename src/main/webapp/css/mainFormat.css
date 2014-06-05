@@ -156,9 +156,9 @@ a.menu:hover {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 260px;
+    width: 230px;
     height: 250px;
-    margin-left: -130px;
+    margin-left: -115px;
     margin-top: -175px;                 
     background: blue;
     z-index:1002;
