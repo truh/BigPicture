@@ -58,11 +58,11 @@ public class GetVotes implements Command {
             }
 
             arrayNodeBuilder.withElement(
-                    anObjectBuilder()
-                            .withField("username", aStringBuilder(user.getName()))
-                            .withField("appointment", appointment == null
-                                    ?aNullBuilder() // user hat kein appointment fuer dieses event
-                                    :aStringBuilder(DATE_FORMAT.format(appointment.getTimestamp())))
+                anObjectBuilder()
+                    .withField("username", aStringBuilder(user.getName()))
+                    .withField("appointment", appointment == null
+                        ?aNullBuilder() // user hat kein appointment fuer dieses event
+                        :aStringBuilder(DATE_FORMAT.format(appointment.getTimestamp())))
             );
         }
 

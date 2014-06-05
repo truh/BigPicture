@@ -4,18 +4,16 @@ import argo.jdom.JsonNodeBuilder;
 import kehd.bigpicture.exceptions.ParameterException;
 import kehd.bigpicture.exceptions.UserAlreadyExists;
 import kehd.bigpicture.logic.commands.user.Register;
-import kehd.bigpicture.model.User;
 import kehd.bigpicture.mock.EntityManagerAdapter;
+import kehd.bigpicture.mock.TypedQueryAdapter;
+import kehd.bigpicture.model.User;
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
-import org.mindrot.jbcrypt.BCrypt;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
@@ -28,26 +26,39 @@ public class Register_Test {
     String username = "username";
     String password = "password";
 
+    TypedQuery<User> userQuery;
+
+    @Before
+    public void before() {
+
+    }
+
     @Test
     public void correctExecution() throws UserAlreadyExists {
-        User user = null;
-        EntityManager em = mock(EntityManager.class);
-        doAnswer(new Answer<Object>() {
+        userQuery = new TypedQueryAdapter<User>() {
             @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                User user1 = (User) invocation.getArguments()[0];
-                assertEquals("username should be the same", username, user1.getName());
-                assertTrue("Password hash should match", BCrypt.checkpw(password, user1.getPassword()));
+            public User getSingleResult() {
                 return null;
             }
-        }).when(em).persist(user);
+            @Override
+            public TypedQuery setParameter(String field, Object o) {
+                return this;
+            }
+        };
 
-        EntityTransaction entityTransaction = mock(EntityTransaction.class);
-        when(em.getTransaction()).thenReturn(entityTransaction);
+        EntityManager em = new EntityManagerAdapter() {
+            @Override
+            public <T> TypedQuery<T> createQuery(String qlString, Class<T> resultClass) {
+                TypedQuery query = null;
+
+                if(resultClass == User.class)
+                    query = userQuery;
+                return query;
+            }
+        };
 
         EntityManagerFactory emf = mock(EntityManagerFactory.class);
-        when(emf.createEntityManager())
-                .thenReturn(em);
+        doReturn(em).when(emf).createEntityManager();
 
         Register register = new Register(emf);
         JsonNodeBuilder nodeBuilder = register.execute("none", new HashMap<String, String>() {{
@@ -64,11 +75,29 @@ public class Register_Test {
 
     @Test
     public void userAlreadyExists() {
+        userQuery = new TypedQueryAdapter<User>() {
+            @Override
+            public User getSingleResult() {
+                User user = new User();
+                user.setName("username");
+                return user;
+            }
+            @Override
+            public TypedQuery setParameter(String field, Object o) {
+                return this;
+            }
+        };
+
         User user = new User();
+
         EntityManager em = new EntityManagerAdapter() {
             @Override
-            public void persist(Object entity) {
-                throw new EntityExistsException();
+            public <T> TypedQuery<T> createQuery(String qlString, Class<T> resultClass) {
+                TypedQuery query = null;
+
+                if(resultClass == User.class)
+                    query = userQuery;
+                return query;
             }
         };
 

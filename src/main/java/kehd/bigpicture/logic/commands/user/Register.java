@@ -9,7 +9,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import java.util.Map;
 
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
@@ -39,16 +38,15 @@ public class Register implements Command {
         manager.getTransaction().begin();
 
         boolean userExists = true;
-        try {
-            User user2 = manager.createQuery(
-                "SELECT DISTINCT User " +
-                        "FROM User " +
-                        "WHERE User.name = :userName", User.class)
-                .setParameter("userName", username)
-                .getSingleResult();
-        } catch (NoResultException nre) {
-            userExists = false;
-        }
+
+        User user2 = manager.createQuery(
+            "SELECT DISTINCT User " +
+                    "FROM User " +
+                    "WHERE User.name = :userName", User.class)
+            .setParameter("userName", username)
+            .getSingleResult();
+
+        userExists = user2!=null;
 
         if(userExists) {
             manager.getTransaction().rollback();
