@@ -4,10 +4,13 @@ import kehd.bigpicture.Main;
 import kehd.bigpicture.exceptions.NotAuthentificated;
 import kehd.bigpicture.logic.Authentificator;
 import kehd.bigpicture.logic.Executor;
+import kehd.bigpicture.logic.commands.appointment.AddAppointment;
 import kehd.bigpicture.logic.commands.appointment.GetAppointments;
+import kehd.bigpicture.logic.commands.appointment.RemoveAppointment;
 import kehd.bigpicture.logic.commands.events.*;
 import kehd.bigpicture.logic.commands.notifications.DeleteNotification;
 import kehd.bigpicture.logic.commands.notifications.GetNotifications;
+import kehd.bigpicture.logic.commands.user.FindUser;
 import kehd.bigpicture.logic.commands.user.Register;
 import org.apache.log4j.Logger;
 
@@ -149,6 +152,26 @@ public class REST extends HttpServlet {
     private void registerCommands(Executor executor) {
         EntityManagerFactory entityManagerFactory = Main.getEntityManagerFactory();
 
+        //                         _       _                        _
+        //  __ _ _ __  _ __   ___ (_)_ __ | |_ _ __ ___   ___ _ __ | |_ ___
+        // / _` | '_ \| '_ \ / _ \| | '_ \| __| '_ ` _ \ / _ \ '_ \| __/ __|
+        //| (_| | |_) | |_) | (_) | | | | | |_| | | | | |  __/ | | | |_\__ \
+        // \__,_| .__/| .__/ \___/|_|_| |_|\__|_| |_| |_|\___|_| |_|\__|___/
+        //      |_|   |_|
+        //
+
+        // AddAppointment
+        AddAppointment addAppointment = new AddAppointment(entityManagerFactory);
+        executor.registerCommand(addAppointment, "addAppointment");
+
+        // GetAppointments
+        GetAppointments getAppointments = new GetAppointments(entityManagerFactory);
+        executor.registerCommand(getAppointments, "getAppointments");
+
+        // RemoveAppointment
+        RemoveAppointment removeAppointment = new RemoveAppointment(entityManagerFactory);
+        executor.registerCommand(removeAppointment, "removeAppointment");
+
         //                      _
         //  _____   _____ _ __ | |_ ___
         // / _ \ \ / / _ \ '_ \| __/ __|
@@ -162,10 +185,6 @@ public class REST extends HttpServlet {
         // Create
         Create create = new Create(entityManagerFactory);
         executor.registerCommand(create, "create");
-
-        // GetAppointments
-        GetAppointments getAppointments = new GetAppointments(entityManagerFactory);
-        executor.registerCommand(getAppointments, "getAppointments");
 
         // GetComments
         GetComments getComments = new GetComments(entityManagerFactory);
@@ -182,6 +201,10 @@ public class REST extends HttpServlet {
         // Invite
         Invite invite = new Invite(entityManagerFactory);
         executor.registerCommand(invite, "invite");
+
+        // RemoveUserFromEvent
+        RemoveUserFromEvent removeUserFromEvent = new RemoveUserFromEvent(entityManagerFactory);
+        executor.registerCommand(removeUserFromEvent, "removeUserFromEvent");
 
         // ReplyInvitation
         ReplyInvitation replyInvitation = new ReplyInvitation(entityManagerFactory);
@@ -205,6 +228,10 @@ public class REST extends HttpServlet {
         //| | | / __|/ _ \ '__|
         //| |_| \__ \  __/ |
         // \__,_|___/\___|_|
+
+        //
+        FindUser findUser = new FindUser(entityManagerFactory);
+        executor.registerCommand(findUser, "findUser");
 
         // Register
         Register register = new Register(entityManagerFactory);
