@@ -98,7 +98,53 @@ function addEvent() {
 
 /* BigPic - Startup
 ------------------------------------------------------------------------------*/
+window.onload = function() {
+	authorize();
+};
 
+function authorize() {
+	if (loginRequired() == true) {
+		show_login();
+	}
+}
+
+
+/* Login
+------------------------------------------------------------------------------*/
+function login() {
+	user.name= $('#u-name').val();
+	user.passwd= $('#u-passwd').val();
+
+	if (user.name == '' || user.passwd == '') {
+		alert('Uups, please try agan!');
+	} else {
+		//Funtion to check user data
+	hide_login();
+	flushLogin();
+	document.cookie="username=" + user.name;
+	document.cookie="passwd=" + user.passwd;
+	}
+}
+
+function logout() {
+	document.cookie= "username=;"
+	document.cookie= "passwd=;"
+	show_login();
+
+}
+
+//Checks if the user is logged in
+function loginRequired() {
+	var data= document.cookie.split(';');
+	if (data == '') {
+		return true;
+	} else {
+		user.name= data[0].substr(data[0].search('=')+1, data[0].length);
+		user.passwd= data[1].substr(data[1].search('=')+1, data[1].length);
+		return false;
+	}
+
+}
 
 /* Session
 ------------------------------------------------------------------------------*/
@@ -118,51 +164,14 @@ function getSession() {
   return session;
 }
 
-//Function to get the session from the server, not tested yet!
-function buildSession() {
-  jQuery.ajax({
-         type: "POST",
-         //Serveradresse später dynamisch!--------------------------------!
-         url: "./rest?method=getSession",
-         contentType: "application/json; charset=utf-8",
-         dataType: "json",
-         success: function (data, status, jqXHR) {
-              alert(data);
-         },
 
-         error: function (jqXHR, status) {
-              alert('Unable to load Events!\nStatus: ' + status);
-              alert(JSON.stringify(jqXHR));
-         },
-
-         timeout: 12000
-     });
-}
 
 /* User
 ------------------------------------------------------------------------------*/
-var user;
-
-//Sets the user of this session
-function setUser(user) {
-	user= user;
+var user= {
+	'name': '',
+	'passwd': ''
 }
-
-//Return the user of this session
-function getUser() {
-	return user;
-}
-
-function getUsername(){
-	var username=$('#username-fl').val();
-	return username;
-}
-
-function getPassword(){
-	var password=$("#password-fl").val();
-	return password;
-}
-
 
 /* Event
 ------------------------------------------------------------------------------*/
@@ -190,7 +199,7 @@ function loadEvents() {
 
          beforeSend: function(xhr) {
          	xhr.setRequestHeader('Authorization', 'Basic ZWx1c3Vhcm1vOn1sYWNsYXZ1');
-         }
+         },
 
          success: function (data, status, jqXHR) {
               alert(JSON.stringify(data));
@@ -224,6 +233,10 @@ function addEvent() {
 	} else {
 		alert("Please selcet a title!");
 	}
+
+}
+
+function removeEvent(id) {
 
 }
 
@@ -268,3 +281,41 @@ function toDateString(pickerTime) {
  function userIsAssigned() {
  	//false, if user has not choosen an appointment for the event
  }
+
+
+ /* Connection
+------------------------------------------------------------------------------*/
+function getData(method) {
+
+	var baseString= "Basic " + btoa(user.name + ':' + user.passwd);
+
+	jQuery.ajax({
+         type: "POST",
+         //Serveradresse später dynamisch!--------------------------------!
+         url: "./rest?method=" + method,
+         contentType: "application/json; charset=utf-8",
+         dataType: "json",
+
+         beforeSend: function(xhr) {
+         	xhr.setRequestHeader('Authorization', baseString);
+         },
+
+         success: function (data, status, jqXHR) {
+              alert(JSON.stringify("Success: " + data.error.message));
+         },
+
+         error: function (jqXHR, status) {
+              alert('Unable to load data!\nStatus: ' + status.error.message);
+              alert(JSON.stringify(jqXHR.error.message));
+         },
+
+         timeout: 12000
+     });
+}
+
+ /* Debugging
+------------------------------------------------------------------------------*/
+
+function notImplemented() {
+	alert('Not yet implemented!');
+}

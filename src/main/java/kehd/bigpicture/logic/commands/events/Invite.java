@@ -10,7 +10,9 @@ import kehd.bigpicture.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
@@ -85,7 +87,9 @@ public class Invite implements Command {
         Notification notification = new Notification();
         notification.setEvent(event);
         notification.setMessage("Sie wurden zu einem Event eingeladen.");
-        notification.getRecipients().add(user);
+        List<User> recipients = new ArrayList<>();
+        recipients.add(user);
+        notification.setRecipients(recipients);
         notification.setTimestamp(new Date());
         notification.setType(NotificationType.NEW_INVITATION);
         manager.persist(notification);
