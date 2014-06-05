@@ -16,6 +16,7 @@ public abstract class TypedQueryAdapter<X> implements TypedQuery<X> {
     public X getSingleResult() {
         return null;
     }
+  
 
     @Override
     public int executeUpdate() {

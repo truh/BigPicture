@@ -56,6 +56,6 @@ public class GetVotes_Test {
 
 		assertSame("Laenge sollte wie gegeben sein.", 1, nodes.size());
 
-		assertEquals("Nachricht sollte wie gegeben sein.", "user1", nodes.get(0).getStringValue("username"));
+		assertEquals("Sollte der User sein.", "user1", nodes.get(0).getStringValue("username"));
 	}
 }
