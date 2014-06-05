@@ -35,6 +35,7 @@ public class Register implements Command {
     public JsonNodeBuilder execute(String username, Map<String, String> params) throws UserAlreadyExists {
         EntityManager manager = entityManagerFactory.createEntityManager();
 
+        username = params.get("username");
         String password = params.get("password");
 
         String passHash = BCrypt.hashpw(password, BCrypt.gensalt());
