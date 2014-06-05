@@ -22,7 +22,7 @@ public class User {
     @OneToMany(mappedBy = "author")
     private Collection<Comment> comments;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany//(mappedBy = "users")
     private Collection<Event> events;
 
     @OneToMany(mappedBy = "organisator")
