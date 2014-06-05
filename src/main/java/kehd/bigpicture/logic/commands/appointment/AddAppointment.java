@@ -9,7 +9,7 @@ import java.util.Map;
 import static argo.jdom.JsonNodeBuilders.aStringBuilder;
 
 /**
- * Created by jakob on 6/5/14.
+ *
  */
 public class AddAppointment implements Command {
     private EntityManagerFactory entityManagerFactory;
