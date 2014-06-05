@@ -1,15 +1,10 @@
-package kehd.bigpicture.test.logic.commands.create;
-import java.util.HashMap;
+package kehd.bigpicture.test.logic.commands.events;
 import java.util.Map;
 
 import javax.persistence.EntityManagerFactory;
 
 import kehd.bigpicture.exceptions.FieldMissing;
 import kehd.bigpicture.exceptions.NotAuthentificated;
-import kehd.bigpicture.logic.commands.events.Create;
-import kehd.bigpicture.test.logic.Executor_Test;
-
-import static org.junit.Assert.*;
 
 import org.apache.log4j.Logger;
 import org.junit.After;
