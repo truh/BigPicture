@@ -25,38 +25,6 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO Uebersicht was auf Server Seite noch zu tun ist
-// // Benutzer
-//         * Man kann nach registrierten Benutzern im System suchen (über ihren Namen).
-//
-// // Organisator
-//         * darf den Namen, die Termine und Zeiten eines Events ändern,
-//           aber nur bevor sich einer der Benutzer zu dem Event angemeldet hat
-//         * darf eingeladene Benutzer wieder löschen, bevor sich diese zu dem Event angemeldet haben
-//         * darf die Events jederzeit löschen
-//         * [Organisator] darf zu seinen Events Kommentare posten
-//         * darf Kommentare zu seinen Events löschen (auch die von anderen Benutzern)
-//
-// // Teilnehmer
-//         * darf seine Wahl ändern, bis ein fixer Termin existiert
-//
-// // Notifications
-//         * Ein Teilnehmer wird über jede neue/editierte/gelöschte Eventeinladung notifiziert.
-//         * Weiters wird ein Teilnehmer notifiziert, sobald ein fixer Termin für ein Event festgelegt wird.
-//
-// // -- commands --
-//         FindUser
-//         AddAppointment
-//         RemoveAppointment
-//         RemoveUserFromEvent
-//
-// // -- exceptions --
-//         AppointmentContainsUser
-//         UserAlreadyAcceptedAppointment
-//
-// // -- sonstiges --
-//         NotificationType.APPOINTMENT_FIXED
-
 /**
  * Servlet zum Empfang der der REST Anfragen.
  */

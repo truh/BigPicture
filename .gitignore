@@ -30,6 +30,7 @@ README.pdf
 !gradle-wrapper.jar
 build/
 .gradle/
+
 doc/change-request-001.pdf
 doc/change-request-002.pdf
 BigPicture_kehd.pdf
@@ -39,5 +40,5 @@ BigPicture.iws
 src/log4j.properties
 application.log
 BigPicture_kehd_*.pdf
-/bin
 application.log.*
+bin/
