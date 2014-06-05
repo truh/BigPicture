@@ -40,3 +40,4 @@ src/log4j.properties
 application.log
 BigPicture_kehd_*.pdf
 /bin
+application.log.*
