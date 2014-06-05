@@ -69,7 +69,7 @@ public class AddAppointment implements Command {
         }
 
         // ueberpruefen: username == event.organisator
-        if (event.getOrganisator().getName().equals(username)) {
+        if (!event.getOrganisator().getName().equals(username)) {
             manager.getTransaction().rollback();
             throw new NotAuthorized("AddAppointment");
         }
