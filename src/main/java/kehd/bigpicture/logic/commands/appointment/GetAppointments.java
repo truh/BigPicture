@@ -36,7 +36,8 @@ public class GetAppointments implements Command {
                 "SELECT DISTINCT User " +
                         "FROM User " +
                         "WHERE User.name = :username", User.class)
-                .setParameter("username", username).getSingleResult();
+                .setParameter("username", username)
+                .getSingleResult();
 
         JsonArrayNodeBuilder arrayNodeBuilder = anArrayBuilder();
 

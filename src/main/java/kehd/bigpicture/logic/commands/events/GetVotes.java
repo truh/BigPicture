@@ -3,6 +3,7 @@ package kehd.bigpicture.logic.commands.events;
 import argo.jdom.JsonArrayNodeBuilder;
 import argo.jdom.JsonNodeBuilder;
 import kehd.bigpicture.exceptions.FieldMissing;
+import kehd.bigpicture.exceptions.NoSuchElement;
 import kehd.bigpicture.logic.commands.Command;
 import kehd.bigpicture.model.Appointment;
 import kehd.bigpicture.model.Event;
@@ -23,7 +24,7 @@ public class GetVotes implements Command {
 
     @Override
     public JsonNodeBuilder execute(String username, Map<String, String> params)
-            throws FieldMissing {
+            throws FieldMissing, NoSuchElement {
         String eventName = params.get("eventName");
         if(eventName == null) {
             throw new FieldMissing("eventName");
@@ -34,7 +35,13 @@ public class GetVotes implements Command {
         Event event = manager.createQuery(
                 "SELECT DISTINCT Event " +
                         "FROM Event WHERE " +
-                        "Event.title = :eventName", Event.class).getSingleResult();
+                        "Event.title = :eventName", Event.class)
+                .setParameter("eventName", eventName)
+                .getSingleResult();
+
+        if(event == null) {
+            throw new NoSuchElement("Event");
+        }
 
         JsonArrayNodeBuilder arrayNodeBuilder = anArrayBuilder();
 

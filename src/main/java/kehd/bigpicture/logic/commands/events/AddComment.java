@@ -51,7 +51,7 @@ public class AddComment implements Command {
                     .setParameter("userName", username)
                     .getSingleResult();
         } catch (NoResultException noResultException) {
-            // TODO Organisator darf auch posten
+            manager.getTransaction().rollback();
             throw new UserDoesNotExist(noResultException);
         }
 
@@ -64,6 +64,7 @@ public class AddComment implements Command {
                     .setParameter("eventName", eventName)
                     .getSingleResult();
         } catch (NoResultException noResultException) {
+            manager.getTransaction().rollback();
             throw new NoSuchElement("Event", noResultException);
         }
 
@@ -81,6 +82,7 @@ public class AddComment implements Command {
         }
 
         if(!allowed) {
+            manager.getTransaction().rollback();
             throw new NotAuthorized("AddComment");
         } else {
             Comment comment = new Comment();

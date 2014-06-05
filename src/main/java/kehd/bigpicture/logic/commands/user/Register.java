@@ -51,12 +51,14 @@ public class Register implements Command {
         }
 
         if(userExists) {
+            manager.getTransaction().rollback();
             throw new UserAlreadyExists();
         }
 
         try {
             manager.persist(user);
         } catch (EntityExistsException eee) {
+            manager.getTransaction().rollback();
             throw new UserAlreadyExists(eee);
         }
         manager.getTransaction().commit();

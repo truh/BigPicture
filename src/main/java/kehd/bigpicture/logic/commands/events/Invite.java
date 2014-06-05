@@ -52,6 +52,7 @@ public class Invite implements Command {
                 .getSingleResult();
 
         if(!event.getOrganisator().getName().equals(username)) {
+            manager.getTransaction().rollback();
             throw new NotAuthorized("Invite");
         }
 
@@ -62,6 +63,7 @@ public class Invite implements Command {
                 .getSingleResult();
 
         if(user == null) {
+            manager.getTransaction().rollback();
             throw new UserDoesNotExist();
         }
 

@@ -49,9 +49,11 @@ public class DeleteNotification implements Command {
         Notification notification = manager.createQuery(
                 "SELECT DISTINCT Notification FROM Notification " +
                         "WHERE Notification.id = :notificationId", Notification.class)
-                .setParameter("notificationId", notificationId).getSingleResult();
+                .setParameter("notificationId", notificationId)
+                .getSingleResult();
 
         if(notification == null) {
+            manager.getTransaction().rollback();
             throw new NoSuchElement("Notification");
         }
 

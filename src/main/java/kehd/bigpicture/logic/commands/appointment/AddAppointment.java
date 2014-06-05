@@ -55,15 +55,18 @@ public class AddAppointment implements Command {
         Event event = manager.createQuery(
                 "SELECT DISTINCT Event FROM Event " +
                         "WHERE Event.title = :eventName", Event.class)
+                .setParameter("eventName", eventName)
                 .getSingleResult();
 
         // event object ueberpruefen
         if (event == null) {
+            manager.getTransaction().rollback();
             throw new NoSuchElement("Event");
         }
 
         // ueberpruefen: username == event.organisator
         if (event.getOrganisator().getName().equals(username)) {
+            manager.getTransaction().rollback();
             throw new NotAuthorized("AddAppointment");
         }
 
@@ -85,6 +88,8 @@ public class AddAppointment implements Command {
         notification.setTimestamp(new Date());
         notification.setType(NotificationType.CHANGED_INVITATION);
         manager.persist(notification);
+
+        manager.getTransaction().commit();
 
         return aStringBuilder("Okay!");
     }
