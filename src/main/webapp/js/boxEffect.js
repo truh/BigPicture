@@ -3,6 +3,10 @@
  * 2014-05-22
 */
 
+
+/* Closing function
+------------------------------------------------------------------------------*/
+
 window.document.onkeydown = function (e)
 {
     if (!e){
@@ -13,6 +17,8 @@ window.document.onkeydown = function (e)
     }
 }
 
+/* Event view
+------------------------------------------------------------------------------*/
 function lightbox_open(){
     window.scrollTo(0,0);
     document.getElementById('light').style.display='block';
@@ -30,6 +36,31 @@ function flushForm() {
 }
 
 function setForm(title, date) {
+    if (title == '') {
+        $('#e-header').text('New Event');
+    } else {
+        $('#e-header').text(title);
+    }
     $('#title').val(title);
     $('#datetimepicker').val(date);
+}
+
+
+/* Login
+------------------------------------------------------------------------------*/
+
+function show_login(){
+    window.scrollTo(0,0);
+    document.getElementById('login').style.display='block';
+    document.getElementById('hide').style.display='block';  
+}
+
+function hide_login(){
+    document.getElementById('login').style.display='none';
+    document.getElementById('hide').style.display='none';
+}
+
+function flushLogin() {
+    $('#u-name').val('');
+    $('#u-passwd').val('');
 }
