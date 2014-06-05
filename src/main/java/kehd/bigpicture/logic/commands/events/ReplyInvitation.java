@@ -83,6 +83,7 @@ public class ReplyInvitation implements Command {
         // richtiges appointment suchen
         Appointment appointment = null;
         for(Appointment appointment1: event.getAppointments()) {
+        	
             if(appointment1.getTimestamp().equals(date)) {
                 appointment = appointment1;
                 break;
