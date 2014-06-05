@@ -10,6 +10,7 @@ import kehd.bigpicture.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,22 +59,33 @@ public class Invite implements Command {
 
         manager.getTransaction().begin();
 
-        Event event = manager.createQuery(
-                "SELECT DISTINCT Event FROM Event " +
-                        "WHERE Event.title = :eventName", Event.class)
-                .setParameter("eventName", eventName)
-                .getSingleResult();
+        Event event = null;
+        try {
+            event = manager.createQuery(
+                    "SELECT DISTINCT Event FROM Event " +
+                            "WHERE Event.title = :eventName", Event.class)
+                    .setParameter("eventName", eventName)
+                    .getSingleResult();
+        } catch (NoResultException nre) {}
+
+        if(event == null) {
+            manager.getTransaction().rollback();
+            throw new NoSuchElement("Event");
+        }
 
         if(!event.getOrganisator().getName().equals(username)) {
             manager.getTransaction().rollback();
             throw new NotAuthorized("Invite");
         }
 
-        User user = manager.createQuery(
-                "SELECT DISTINCT User FROM User " +
-                        "WHERE User.name = :userName", User.class)
-                .setParameter("userName", userName)
-                .getSingleResult();
+        User user = null;
+        try {
+            user = manager.createQuery(
+                    "SELECT DISTINCT User FROM User " +
+                            "WHERE User.name = :userName", User.class)
+                    .setParameter("userName", userName)
+                    .getSingleResult();
+        }catch (NoResultException nre) {}
 
         if(user == null) {
             manager.getTransaction().rollback();

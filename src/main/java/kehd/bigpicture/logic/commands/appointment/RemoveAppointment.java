@@ -10,6 +10,7 @@ import kehd.bigpicture.model.NotificationType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.text.ParseException;
 import java.util.Date;
@@ -61,11 +62,14 @@ public class RemoveAppointment implements Command {
         manager.getTransaction().begin();
 
         // event object holen
-        Event event = manager.createQuery(
-                "SELECT DISTINCT Event FROM Event " +
-                        "WHERE Event.title = :eventName", Event.class)
-                .setParameter("eventName", eventName)
-                .getSingleResult();
+        Event event = null;
+        try {
+            event = manager.createQuery(
+                    "SELECT DISTINCT Event FROM Event " +
+                            "WHERE Event.title = :eventName", Event.class)
+                    .setParameter("eventName", eventName)
+                    .getSingleResult();
+        } catch (NoResultException nre) {};
 
         // event object ueberpruefen
         if (event == null) {
@@ -87,7 +91,15 @@ public class RemoveAppointment implements Command {
         query = query.setParameter("event", event);
 
         // Appointment finden
-        Appointment appointment = query.getSingleResult();
+        Appointment appointment = null;
+        try {
+            appointment = query.getSingleResult();
+        } catch (NoResultException nre) {}
+
+        if(appointment == null) {
+            manager.getTransaction().rollback();
+            throw new NoSuchElement("Appointment");
+        }
 
         // Appointment entfernen
         event.getAppointments().remove(appointment);

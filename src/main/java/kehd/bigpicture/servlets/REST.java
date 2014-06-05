@@ -107,6 +107,16 @@ public class REST extends HttpServlet {
             IOException
     {
         String methodName = request.getParameter("method");
+
+        Enumeration enu = request.getParameterNames();
+        Map<String, String> parameterMap = new HashMap<>();
+        log.info("Parameter in Map uebertragen");
+        while (enu.hasMoreElements()) {
+            String key = (String) enu.nextElement();
+            log.info(key + " : " + request.getParameter(key));
+            parameterMap.put(key, request.getParameter(key));
+        }
+
         methodName = methodName==null?"":methodName;
 
         log.info("methodName: " + methodName);
@@ -116,11 +126,11 @@ public class REST extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         if(executor.getCommandNames().contains(methodName)) {
-            Map param = new HashMap(request.getParameterMap());
+            //Map param = new HashMap(request.getParameterMap());
 
             String username = null;
 
-            if(methodName.equals("register")) {
+            if(!methodName.equals("register")) {
                 Enumeration<String> enumeration;
                 enumeration = request.getHeaders("Authorization");
                 if(enumeration.hasMoreElements()) {
@@ -135,8 +145,7 @@ public class REST extends HttpServlet {
 
             String result;
 
-            log.info("methodName: " + methodName);
-            result = executor.execute(methodName, username, request.getParameterMap());
+            result = executor.execute(methodName, username, parameterMap);
             out.println(result);
         } else {
             out.println("{\"error\":{" +
