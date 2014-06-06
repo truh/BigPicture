@@ -47,7 +47,7 @@ public class Authentificator_Test {
 
         String userPass =  user0.getName() + ":" + password0;
 
-        String base64 = "Basic " + new String(java.util.Base64.getEncoder().encode(userPass.getBytes()));
+        String base64 = "Basic " + new String(Base64.encodeBase64(userPass.getBytes()));
 
 		String username = ar.authentificate(base64);
 
